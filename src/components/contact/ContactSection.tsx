@@ -36,8 +36,8 @@ export default function ContactSection() {
       if (res.ok && data.success) {
         setSentMessage(
           data.needsActivation
-            ? "Your message was registered! Form is awaiting one-time activation sent to zarak.dev@gmail.com."
-            : "Message successfully transmitted directly to zarak.dev@gmail.com! I'll reply promptly."
+            ? "Form activation required — check zarak.dev@gmail.com inbox."
+            : "Email sent successfully!"
         );
         setForm({ name: '', email: '', subject: '', message: '' });
       } else {
@@ -48,7 +48,7 @@ export default function ContactSection() {
       const mailtoSubject = encodeURIComponent(form.subject || `Inquiry from ${form.name}`);
       const mailtoBody = encodeURIComponent(`${form.message}\n\nFrom: ${form.name} (${form.email})`);
       window.location.href = `mailto:${IDENTITY.contacts.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
-      setSentMessage("Opened your email client with your message prepared. Thank you!");
+      setSentMessage("Email client opened.");
     } finally {
       setIsSubmitting(false);
     }
@@ -189,10 +189,9 @@ export default function ContactSection() {
                   exit={{ opacity: 0, y: -10 }}
                   className="mb-5 p-4 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-mono text-xs flex items-start gap-3 shadow-md"
                 >
-                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                   <div className="flex-1">
-                    <p className="font-bold text-emerald-400 mb-0.5">Transmission Delivered</p>
-                    <p className="text-[11px] text-emerald-300/90 leading-relaxed">{sentMessage}</p>
+                    <p className="font-bold text-emerald-400">{sentMessage}</p>
                   </div>
                 </motion.div>
               )}

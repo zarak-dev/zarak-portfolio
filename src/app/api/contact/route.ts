@@ -25,10 +25,11 @@ export async function POST(request: Request) {
         name,
         email,
         _replyto: email,
-        _subject: subject || `New Inquiry from ${name} via Developer Portfolio`,
+        _subject: subject || `New message from ${name} — Zarak Portfolio`,
         message,
         _captcha: 'false',
         _template: 'table',
+        _autoresponse: `Hi ${name}, thanks for reaching out! I'll get back to you shortly. — Zarak`,
       }),
     });
 

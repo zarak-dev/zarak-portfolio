@@ -136,14 +136,6 @@ export default function Hero({ onOpenCommand }: { onOpenCommand: () => void }) {
                 priority
               />
 
-              {/* Status Badge Tag inside Image */}
-              <div className="absolute top-3.5 left-3.5 z-10">
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/85 backdrop-blur-md border border-accent/40 font-mono text-[11px] text-accent font-medium shadow-md">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Available for Roles
-                </span>
-              </div>
-
               {/* Subtle Gradient Shade at bottom */}
               <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/90 via-background/30 to-transparent pointer-events-none" />
             </div>

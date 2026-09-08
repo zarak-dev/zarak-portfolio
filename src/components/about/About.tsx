@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Terminal } from 'lucide-react';
 import IdentityCard from './IdentityCard';
 
 export default function About() {
@@ -19,10 +18,6 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <div className="flex items-center gap-2 text-xs font-mono text-accent uppercase tracking-widest mb-3">
-            <Terminal className="w-3.5 h-3.5" />
-            <span>// 01 — Developer Profile</span>
-          </div>
           <h2 className="font-display font-black text-3xl sm:text-4xl md:text-5xl text-foreground tracking-tight">
             Engineering from first principles.
           </h2>
