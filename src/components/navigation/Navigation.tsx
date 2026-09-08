@@ -12,7 +12,6 @@ interface NavigationProps {
 }
 
 const DESKTOP_LINKS = [
-  { name: 'About', href: '#about' },
   { name: 'Projects', href: '#projects' },
   { name: 'Timeline', href: '#experience' },
   { name: 'Tech Map', href: '#skills' },
@@ -38,7 +37,7 @@ export default function Navigation({ onOpenCommand }: NavigationProps) {
       setScrolled(window.scrollY > 40);
 
       // Detect current section in view
-      const sectionIds = ['about', 'projects', 'experience', 'skills', 'workflow', 'github', 'recommendations', 'contact'];
+      const sectionIds = ['projects', 'experience', 'skills', 'workflow', 'github', 'recommendations', 'contact'];
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (el) {

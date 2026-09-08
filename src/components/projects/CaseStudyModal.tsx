@@ -2,15 +2,16 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { X, ExternalLink, Github, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, ExternalLink, Github, CheckCircle2, ArrowRight, Layers } from 'lucide-react';
 import type { CaseStudy } from '@/data/projects';
 
 interface CaseStudyModalProps {
   study: CaseStudy | null;
   onClose: () => void;
+  onOpenXRay?: (projectId: string) => void;
 }
 
-export default function CaseStudyModal({ study, onClose }: CaseStudyModalProps) {
+export default function CaseStudyModal({ study, onClose, onOpenXRay }: CaseStudyModalProps) {
   if (!study) return null;
 
   return (
@@ -164,6 +165,18 @@ export default function CaseStudyModal({ study, onClose }: CaseStudyModalProps) 
               </div>
 
               <div className="flex items-center gap-3">
+                {onOpenXRay && (
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onOpenXRay(study.id);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-secondary hover:bg-secondary/80 font-mono text-xs text-foreground border border-border transition-colors"
+                  >
+                    <Layers className="w-3.5 h-3.5" />
+                    <span>X-Ray</span>
+                  </button>
+                )}
                 {study.githubUrl && (
                   <a
                     href={study.githubUrl}

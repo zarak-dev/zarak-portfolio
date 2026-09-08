@@ -25,7 +25,7 @@ export interface PersonalIdentity {
 }
 
 export const IDENTITY: PersonalIdentity = {
-  name: 'Zarak Qaisar',
+  name: 'Zarak K.',
   role: 'Software Engineer',
   tagline: 'Building interfaces that feel as good as they function.',
   bio: 'Software engineer focused on modern frontend architecture, state-heavy React applications, and AI-assisted interfaces. Currently engineering production Next.js and TypeScript systems at Smart Forum with an emphasis on performance, accessibility, and visual excellence.',

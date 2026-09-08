@@ -7,7 +7,11 @@ import { FolderGit2, ArrowRight, ExternalLink, Sparkles, Activity, Layers, Githu
 import CaseStudyModal from './CaseStudyModal';
 import { CASE_STUDIES, type CaseStudy } from '@/data/projects';
 
-export default function ProjectsSection() {
+interface ProjectsSectionProps {
+  onOpenXRay?: (projectId: string) => void;
+}
+
+export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {}) {
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
 
   const dentally = CASE_STUDIES.find((p) => p.id === 'dentally') || CASE_STUDIES[0];
@@ -136,6 +140,15 @@ export default function ProjectsSection() {
                   <span>View Case Study</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
+                {onOpenXRay && (
+                  <button
+                    onClick={() => onOpenXRay(dentally.id)}
+                    className="px-6 py-2.5 rounded-xl bg-secondary text-foreground border border-border font-mono text-xs font-semibold hover:bg-secondary/80 transition-colors shadow-sm flex items-center gap-2"
+                  >
+                    <Layers className="w-3.5 h-3.5" />
+                    <span>Project X-Ray</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -244,6 +257,15 @@ export default function ProjectsSection() {
                   >
                     Case Study →
                   </button>
+                  {onOpenXRay && (
+                    <button
+                      onClick={() => onOpenXRay(project.id)}
+                      className="text-muted-foreground hover:text-accent transition-colors text-[11px] flex items-center gap-1"
+                    >
+                      <Layers className="w-3 h-3" />
+                      X-Ray
+                    </button>
+                  )}
 
                   <div className="flex items-center gap-2">
                     {project.githubUrl && (
@@ -280,6 +302,7 @@ export default function ProjectsSection() {
       <CaseStudyModal
         study={selectedStudy}
         onClose={() => setSelectedStudy(null)}
+        onOpenXRay={onOpenXRay}
       />
     </section>
   );

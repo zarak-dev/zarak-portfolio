@@ -59,6 +59,21 @@ export default function CommandPalette({
   const commands: CommandItem[] = useMemo(
     () => [
       {
+        id: 'ask-zarak',
+        title: 'Open Ask Zarak (AI Portfolio Agent)',
+        category: 'AI Assistant',
+        shortcut: '/ask',
+        icon: Sparkles,
+        action: () => {
+          onOpenChange(false);
+          // Small delay to allow command palette to close gracefully
+          setTimeout(() => {
+            const btn = document.querySelector('button:has(.lucide-bot)');
+            if (btn) (btn as HTMLButtonElement).click();
+          }, 100);
+        },
+      },
+      {
         id: 'dentally',
         title: 'View Dentally Case Study (Hero Project)',
         category: 'Featured Work',

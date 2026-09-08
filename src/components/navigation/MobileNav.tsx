@@ -24,7 +24,6 @@ interface MobileNavProps {
 }
 
 const NAV_ITEMS = [
-  { name: 'About', href: '#about', icon: Terminal },
   { name: 'Projects', href: '#projects', icon: FolderGit2, badge: 'Featured' },
   { name: 'Timeline', href: '#experience', icon: Briefcase },
   { name: 'Tech Map', href: '#skills', icon: Wrench },

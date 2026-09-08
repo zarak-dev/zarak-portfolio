@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/navigation/Navigation';
 import Hero from '@/components/hero/Hero';
-import About from '@/components/about/About';
 import ProjectsSection from '@/components/projects/ProjectsSection';
 import ExperienceTimeline from '@/components/experience/ExperienceTimeline';
 import TechnologyMap from '@/components/skills/TechnologyMap';
@@ -15,10 +14,19 @@ import ContactSection from '@/components/contact/ContactSection';
 import Footer from '@/components/footer/Footer';
 import CommandPalette from '@/components/command/CommandPalette';
 import EasterEggModal from '@/components/easter-egg/EasterEggModal';
+import dynamic from 'next/dynamic';
+
+// Lazy load heavy interactive features
+const AskZarak = dynamic(() => import('@/components/ai/AskZarak'), { ssr: false });
+const ProjectXRay = dynamic(() => import('@/components/xray/ProjectXRay'), { ssr: false });
 
 export default function Home() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [easterEggOpen, setEasterEggOpen] = useState(false);
+  
+  // AI & X-Ray State
+  const [xrayProject, setXrayProject] = useState<string | null>(null);
+  const [aiContextMessage, setAiContextMessage] = useState<string | null>(null);
 
   // Global CMD+K / Ctrl+K keyboard shortcut listener
   useEffect(() => {
@@ -68,8 +76,7 @@ export default function Home() {
       {/* Main Developer Experience Sequence */}
       <main className="relative z-10">
         <Hero onOpenCommand={() => setCommandOpen(true)} />
-        <About />
-        <ProjectsSection />
+        <ProjectsSection onOpenXRay={setXrayProject} />
         <ExperienceTimeline />
         <TechnologyMap />
         <EngineeringWorkflow />
@@ -93,6 +100,20 @@ export default function Home() {
       <EasterEggModal
         open={easterEggOpen}
         onClose={() => setEasterEggOpen(false)}
+      />
+
+      {/* AI Agent Experience */}
+      <AskZarak 
+        onOpenXRay={setXrayProject}
+        initialContextMessage={aiContextMessage}
+        onClearContextMessage={() => setAiContextMessage(null)}
+      />
+
+      {/* Interactive Project X-Ray */}
+      <ProjectXRay
+        projectId={xrayProject}
+        onClose={() => setXrayProject(null)}
+        onAskAI={setAiContextMessage}
       />
     </div>
   );

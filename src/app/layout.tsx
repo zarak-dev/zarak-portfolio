@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: `${IDENTITY.name} — ${IDENTITY.role}`,
   description: `${IDENTITY.name} is a software engineer specializing in modern frontend engineering, Next.js App Router, React, TypeScript, and AI telephony interfaces.`,
   keywords: [
-    'Zarak Qaisar',
+    IDENTITY.name,
     'Frontend Developer',
     'Software Engineer',
     'Next.js',
