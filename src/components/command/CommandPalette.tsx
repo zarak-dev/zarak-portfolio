@@ -59,16 +59,16 @@ export default function CommandPalette({
   const commands: CommandItem[] = useMemo(
     () => [
       {
-        id: 'ask-zarak',
-        title: 'Open Ask Zarak (AI Portfolio Agent)',
+        id: 'aimmyyy-ai',
+        title: 'Open Aimmyyy AI (Portfolio Agent)',
         category: 'AI Assistant',
-        shortcut: '/ask',
+        shortcut: '/aimmyyy',
         icon: Sparkles,
         action: () => {
           onOpenChange(false);
           // Small delay to allow command palette to close gracefully
           setTimeout(() => {
-            const btn = document.querySelector('button:has(.lucide-bot)');
+            const btn = document.querySelector('[data-aimmyyy-trigger]');
             if (btn) (btn as HTMLButtonElement).click();
           }, 100);
         },

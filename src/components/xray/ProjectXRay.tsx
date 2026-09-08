@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Layers, Activity, Bot, ArrowDown } from 'lucide-react';
+import { X, Layers, Activity, Bot, ArrowDown, Sparkles } from 'lucide-react';
 import { PROJECT_XRAYS, type XRayLayer, type ProjectXRay as ProjectXRayData } from '@/data/xray';
 import { CASE_STUDIES } from '@/data/projects';
 import XRayExperiment from './XRayExperiment';
@@ -170,10 +170,10 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
               ) : (
                 <div className="h-full flex flex-col justify-center items-center text-center p-8">
                   <div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6">
-                    <Bot className="w-8 h-8 text-accent" />
+                    <Sparkles className="w-8 h-8 text-accent" />
                   </div>
                   <h3 className="font-display text-lg font-bold text-white mb-2">
-                    Analyze with AI
+                    Analyze with Aimmyyy AI
                   </h3>
                   <p className="font-sans text-sm text-white/50 mb-8 leading-relaxed">
                     Have questions about why these specific technologies were chosen or how the architecture scales?
@@ -183,8 +183,8 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
                     onClick={handleAskAI}
                     className="w-full py-3 rounded-xl bg-white text-black font-mono text-sm font-bold hover:bg-white/90 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)]"
                   >
-                    <Bot className="w-4 h-4" />
-                    Ask AI About This Project
+                    <Sparkles className="w-4 h-4 text-accent" />
+                    Ask Aimmyyy About This Project
                   </button>
                 </div>
               )}

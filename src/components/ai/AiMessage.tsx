@@ -84,7 +84,7 @@ const AiMessage = memo(function AiMessage({ role, content, onOpenXRay }: Message
     >
       {!isUser && (
         <div className="w-7 h-7 rounded-lg bg-accent/20 border border-accent/40 flex items-center justify-center shrink-0 mt-0.5">
-          <Bot className="w-4 h-4 text-accent" />
+          <Sparkles className="w-4 h-4 text-accent" />
         </div>
       )}
       
