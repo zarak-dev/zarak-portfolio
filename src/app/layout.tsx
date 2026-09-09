@@ -15,8 +15,17 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://zarak.dev'),
-  title: `${IDENTITY.name} — ${IDENTITY.role}`,
+  title: 'Zarak K.',
   description: `${IDENTITY.name} is a software engineer specializing in modern frontend engineering, Next.js App Router, React, TypeScript, and AI telephony interfaces.`,
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: '/icon.svg',
+    shortcut: '/favicon.ico',
+  },
   keywords: [
     IDENTITY.name,
     'Frontend Developer',
@@ -36,9 +45,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://zarak.dev',
-    title: `${IDENTITY.name} — ${IDENTITY.role}`,
+    title: 'Zarak K.',
     description: IDENTITY.tagline,
-    siteName: `${IDENTITY.name} — Personal Developer OS`,
+    siteName: `${IDENTITY.name} Personal Developer OS`,
     images: [
       {
         url: '/images/dentally-preview.jpg',
@@ -50,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${IDENTITY.name} — ${IDENTITY.role}`,
+    title: 'Zarak K.',
     description: IDENTITY.tagline,
     images: ['/images/dentally-preview.jpg'],
   },

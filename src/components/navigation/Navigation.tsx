@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Menu, Terminal, FileDown } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
@@ -89,8 +90,15 @@ export default function Navigation({ onOpenCommand }: NavigationProps) {
             onClick={(e) => handleNavClick(e, '#hero')}
             className="flex items-center gap-2.5 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/40 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-200">
-              <Terminal className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg overflow-hidden border border-border/80 bg-black flex items-center justify-center shadow-xs transition-transform duration-200 group-hover:scale-105 shrink-0">
+              <Image
+                src="/images/zk-logo.png"
+                alt="ZK Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-display font-bold text-sm tracking-tight text-foreground flex items-center gap-1.5">

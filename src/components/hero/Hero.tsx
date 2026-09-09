@@ -159,7 +159,7 @@ export default function Hero({ onOpenCommand }: { onOpenCommand: () => void }) {
               </p>
 
               <div className="flex items-center justify-between pt-2 border-t border-border/50 text-muted-foreground font-mono text-[11px]">
-                <span>Islamabad / Mardan, PK</span>
+                <span>Islamabad, PK</span>
                 <a
                   href={IDENTITY.contacts.github}
                   target="_blank"

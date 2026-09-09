@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -71,13 +72,24 @@ export default function MobileNav({ open, onClose, onOpenCommand }: MobileNavPro
             <div>
               {/* Drawer Header */}
               <div className="flex items-center justify-between pb-4 border-b border-border/60 mb-6">
-                <div>
-                  <span className="font-display font-bold text-sm tracking-tight text-foreground block">
-                    {IDENTITY.name}
-                  </span>
-                  <span className="font-mono text-[10px] text-accent tracking-widest uppercase">
-                    Developer OS
-                  </span>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg overflow-hidden border border-border/80 bg-black flex items-center justify-center shrink-0">
+                    <Image
+                      src="/images/zk-logo.png"
+                      alt="ZK Logo"
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <span className="font-display font-bold text-sm tracking-tight text-foreground block">
+                      {IDENTITY.name}
+                    </span>
+                    <span className="font-mono text-[10px] text-accent tracking-widest uppercase">
+                      Developer OS
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
