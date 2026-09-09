@@ -35,11 +35,19 @@ function Stat({
 export default function Hero() {
   const statsRef = useRef<HTMLDivElement>(null);
   const [runStats, setRunStats] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const reduced = useReducedMotion();
 
   const { scrollY } = useScroll();
   const portraitY = useTransform(scrollY, [0, 700], [0, reduced ? 0 : 56]);
   const copyY = useTransform(scrollY, [0, 700], [0, reduced ? 0 : -28]);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   useEffect(() => {
     const node = statsRef.current;
@@ -79,9 +87,9 @@ export default function Hero() {
       />
 
       <div className="shell relative">
-        <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-8">
+        <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-8">
           {/* Part 1: Identity + Description */}
-          <motion.div className="order-1 lg:col-span-7" style={{ y: copyY }}>
+          <motion.div className="order-1 lg:col-span-7" style={{ y: isDesktop ? copyY : undefined }}>
             <motion.div
               className="flex flex-wrap items-center gap-2.5"
               initial="hidden"
@@ -146,7 +154,7 @@ export default function Hero() {
           <div className="order-2 lg:col-span-5 lg:row-span-2">
             <motion.div
               className="relative mx-auto max-w-sm lg:max-w-md"
-              style={{ y: portraitY }}
+              style={{ y: isDesktop ? portraitY : undefined }}
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
@@ -171,19 +179,19 @@ export default function Hero() {
 
               {/* Status Pill */}
               <motion.div
-                className="mt-4 flex items-center justify-center gap-2.5 rounded-full border border-line bg-surface/95 px-5 py-2.5 shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)] backdrop-blur dark:bg-surface-2/95"
+                className="mt-5 flex items-center justify-center gap-2.5 rounded-full border border-line bg-surface/95 px-4 py-2 sm:px-5 sm:py-2.5 shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)] backdrop-blur dark:bg-surface-2/95 text-center max-w-full"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
+                transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
               >
-                <span className="relative flex h-2 w-2">
+                <span className="relative flex h-2 w-2 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint">
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint shrink-0">
                   Currently
                 </span>
-                <span className="text-sm font-bold text-ink">
+                <span className="text-xs sm:text-sm font-bold text-ink">
                   {PROFILE.role} @ {PROFILE.company}
                 </span>
               </motion.div>
@@ -191,19 +199,19 @@ export default function Hero() {
           </div>
 
           {/* Part 2: Actions + Stats */}
-          <motion.div className="order-3 lg:col-span-7" style={{ y: copyY }}>
+          <motion.div className="order-3 lg:col-span-7 pt-4 sm:pt-0" style={{ y: isDesktop ? copyY : undefined }}>
             <motion.div
               className="flex flex-wrap items-center gap-3"
               initial="hidden"
               animate="show"
-              variants={stagger(0.08, 1.15)}
+              variants={stagger(0.08, isDesktop ? 1.15 : 0.3)}
             >
               <motion.a
                 variants={fadeUp}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:bg-brand hover:dark:text-white"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:bg-brand hover:dark:text-white shrink-0"
               >
                 View my work
                 <ArrowRight
@@ -216,13 +224,13 @@ export default function Hero() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-surface-2"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-surface-2 shrink-0"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Get in touch
               </motion.a>
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <motion.a
                   variants={fadeUp}
                   whileHover={{ y: -3, rotate: -6 }}

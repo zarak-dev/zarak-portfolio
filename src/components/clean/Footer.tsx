@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
 
 import { NAV_LINKS, PROFILE } from '@/data/profile';
@@ -27,12 +28,18 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <motion.a variants={fadeUp} href="#top" className="flex items-center gap-2.5">
-              <motion.span
+              <motion.div
                 whileHover={{ rotate: -8, scale: 1.06 }}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-ink font-display text-sm font-bold text-white dark:bg-surface-2 dark:text-ink dark:border dark:border-line"
+                className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-line bg-black shadow-sm dark:border-white/10"
               >
-                ZK
-              </motion.span>
+                <Image
+                  src="/images/zk-logo.png"
+                  alt={`${PROFILE.name} Logo`}
+                  width={36}
+                  height={36}
+                  className="h-full w-full object-cover"
+                />
+              </motion.div>
               <span className="font-display text-lg font-bold text-ink">{PROFILE.name}</span>
             </motion.a>
 

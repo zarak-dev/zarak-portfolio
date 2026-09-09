@@ -37,7 +37,8 @@ function AimmyLogo({ className }: { className?: string }) {
 export default function AskZarak({ onOpenXRay, initialContextMessage, onClearContextMessage }: AskZarakProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const triggerRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
@@ -65,6 +66,7 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
   useEffect(() => {
     if (initialContextMessage && !isOpen) {
       setIsOpen(true);
+      setIsExpanded(false);
       setInput(initialContextMessage);
       if (onClearContextMessage) onClearContextMessage();
     }
@@ -72,15 +74,29 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
 
   // Global listener for opening Aimmyyy AI from navigation or cards
   useEffect(() => {
-    const handleOpen = () => setIsOpen(true);
+    const handleOpen = () => {
+      setIsOpen(true);
+      setIsExpanded(false);
+    };
     window.addEventListener('open-aimmyyy-ai', handleOpen);
     return () => window.removeEventListener('open-aimmyyy-ai', handleOpen);
   }, []);
 
-  // Detect touch devices to skip hover-expansion behavior
+  // Close the expanded options pill when clicking or touching outside
   useEffect(() => {
-    setIsTouch(window.matchMedia('(pointer: coarse)').matches);
-  }, []);
+    if (!isExpanded) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (triggerRef.current && !triggerRef.current.contains(e.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isExpanded]);
 
   const handleSubmit = async (e?: React.FormEvent, overrideInput?: string) => {
     if (e) e.preventDefault();
@@ -140,23 +156,26 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
     handleSubmit(undefined, text);
   };
 
+  const showOptions = isHovered || isExpanded;
+
   return (
     <>
-      {/* Floating Trigger Button: Spreads animatedly on hover into 2 options (Download CV & AI Chatbot) */}
+      {/* Floating Trigger Button: Spreads animatedly on hover/click into 2 options (Download CV & AI Chatbot) */}
       <AnimatePresence>
         {!isOpen && (
           <motion.div
+            ref={triggerRef}
             data-aimmyyy-trigger
             layout
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            onMouseEnter={isTouch ? undefined : () => setIsHovered(true)}
-            onMouseLeave={isTouch ? undefined : () => setIsHovered(false)}
-            className="fixed bottom-6 right-6 z-50 flex items-center p-1.5 rounded-full bg-[#0a0f1d]/95 dark:bg-[#0b1020]/95 backdrop-blur-xl border border-white/20 dark:border-brand/50 shadow-2xl shadow-black/50 glow-pill group transition-all duration-300"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center p-1.5 rounded-full bg-[#0a0f1d]/95 dark:bg-[#0b1020]/95 backdrop-blur-xl border border-white/20 dark:border-brand/50 shadow-2xl shadow-black/50 glow-pill group transition-all duration-300"
           >
             <AnimatePresence>
-              {isHovered && !isTouch && (
+              {showOptions && (
                 <motion.div
                   initial={{ opacity: 0, width: 0, scale: 0.85 }}
                   animate={{ opacity: 1, width: 'auto', scale: 1 }}
@@ -170,6 +189,7 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
                     download="Zarak_Qaisar_CV.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => setIsExpanded(false)}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-sm"
@@ -182,7 +202,10 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
                   {/* Option 2: AI Chatbot */}
                   <motion.button
                     type="button"
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => {
+                      setIsExpanded(false);
+                      setIsOpen(true);
+                    }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="inline-flex items-center gap-1.5 rounded-full bg-brand hover:bg-brand-dark px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-md shadow-brand/40"
@@ -195,16 +218,38 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
               )}
             </AnimatePresence>
 
-            {/* Main AiM Logo Button */}
+            {/* Main AiM Logo Button / Toggle Close */}
             <motion.button
               type="button"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsExpanded((prev) => !prev)}
               className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/5 hover:bg-white/15 transition-colors shrink-0"
-              aria-label="Toggle Aimmy AI Assistant"
+              aria-label={showOptions ? 'Close options' : 'Toggle Aimmy AI Assistant'}
             >
-              <AimmyLogo className="h-4 sm:h-5 w-auto object-contain transition-transform duration-300 group-hover:rotate-6" />
+              <AnimatePresence mode="wait" initial={false}>
+                {showOptions ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <X className="h-4 w-4 sm:h-5 sm:w-5 text-white" aria-hidden="true" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="logo"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <AimmyLogo className="h-4 sm:h-5 w-auto object-contain transition-transform duration-300 group-hover:rotate-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
           </motion.div>
         )}

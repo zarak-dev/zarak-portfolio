@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { ArrowUpRight, Menu, Search, Sparkles, X } from 'lucide-react';
 
 import { NAV_LINKS, PROFILE } from '@/data/profile';
@@ -71,13 +72,20 @@ export default function Navigation({ onOpenAimmy, onOpenCommand }: NavigationPro
           className="group flex items-center gap-2.5"
           aria-label={`${PROFILE.name} — back to top`}
         >
-          <motion.span
+          <motion.div
             whileHover={{ rotate: -8, scale: 1.06 }}
             whileTap={{ scale: 0.94 }}
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-ink font-display text-sm font-bold text-white dark:bg-surface-2 dark:text-ink dark:border dark:border-line"
+            className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-line bg-black shadow-sm dark:border-white/10"
           >
-            ZK
-          </motion.span>
+            <Image
+              src="/images/zk-logo.png"
+              alt={`${PROFILE.name} Logo`}
+              width={36}
+              height={36}
+              className="h-full w-full object-cover"
+              priority
+            />
+          </motion.div>
           <span className="hidden flex-col leading-tight sm:flex">
             <span className="font-display text-[15px] font-bold text-ink">{PROFILE.name}</span>
             <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
