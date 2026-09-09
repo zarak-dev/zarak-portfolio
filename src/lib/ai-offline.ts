@@ -32,7 +32,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query === 'hello' ||
     query === 'hey'
   ) {
-    return `Hey there! 👋 I am **Aimmyyy AI**, Zarak's dedicated female engineering assistant and portfolio representative.\n\nI'd love to show you around his work! I can tell you all about:\n- **His Specialization**: Modern Frontend Architecture, React 19, Next.js, Redux Toolkit\n- **Flagship Projects**: Dentally (AI Receptionist Platform), Exynos Cooky, MoneyFlow\n- **Interactive Architecture**: Inspect live data flows with **Project X-Ray**\n- **Engineering Experience**: Production work at Smart Forum\n\nWhat would you like to explore first? ✨`;
+    return `Hey there! 👋 I am **Aimmyyy AI**, Zarak's dedicated female engineering assistant and portfolio representative.\n\nI'd love to show you around his work! I can tell you all about:\n- **His Specialization**: Modern Frontend Architecture, React 18, TypeScript, Redux-Saga & RTK\n- **Smart Forum Flagship Projects**: Dentally Assist (AI Call Operations Dashboard) & Appointlo (Live SaaS Platform at [apointlo.com](https://apointlo.com/))\n- **Interactive Architecture**: Inspect live data flows with **Project X-Ray**\n- **Engineering Experience**: Production work at Smart Forum\n\nWhat would you like to explore first? ✨`;
   }
 
   // 3. Specialization / What does Zarak do / Core focus
@@ -50,10 +50,10 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('focus') ||
     query.includes('background')
   ) {
-    return `**${IDENTITY.name}** specializes in **Modern Frontend Architecture**, **UI Engineering**, and **Interactive Systems**! As his AI assistant, I can tell you he obsesses over high-performance interfaces, predictable state architectures, and polished user experiences.\n\nHere is what he excels at:\n\n- **Core Frameworks**: React 19 & Next.js App Router with server/client boundaries, route caching, and streaming hydration.\n- **State Architecture**: Centralized, predictable state machines using **Redux Toolkit** for multi-stage asynchronous workflows.\n- **Type Safety**: End-to-end strict **TypeScript** contracts across components and REST APIs.\n- **Design Systems**: Tailored, accessible interfaces crafted with **Tailwind CSS**, **shadcn/ui**, and **Framer Motion**.\n- **AI-Assisted Interfaces**: Real-time telephony dashboards, live audio visualizers, and speech-to-text streams (like **Dentally** at Smart Forum).\n\nWould you like to inspect the architecture of his flagship platform **Dentally**?\n\n[XRAY:dentally]`;
+    return `**${IDENTITY.name}** specializes in **Modern Frontend Architecture**, **UI Engineering**, and **Interactive Systems**! As his AI assistant, I can tell you he obsesses over high-performance interfaces, predictable state architectures, and polished user experiences.\n\nHere is what he excels at:\n\n- **Core Frameworks**: React 18 & Next.js with strict TypeScript typings, component boundaries, and streaming hydration.\n- **State Architecture**: Centralized, predictable async state machines using **Redux Toolkit + Redux-Saga** (takeEvery/takeLatest with redux-injectors).\n- **Design Systems**: Production enterprise interfaces crafted with **Ant Design 6**, **Styled Components**, and **Tailwind CSS**.\n- **Authentication & Security**: Cookie-based JWT sessions (SameSite=Lax) with direct client-side role decoding for RBAC route guards.\n- **AI-Assisted Interfaces**: Real-time telephony dashboards, inline audio playback, and appointment funnels (**Dentally Assist** and **Appointlo** at Smart Forum).\n\nWould you like to inspect the architecture of his flagship platform **Dentally Assist**?\n\n[XRAY:dentally]`;
   }
 
-  // 4. Dentally Project
+  // 4. Dentally Assist Project
   if (
     query.includes('dentally') ||
     query.includes('receptionist') ||
@@ -61,7 +61,18 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('dental')
   ) {
     const p = CASE_STUDIES.find((c) => c.id === 'dentally')!;
-    return `### **Dentally — AI Receptionist Platform** ✨\n\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n\n**The Problem:**\n${p.problem}\n\n**Engineering Approach:**\n${p.approach}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Key Metrics:**\n${p.metrics?.map((m) => `- **${m.label}:** ${m.value}`).join('\n')}\n\nYou can click below to inspect the full interactive system architecture:\n\n[XRAY:dentally]`;
+    return `### **Dentally Assist — AI Call Management Dashboard** ✨\n\n**Company:** Smart Forum (Proprietary Enterprise Platform)\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n\n**The Problem:**\n${p.problem}\n\n**Engineering Approach:**\n${p.approach}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Key Interface Details:**\n${p.interfaceDetails}\n\n**Key Metrics:**\n${p.metrics?.map((m) => `- **${m.label}:** ${m.value}`).join('\n')}\n\nYou can click below to inspect the full interactive system architecture:\n\n[XRAY:dentally]`;
+  }
+
+  // 4.1 Appointlo Project
+  if (
+    query.includes('appointlo') ||
+    query.includes('apointlo') ||
+    query.includes('appointment') ||
+    query.includes('scheduling')
+  ) {
+    const p = CASE_STUDIES.find((c) => c.id === 'appointlo')!;
+    return `### **Appointlo — AI Appointment Scheduling SaaS** ✨\n\n**Company:** Smart Forum\n**Role:** ${p.role}\n**Live Site:** [apointlo.com](https://apointlo.com/)\n**Stack:** ${p.technologies.join(', ')}\n\n**What it does:**\n${p.approach}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Interface Details:**\n${p.interfaceDetails}\n\nYou can inspect its decoupled data architecture below:\n\n[XRAY:appointlo]`;
   }
 
   // 5. Exynos Cooky Project
@@ -106,7 +117,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('gemini') ||
     query.includes('machine learning')
   ) {
-    return `Zarak loves building intelligent, AI-assisted interfaces! Here are his two key AI implementations:\n\n1. **Dentally (Production at Smart Forum)**: An AI-driven telephony receptionist platform. He engineered the frontend that handles live audio streams, real-time speech-to-text transcript feeds, and sentiment markers.\n\n[XRAY:dentally]\n\n2. **FYP Connect (Capstone Grade A+)**: Integrated the **Google Gemini API** to analyze patient blood sugar logs and dynamically generate South Asian dietary recommendations with structured schema outputs.\n\n[XRAY:fyp-connect]`;
+    return `Zarak loves building intelligent, AI-assisted interfaces! Here are his key AI implementations:\n\n1. **Dentally Assist (Production at Smart Forum)**: An enterprise AI-driven telephony call management platform. He engineered the frontend with inline audio playback, dual-mode analytics, and structured call outcome records.\n\n[XRAY:dentally]\n\n2. **Appointlo (Live SaaS at apointlo.com)**: AI appointment scheduling platform with high-converting marketing flows and client portal.\n\n[XRAY:appointlo]\n\n3. **FYP Connect (Capstone Grade A+)**: Integrated the **Google Gemini API** to analyze patient blood sugar logs and dynamically generate South Asian dietary recommendations with structured schema outputs.\n\n[XRAY:fyp-connect]`;
   }
 
   // 9. Redux / State Management
@@ -114,9 +125,10 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('redux') ||
     query.includes('state') ||
     query.includes('store') ||
-    query.includes('slice')
+    query.includes('slice') ||
+    query.includes('saga')
   ) {
-    return `Zarak uses **Redux Toolkit** as his primary state layer for complex, asynchronous applications:\n\n- **Dentally**: Built a robust state machine managing concurrent incoming calls, audio streaming buffers, real-time transcript streams, and operator override actions.\n- **Exynos Cooky**: Implemented a slice-based cart state machine with persistent storage, dynamic checkout stages, and live inventory state.\n\nInspect how Redux coordinates the Dentally audio pipeline:\n\n[XRAY:dentally]`;
+    return `Zarak uses **Redux Toolkit + Redux-Saga** as his primary state layer for complex, asynchronous applications:\n\n- **Dentally Assist & Appointlo (Smart Forum)**: Built robust saga side-effects handling takeEvery for parallel calls and takeLatest for analytics debouncing, with lazy reducer injection via redux-injectors.\n- **Exynos Cooky**: Implemented a slice-based cart state machine with persistent storage, dynamic checkout stages, and live inventory state.\n\nInspect how Redux-Saga coordinates the Dentally Assist telemetry pipeline:\n\n[XRAY:dentally]`;
   }
 
   // 10. General Projects query
@@ -126,7 +138,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('work') ||
     query.includes('built')
   ) {
-    return `Here are the major engineering projects Zarak has architected:\n\n1. **Dentally**: AI Receptionist Platform with live telephony, audio waveforms, and automated booking.\n[XRAY:dentally]\n\n2. **Exynos Cooky**: Artisanal bakery e-commerce dashboard with Redux state and Ant Design.\n[XRAY:exynos-cooky]\n\n3. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n4. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
+    return `Here are the major engineering projects Zarak has architected:\n\n1. **Dentally Assist**: AI Call Management Dashboard for dental practices (Smart Forum).\n[XRAY:dentally]\n\n2. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce dashboard with Redux state and Ant Design.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
   }
 
   // 11. Skills / Tech Stack
@@ -203,9 +215,9 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('x-ray') ||
     query.includes('architecture')
   ) {
-    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally**: Live telephony stream, WebSockets, and calendar sync.\n[XRAY:dentally]\n\n- **Exynos Cooky**: E-commerce cart machine & inventory status.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
+    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: E-commerce cart machine & inventory status.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
   }
 
   // 17. Default Fallback
-  return `Hi! I'm **Aimmyyy AI**, representing **${IDENTITY.name}** (Software Engineer specializing in Modern Frontend Architecture & UI Systems) ✨.\n\nHere are some things you can ask me about:\n- **"What does Zarak specialize in?"**\n- **"Tell me about Dentally"** (AI Receptionist platform)\n- **"Which projects use Redux Toolkit?"**\n- **"Show me his AI-related work"**\n- **"What is his experience at Smart Forum?"**\n- **"How can I contact or hire Zarak?"**\n\nWhat would you like to explore?`;
+  return `Hi! I'm **Aimmyyy AI**, representing **${IDENTITY.name}** (Software Engineer specializing in Modern Frontend Architecture & UI Systems) ✨.\n\nHere are some things you can ask me about:\n- **"What does Zarak specialize in?"**\n- **"Tell me about Dentally Assist or Appointlo"** (Smart Forum production platforms)\n- **"Which projects use Redux-Saga?"**\n- **"Show me his AI-related work"**\n- **"What is his experience at Smart Forum?"**\n- **"How can I contact or hire Zarak?"**\n\nWhat would you like to explore?`;
 }

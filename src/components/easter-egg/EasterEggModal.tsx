@@ -53,7 +53,7 @@ export default function EasterEggModal({
       setOutputLines((prev) => [
         ...prev,
         `$ ${typedInput}`,
-        'Available commands: help, hire, dentally, stack, clear, exit',
+        'Available commands: help, hire, dentally, appointlo, stack, clear, exit',
       ]);
     } else if (cmd === 'hire') {
       setOutputLines((prev) => [
@@ -67,14 +67,21 @@ export default function EasterEggModal({
       setOutputLines((prev) => [
         ...prev,
         `$ ${typedInput}`,
-        'Dentally: AI-powered receptionist platform for automated calls & bookings.',
-        'Tech: Next.js, TypeScript, Redux Toolkit, Tailwind, shadcn/ui, REST APIs.',
+        'Dentally Assist: Enterprise AI call management dashboard for dental practices.',
+        'Company: Smart Forum | Tech: React 18, TypeScript, Redux-Saga, Ant Design 6, Styled Components, JWT cookies.',
+      ]);
+    } else if (cmd === 'appointlo') {
+      setOutputLines((prev) => [
+        ...prev,
+        `$ ${typedInput}`,
+        'Appointlo: Production AI appointment-scheduling SaaS platform (Live: https://apointlo.com/).',
+        'Company: Smart Forum | Tech: React 18, TypeScript, Redux-Saga, Ant Design 6, Styled Components, data.ts separation.',
       ]);
     } else if (cmd === 'stack') {
       setOutputLines((prev) => [
         ...prev,
         `$ ${typedInput}`,
-        'Core Stack: Next.js · React · TypeScript · Redux Toolkit · Tailwind CSS',
+        'Core Stack: React 18 · TypeScript · Redux-Saga · Redux Toolkit · Ant Design 6 · Styled Components',
       ]);
     } else if (cmd === 'exit') {
       onClose();

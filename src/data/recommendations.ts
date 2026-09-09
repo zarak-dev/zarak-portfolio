@@ -4,6 +4,7 @@ export interface Recommendation {
   relation: string;
   quote: string;
   avatar?: string;
+  letterUrl?: string;
 }
 
 export const RECOMMENDATIONS: Recommendation[] = [
@@ -13,6 +14,14 @@ export const RECOMMENDATIONS: Recommendation[] = [
     relation: 'Managed Zarak directly',
     quote:
       'It was a genuine pleasure working with Zarak Qaisar at Smart Forum. Zarak is a talented developer who excels not only in frontend technologies like React and Next.js but also shows great initiative in exploring and integrating new tools and frameworks into our workflows. His strong sense of ownership, collaborative spirit, and attention to both performance and user experience consistently drove our projects forward. Zarak doesn’t just write code, he thinks architecturally and is always eager to take on challenges across the stack. I highly recommend Zarak Qaisar as a proactive, skilled developer and a reliable team player.',
+  },
+  {
+    name: 'Dr. Muhammad Ismail Mohmand',
+    title: 'Associate Professor, Dept. of CS-IT @ Sarhad University',
+    relation: 'FYP Supervisor & Professor @ Sarhad University',
+    quote:
+      'It is with great enthusiasm that I recommend Zarak Qaisar for any opportunity in software engineering, web development, or related technical roles. As his professor and final-year project supervisor at Sarhad University of Science and Information Technology, Peshawar, I have had the pleasure of observing his consistent dedication, technical curiosity, and remarkable growth throughout his academic journey. Mr. Zarak Qaisar demonstrated exceptional problem-solving abilities and innovation during the development of his Final Year Project, “FYP Connect: Smart Sugar Management System.” His design reflected a deep understanding of user experience, system scalability, and the application of real-world data in healthcare technology. Zarak’s proficiency in JavaScript, C#, MySQL, and his grasp of modern web frameworks, combined with his positive attitude, make him an outstanding candidate for any development or research-oriented position. I wholeheartedly recommend him without reservation.',
+    letterUrl: '/images/recommendation-letter-dr-ismail.png',
   },
   {
     name: 'Ayesha Najam',
@@ -50,25 +59,11 @@ export const RECOMMENDATIONS: Recommendation[] = [
       'Zarak is a remarkably talented developer with a real knack for outside-the-box thinking. During our work at Smart Forum, where I worked as QA, I saw firsthand his sharp technical mind and passion for building quality software. He brought so many original ideas to the table, making the whole application stronger and the development cycle smoother. His strong communication, quick adaptiveness, and technical expertise make him a standout engineer on any engineering team.',
   },
   {
-    name: 'Ali Rajab',
-    title: 'Technical PM & Full-Stack Engineer | Web3 · Mobile | UNOV',
-    relation: 'Collaborated on technical delivery',
-    quote:
-      'Zarak is a highly motivated and creative engineer. During our collaboration he did a great job meeting deadlines on tight timelines, and beyond that he used his talent to make interfaces smooth, intuitive, and responsive. I highly recommend him for any project at any scale, either remotely or on-site.',
-  },
-  {
     name: 'Marina Linchevska',
     title: 'Senior Product Designer · Fintech & AI Products',
     relation: 'Collaborated on product design & UI',
     quote:
       'Working with Zarak was honestly great. He’s one of those engineers who has a keen eye for UI details and design precision — he’d suggest an interaction tweak or animation improvement that would just make the product feel better. I loved that energy. He’s easy to work with, clearly passionate about what he does, and I’d happily work with him again.',
-  },
-  {
-    name: 'Muhammad Anees',
-    title: 'VR | MR | AR | WebXR | 3D Game Developer | Data Scientist',
-    relation: 'Collaborated on academic & research projects',
-    quote:
-      'I had the opportunity to work closely with Zarak Qaisar on collaborative projects. Working alongside him, I was consistently inspired by his intelligence, dedication, and expertise in modern engineering concepts. His strong communication skills, combined with a collaborative and motivating approach, make him an invaluable teammate. Zarak not only excels technically but also encourages and uplifts those around him.',
   },
   {
     name: 'Aliya Rubab',
@@ -83,12 +78,5 @@ export const RECOMMENDATIONS: Recommendation[] = [
     relation: 'Collaborated on engineering & technical projects',
     quote:
       'I had the privilege of working with Zarak Qaisar. He is exceptionally intelligent, dedicated, and highly skilled in modern software engineering and problem-solving. His communication and presentation abilities are outstanding, and he consistently demonstrates a proactive, collaborative, and team-oriented approach. Zarak’s technical expertise, professionalism, and commitment to excellence make him an outstanding colleague.',
-  },
-  {
-    name: 'Zain Ul Abidin',
-    title: 'Data Analyst @ Medina Dairy | ML | NLP | Power BI | AWS',
-    relation: 'Collaborated on projects & software engineering',
-    quote:
-      'I had the privilege of working with Zarak Qaisar and had the opportunity to collaborate with him on several projects. Zarak possesses exceptional knowledge and approaches every task with dedication and precision. His analytical thinking, problem-solving skills, and collaborative attitude made working with him an excellent experience. He is professional, humble, and always willing to help others, making him an outstanding teammate.',
   },
 ];

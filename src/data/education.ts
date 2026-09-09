@@ -14,7 +14,7 @@ export interface EducationRecord {
 export const EDUCATION_DATA: EducationRecord = {
   degree: 'Bachelor of Science',
   field: 'Software Engineering',
-  institution: 'Sarhad University of Science & Information Technology',
+  institution: 'Sarhad University',
   period: '2021 –  2025',
   startYear: '2021',
   endYear: '2025',

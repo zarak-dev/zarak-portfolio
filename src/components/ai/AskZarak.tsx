@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github } from 'lucide-react';
+import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github, Download } from 'lucide-react';
 import AiMessage from './AiMessage';
 
 interface AskZarakProps {
@@ -23,8 +23,20 @@ const SUGGESTED_QUESTIONS = [
   "Show me his AI-related work.",
 ];
 
+function AimmyLogo({ className }: { className?: string }) {
+  return (
+    <img
+      src="/images/aimmy-logo-white.png"
+      alt="Aimmy AI Logo"
+      className={className}
+      loading="eager"
+    />
+  );
+}
+
 export default function AskZarak({ onOpenXRay, initialContextMessage, onClearContextMessage }: AskZarakProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
@@ -56,6 +68,13 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
       if (onClearContextMessage) onClearContextMessage();
     }
   }, [initialContextMessage, isOpen, onClearContextMessage]);
+
+  // Global listener for opening Aimmyyy AI from navigation or cards
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener('open-aimmyyy-ai', handleOpen);
+    return () => window.removeEventListener('open-aimmyyy-ai', handleOpen);
+  }, []);
 
   const handleSubmit = async (e?: React.FormEvent, overrideInput?: string) => {
     if (e) e.preventDefault();
@@ -117,21 +136,71 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
 
   return (
     <>
-      {/* Floating Trigger Button */}
+      {/* Floating Trigger Button: Spreads animatedly on hover into 2 options (Download CV & AI Chatbot) */}
       <AnimatePresence>
         {!isOpen && (
-          <motion.button
+          <motion.div
             data-aimmyyy-trigger
+            layout
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full bg-accent text-accent-foreground shadow-2xl hover:bg-accent/90 transition-colors border border-accent/20 glow-pill group"
-            aria-label="Open Aimmyyy AI Assistant"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="fixed bottom-6 right-6 z-50 flex items-center p-1.5 rounded-full bg-[#0a0f1d]/95 dark:bg-[#0b1020]/95 backdrop-blur-xl border border-white/20 dark:border-brand/50 shadow-2xl shadow-black/50 glow-pill group transition-all duration-300"
           >
-            <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform text-accent-foreground" />
-            <span className="font-mono text-sm font-bold tracking-tight">AIMMYYY AI</span>
-          </motion.button>
+            <AnimatePresence>
+              {isHovered && (
+                <motion.div
+                  initial={{ opacity: 0, width: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, width: 'auto', scale: 1 }}
+                  exit={{ opacity: 0, width: 0, scale: 0.85 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-center gap-2 overflow-hidden pl-2.5 pr-1"
+                >
+                  {/* Option 1: Download CV */}
+                  <motion.a
+                    href="/Zarak_Qaisar_CV.pdf"
+                    download="Zarak_Qaisar_CV.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-sm"
+                    title="Download Zarak's Europass CV"
+                  >
+                    <Download className="h-3.5 w-3.5 text-brand-line" aria-hidden="true" />
+                    <span>Download CV</span>
+                  </motion.a>
+
+                  {/* Option 2: AI Chatbot */}
+                  <motion.button
+                    type="button"
+                    onClick={() => setIsOpen(true)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-brand hover:bg-brand-dark px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-md shadow-brand/40"
+                    title="Chat with Aimmy AI"
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-white" aria-hidden="true" />
+                    <span>AI Chatbot</span>
+                  </motion.button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Main AiM Logo Button */}
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={() => setIsOpen(true)}
+              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/5 hover:bg-white/15 transition-colors shrink-0"
+              aria-label="Toggle Aimmy AI Assistant"
+            >
+              <AimmyLogo className="h-4 sm:h-5 w-auto object-contain transition-transform duration-300 group-hover:rotate-6" />
+            </motion.button>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -159,8 +228,8 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border/70 bg-secondary/30">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-accent/20 border border-accent/40 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-accent" />
+                  <div className="w-8 h-8 rounded-lg bg-black border border-white/20 flex items-center justify-center p-1">
+                    <AimmyLogo className="h-4 w-auto object-contain" />
                   </div>
                   <div>
                     <h3 className="font-display font-bold text-sm text-foreground flex items-center gap-1.5">

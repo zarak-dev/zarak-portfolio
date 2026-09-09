@@ -28,13 +28,13 @@ export const IDENTITY: PersonalIdentity = {
   name: 'Zarak Qaisar',
   role: 'Software Engineer',
   tagline: 'Building interfaces that feel as good as they function.',
-  bio: 'Software engineer focused on modern frontend architecture, state-heavy React applications, and AI-assisted interfaces. Currently engineering production Next.js and TypeScript systems at Smart Forum with an emphasis on performance, accessibility, and visual excellence.',
+  bio: 'Software engineer focused on modern frontend architecture, state-heavy React applications, and AI-assisted interfaces. Currently engineering production React and TypeScript systems at Smart Forum—including Dentally Assist and Appointlo (live at apointlo.com)—with an emphasis on performance, predictable state architectures, and visual excellence.',
   location: 'Pakistan',
   status: {
     availability: 'Available for AI Associated Frontend as well as Fullstack',
     focus: 'Frontend Architecture · UI Engineering · Interactive Systems',
-    currentBuilding: 'Dentally (AI-Powered Receptionist Platform)',
-    coreStack: ['Next.js', 'React.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS', 'shadcn/ui'],
+    currentBuilding: 'Dentally Assist & Appointlo (Smart Forum)',
+    coreStack: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design', 'Styled Components', 'Next.js'],
   },
   contacts: {
     email: 'zarak.dev@gmail.com',
@@ -47,22 +47,22 @@ export const IDENTITY: PersonalIdentity = {
     {
       label: 'Core Focus',
       value: 'Frontend Architecture',
-      detail: 'Next.js App Router, React 19, TypeScript',
+      detail: 'React 18, TypeScript, Redux-Saga & RTK',
     },
     {
       label: 'Current Production Role',
       value: 'Junior Software Engineer',
-      detail: 'Smart Forum (Building Dentally)',
+      detail: 'Smart Forum (Enterprise AI & SaaS)',
     },
     {
-      label: 'Academic Foundation',
-      value: 'BS Software Engineering',
-      detail: 'Sarhad University (2021 – 2025)',
+      label: 'Company Products',
+      value: 'Dentally Assist & Appointlo',
+      detail: 'AI Call Operations & SaaS Onboarding',
     },
     {
-      label: 'Selected Capstone',
-      value: 'Grade A+ (Team of 3)',
-      detail: 'FYP Connect Smart Sugar Management',
+      label: 'Live Platform',
+      value: 'apointlo.com',
+      detail: 'Production AI Appointment Scheduling',
     },
   ],
 };

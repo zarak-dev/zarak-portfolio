@@ -63,7 +63,7 @@ export default function Hero({ onOpenCommand }: { onOpenCommand: () => void }) {
                 className="h-12 px-7 rounded-full bg-accent text-accent-foreground font-mono text-sm font-semibold hover:bg-accent/90 transition-all flex items-center gap-2 shadow-md hover:shadow-accent/25"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>Dentally Project</span>
+                <span>Dentally Assist</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </MagneticButton>
@@ -102,16 +102,16 @@ export default function Hero({ onOpenCommand }: { onOpenCommand: () => void }) {
               <span className="text-foreground font-semibold">Jr. Software Eng.</span>
             </div>
             <div>
-              <span className="text-muted-foreground block text-[10px] uppercase">Lead Project</span>
-              <span className="text-foreground font-semibold">Dentally AI</span>
+              <span className="text-muted-foreground block text-[10px] uppercase">Company</span>
+              <span className="text-accent font-semibold">Smart Forum</span>
             </div>
             <div>
-              <span className="text-muted-foreground block text-[10px] uppercase">Capstone Grade</span>
-              <span className="text-accent font-semibold">Grade A+ (Team 3)</span>
+              <span className="text-muted-foreground block text-[10px] uppercase">Key Projects</span>
+              <span className="text-foreground font-semibold">Dentally &amp; Appointlo</span>
             </div>
             <div>
-              <span className="text-muted-foreground block text-[10px] uppercase">Degree</span>
-              <span className="text-foreground font-semibold">BS Software Eng.</span>
+              <span className="text-muted-foreground block text-[10px] uppercase">Core Stack</span>
+              <span className="text-foreground font-semibold">React 18 · Redux-Saga</span>
             </div>
           </motion.div>
         </div>

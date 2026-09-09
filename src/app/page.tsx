@@ -1,34 +1,48 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/navigation/Navigation';
-import Hero from '@/components/hero/Hero';
-import ProjectsSection from '@/components/projects/ProjectsSection';
-import ExperienceTimeline from '@/components/experience/ExperienceTimeline';
-import TechnologyMap from '@/components/skills/TechnologyMap';
-import EngineeringWorkflow from '@/components/workflow/EngineeringWorkflow';
-import GitHubSection from '@/components/github/GitHubSection';
-import EducationSection from '@/components/education/EducationSection';
-import RecommendationsSection from '@/components/recommendations/RecommendationsSection';
-import ContactSection from '@/components/contact/ContactSection';
-import Footer from '@/components/footer/Footer';
-import CommandPalette from '@/components/command/CommandPalette';
-import EasterEggModal from '@/components/easter-egg/EasterEggModal';
 import dynamic from 'next/dynamic';
 
-// Lazy load heavy interactive features
+import ScrollProgress from '@/components/clean/ScrollProgress';
+import Navigation from '@/components/clean/Navigation';
+import Hero from '@/components/clean/Hero';
+import About from '@/components/clean/About';
+import Experience from '@/components/clean/Experience';
+import Projects from '@/components/clean/Projects';
+import Skills from '@/components/clean/Skills';
+import Education from '@/components/clean/Education';
+import Recommendations from '@/components/clean/Recommendations';
+import Contact from '@/components/clean/Contact';
+import Footer from '@/components/clean/Footer';
+import FramerBackdrop from '@/components/clean/FramerBackdrop';
+import { CASE_STUDIES, type CaseStudy } from '@/data/projects';
+
+// Interactive AI, Architectural X-Ray, and Developer Experience widgets
 const AskZarak = dynamic(() => import('@/components/ai/AskZarak'), { ssr: false });
 const ProjectXRay = dynamic(() => import('@/components/xray/ProjectXRay'), { ssr: false });
+const CaseStudyModal = dynamic(() => import('@/components/projects/CaseStudyModal'), { ssr: false });
+const CommandPalette = dynamic(() => import('@/components/command/CommandPalette'), { ssr: false });
+const EasterEggModal = dynamic(() => import('@/components/easter-egg/EasterEggModal'), { ssr: false });
 
 export default function Home() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [easterEggOpen, setEasterEggOpen] = useState(false);
-  
-  // AI & X-Ray State
   const [xrayProject, setXrayProject] = useState<string | null>(null);
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
   const [aiContextMessage, setAiContextMessage] = useState<string | null>(null);
 
-  // Global CMD+K / Ctrl+K keyboard shortcut listener
+  const handleOpenAimmy = () => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('open-aimmyyy-ai'));
+    }
+  };
+
+  const handleOpenCaseStudy = (projectId: string) => {
+    const study = CASE_STUDIES.find((cs) => cs.id === projectId);
+    if (study) setSelectedCaseStudy(study);
+  };
+
+  // Keyboard shortcut: CMD+K / Ctrl+K for Command Palette
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -41,13 +55,12 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Tasteful Easter Egg listener: Typing "zarak" anywhere on page
+  // Developer Easter Egg: typing "zarak" triggers the developer terminal
   useEffect(() => {
     const sequence = ['z', 'a', 'r', 'a', 'k'];
     let currentIndex = 0;
 
     const handleKeyStroke = (e: KeyboardEvent) => {
-      // Ignore keystrokes inside input or textarea elements
       const target = e.target as HTMLElement;
       if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
         return;
@@ -69,51 +82,75 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen text-foreground selection:bg-accent selection:text-accent-foreground font-sans">
-      {/* OS Navigation Header */}
-      <Navigation onOpenCommand={() => setCommandOpen(true)} />
+    <div className="relative min-h-screen bg-surface text-ink font-sans antialiased selection:bg-brand selection:text-white">
+      {/* Unique, Whisper-Quiet Framer Motion Background */}
+      <FramerBackdrop />
 
-      {/* Main Developer Experience Sequence */}
-      <main className="relative z-10">
-        <Hero onOpenCommand={() => setCommandOpen(true)} />
-        <ProjectsSection onOpenXRay={setXrayProject} />
-        <ExperienceTimeline />
-        <TechnologyMap />
-        <EngineeringWorkflow />
-        <GitHubSection />
-        <EducationSection />
-        <RecommendationsSection />
-        <ContactSection />
+      {/* Top Scroll Indicator */}
+      <ScrollProgress />
+
+      {/* Clean Navigation Bar */}
+      <Navigation
+        onOpenAimmy={handleOpenAimmy}
+        onOpenCommand={() => setCommandOpen(true)}
+      />
+
+      {/* Main Sections */}
+      <main id="main-content" className="relative z-10">
+        <Hero />
+        <About />
+        <Experience />
+        <Projects
+          onOpenXRay={setXrayProject}
+          onOpenCaseStudy={handleOpenCaseStudy}
+        />
+        <Skills />
+        <Education />
+        <Recommendations />
+        <Contact />
       </main>
 
-      {/* Global Footer */}
+      {/* Footer */}
       <Footer />
 
-      {/* Signature Command Palette (CMD/Ctrl + K) */}
+      {/* Aimmyyy AI Assistant */}
+      <AskZarak
+        onOpenXRay={setXrayProject}
+        initialContextMessage={aiContextMessage}
+        onClearContextMessage={() => setAiContextMessage(null)}
+      />
+
+      {/* Interactive Project Architecture X-Ray */}
+      <ProjectXRay
+        projectId={xrayProject}
+        onClose={() => setXrayProject(null)}
+        onAskAI={(msg) => {
+          setAiContextMessage(msg);
+          handleOpenAimmy();
+        }}
+      />
+
+      {/* Project Case Study Deep-Dive Modal */}
+      <CaseStudyModal
+        study={selectedCaseStudy}
+        onClose={() => setSelectedCaseStudy(null)}
+        onOpenXRay={(id) => {
+          setSelectedCaseStudy(null);
+          setXrayProject(id);
+        }}
+      />
+
+      {/* Command Palette (CMD/Ctrl + K) */}
       <CommandPalette
         open={commandOpen}
         onOpenChange={setCommandOpen}
         onTriggerEasterEgg={() => setEasterEggOpen(true)}
       />
 
-      {/* Tasteful Developer Terminal Easter Egg */}
+      {/* Developer Terminal Easter Egg */}
       <EasterEggModal
         open={easterEggOpen}
         onClose={() => setEasterEggOpen(false)}
-      />
-
-      {/* AI Agent Experience */}
-      <AskZarak 
-        onOpenXRay={setXrayProject}
-        initialContextMessage={aiContextMessage}
-        onClearContextMessage={() => setAiContextMessage(null)}
-      />
-
-      {/* Interactive Project X-Ray */}
-      <ProjectXRay
-        projectId={xrayProject}
-        onClose={() => setXrayProject(null)}
-        onAskAI={setAiContextMessage}
       />
     </div>
   );

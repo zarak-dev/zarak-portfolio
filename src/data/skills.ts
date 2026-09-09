@@ -41,9 +41,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Component lifecycles, custom hooks, virtual DOM reconciliation, and accessible interface design.',
     usedIn: [
       {
-        project: 'Dentally',
-        role: 'Professional Engineer',
-        application: 'Engineered reactive audio visualizers and real-time transcript streaming interfaces.',
+        project: 'Dentally Assist & Appointlo',
+        role: 'Frontend Engineer · Smart Forum',
+        application: 'Engineered multi-container production apps, inline audio recording players, and decoupled data-driven landing pages.',
       },
       {
         project: 'Exynos Cooky',
@@ -64,9 +64,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Strict typing, generic abstractions, discriminated unions, and safe API boundary contracts.',
     usedIn: [
       {
-        project: 'Dentally',
-        role: 'Professional Lead',
-        application: 'Modeled asynchronous telephony events, operator state schemas, and calendar payload contracts.',
+        project: 'Dentally Assist & Appointlo',
+        role: 'Frontend Engineer · Smart Forum',
+        application: 'Modeled asynchronous saga effects, typed slice states, JWT auth payloads, and marketing data schemas.',
       },
       {
         project: 'Exynos Cooky',
@@ -81,15 +81,15 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     ],
   },
   {
-    name: 'Redux Toolkit',
+    name: 'Redux Toolkit & Redux-Saga',
     category: 'Architecture & State',
-    importance: 'Professional Stack',
-    summary: 'Predictable state management, slice architecture, and asynchronous action handling.',
+    importance: 'Primary Specialization',
+    summary: 'Predictable state management, slice architecture, and asynchronous saga side-effect coordination.',
     usedIn: [
       {
-        project: 'Dentally',
-        role: 'Production Telephony Platform',
-        application: 'Managed complex multi-call queues, live operator status, and real-time audio playback buffers.',
+        project: 'Dentally Assist & Appointlo',
+        role: 'Production Platforms · Smart Forum',
+        application: 'Handled async side-effects via takeEvery (parallel calls) and takeLatest (analytics debounce) with redux-injectors.',
       },
       {
         project: 'Exynos Cooky',
@@ -105,7 +105,7 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Utility-first styling, design token systems, responsive breakpoints, and dark mode theming.',
     usedIn: [
       {
-        project: 'Dentally',
+        project: 'Dentally Assist',
         role: 'UI System',
         application: 'Crafted high-density clinic interfaces with custom theme variables and accessible contrast ratios.',
       },
@@ -128,11 +128,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Accessible, unstyled Radix UI primitives composed into tailored, maintainable component libraries.',
     usedIn: [
       {
-        project: 'Dentally',
-        role: 'Production Application',
-        application: 'Integrated accessible dialogs, tooltips, calendar pickers, and popovers for clinic operators.',
-      },
-      {
         project: 'Personal Developer OS',
         role: 'Component System',
         application: 'Built command palette, drawer dialogs, and interactive badges.',
@@ -142,9 +137,14 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
   {
     name: 'Ant Design',
     category: 'Styling & UI Systems',
-    importance: 'Professional Stack',
+    importance: 'Primary Specialization',
     summary: 'Enterprise component framework for rapid dashboard design, data tables, and form validations.',
     usedIn: [
+      {
+        project: 'Dentally Assist & Appointlo',
+        role: 'Enterprise Design System · Smart Forum',
+        application: 'Implemented operational call log tables, appointment modals, and admin dashboard panels.',
+      },
       {
         project: 'Exynos Cooky',
         role: 'Dashboard Development',
@@ -158,6 +158,11 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     importance: 'Professional Stack',
     summary: 'Scoped CSS-in-JS component architecture and dynamic style prop binding.',
     usedIn: [
+      {
+        project: 'Dentally Assist & Appointlo',
+        role: 'Scoped Component Styling · Smart Forum',
+        application: 'Scoped container styling, themeable Ant Design overrides, and custom inline audio playback components.',
+      },
       {
         project: 'Exynos Cooky',
         role: 'UI Customization',

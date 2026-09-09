@@ -45,8 +45,9 @@ export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {
           </p>
         </motion.div>
 
-        {/* 1. Star Flagship Project: DENTALLY */}
+        {/* 1. Star Flagship Project: DENTALLY ASSIST */}
         <motion.div
+          id="dentally"
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
@@ -65,17 +66,17 @@ export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 text-white/70">Registration Dashboard / Dentally</span>
+                  <span className="ml-2 text-white/70">Registration Dashboard / Dentally Assist</span>
                 </div>
-                <span className="text-[10px] text-emerald-400 font-bold">
-                  PRODUCTION AI TELEPHONY
+                <span className="text-[10px] text-accent font-bold">
+                  SMART FORUM · PRODUCTION AI
                 </span>
               </div>
 
               <div className="relative aspect-[16/9] md:aspect-[2.03/1] w-full overflow-hidden bg-slate-950 flex items-center justify-center p-1.5 sm:p-2.5">
                 <Image
                   src={dentally.image}
-                  alt="Dentally Dashboard"
+                  alt="Dentally Assist Dashboard"
                   fill
                   className="object-contain object-top group-hover:scale-[1.01] transition-transform duration-500 rounded-lg"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -83,7 +84,7 @@ export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {
               </div>
 
               <div className="p-3 bg-slate-900/95 border-t border-white/10 font-mono text-[11px] text-white/60 flex items-center justify-between">
-                <span>Recent Calls Telemetry · 333 Total Calls · 85 Successful</span>
+                <span>Recent Calls Telemetry · Audio Playback · PDF Blob Export</span>
                 <span className="text-accent group-hover:underline flex items-center gap-1 font-semibold">
                   Inspect Architecture <ArrowRight className="w-3 h-3" />
                 </span>
@@ -96,38 +97,38 @@ export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {
                 <div className="flex items-center gap-2 mb-2">
                   <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/40 flex items-center gap-1.5">
                     <Sparkles className="w-3 h-3" />
-                    FLAGSHIP PRODUCTION PROJECT
+                    FLAGSHIP PRODUCTION PROJECT · SMART FORUM
                   </span>
                 </div>
 
                 <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-foreground">
-                  Dentally
+                  Dentally Assist
                 </h3>
                 <p className="font-mono text-xs text-accent font-semibold mt-1">
-                  AI-Powered Receptionist Platform for Automated Calls &amp; Booking
+                  AI Call Management Dashboard for Dental Clinics
                 </p>
                 <p className="font-sans text-xs sm:text-sm text-muted-foreground mt-3 leading-relaxed">
-                  Engineered the frontend architecture at <strong className="text-foreground">Smart Forum</strong> using Next.js, TypeScript, and Redux Toolkit. Handles real-time operator call queues, automated dental patient bookings, and responsive UI components connected via RESTful APIs.
+                  Engineered the production frontend at <strong className="text-foreground">Smart Forum</strong> using React 18, TypeScript, and Redux-Saga. Empowers dental practice managers with real-time call logs, inline audio recording playback, dual-mode analytics charts, and role-based access control (RBAC) decoded directly from JWT session cookies.
                 </p>
               </div>
 
               {/* Metrics Grid */}
               <div className="grid grid-cols-2 gap-2.5 text-xs font-mono">
                 <div className="p-3 rounded-xl bg-secondary/40 border border-border">
-                  <span className="text-muted-foreground block text-[10px] uppercase">Current Role</span>
-                  <span className="font-bold text-foreground">Jr. Software Engineer</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase">Company</span>
+                  <span className="font-bold text-foreground">Smart Forum</span>
                 </div>
                 <div className="p-3 rounded-xl bg-secondary/40 border border-border">
-                  <span className="text-muted-foreground block text-[10px] uppercase">Stack</span>
-                  <span className="font-bold text-foreground">Next.js · TypeScript</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase">State Layer</span>
+                  <span className="font-bold text-foreground">Redux-Saga + RTK</span>
                 </div>
                 <div className="p-3 rounded-xl bg-secondary/40 border border-border">
-                  <span className="text-muted-foreground block text-[10px] uppercase">State Management</span>
-                  <span className="font-bold text-foreground">Redux Toolkit (RTK)</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase">UI Toolkit</span>
+                  <span className="font-bold text-foreground">Ant Design 6 + Styled</span>
                 </div>
                 <div className="p-3 rounded-xl bg-secondary/40 border border-border">
-                  <span className="text-muted-foreground block text-[10px] uppercase">Design System</span>
-                  <span className="font-bold text-foreground">shadcn/ui + Tailwind</span>
+                  <span className="text-muted-foreground block text-[10px] uppercase">Access Control</span>
+                  <span className="font-bold text-foreground">JWT Cookie + RBAC</span>
                 </div>
               </div>
 
@@ -154,8 +155,8 @@ export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {
           </div>
         </motion.div>
 
-        {/* 2. Secondary Projects: Exynos Cooky, MoneyFlow, FYP Connect */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* 2. Secondary Projects: Appointlo, Exynos Cooky, MoneyFlow, FYP Connect */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {otherProjects.map((project, idx) => (
             <motion.div
               key={project.id}
@@ -200,7 +201,7 @@ export default function ProjectsSection({ onOpenXRay }: ProjectsSectionProps = {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-contain object-center rounded transition-transform duration-500 group-hover/img:scale-[1.02]"
+                      className="object-contain object-top rounded transition-transform duration-500 group-hover/img:scale-[1.02]"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>

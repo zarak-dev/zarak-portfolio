@@ -29,24 +29,62 @@ export const PROJECT_XRAYS: ProjectXRay[] = [
   {
     projectId: 'dentally',
     layers: [
-      { id: 'user', label: 'USER', tech: 'Client Browser', description: 'Operator interacts with dashboard', color: 'bg-white' },
-      { id: 'app', label: 'NEXT.JS APPLICATION', tech: 'App Router', description: 'Handles routing and streaming SSR', color: 'bg-zinc-400' },
-      { id: 'ui', label: 'REACT UI', tech: 'shadcn/ui + Tailwind', description: 'Accessible, responsive clinical dashboard components', color: 'bg-sky-400' },
-      { id: 'state', label: 'REDUX TOOLKIT', tech: 'Global State', description: 'Coordinates active calls, transcripts, and schedule', color: 'bg-purple-500' },
-      { id: 'api', label: 'REST API', tech: 'Asynchronous Endpoints', description: 'Handles booking requests and telephony events', color: 'bg-emerald-400' },
-      { id: 'backend', label: 'BACKEND SERVICES', tech: 'Telephony & DB', description: 'Processes live audio streams and schedules', color: 'bg-orange-500' },
+      { id: 'user', label: 'OPERATOR / CLINIC STAFF', tech: 'Browser Client', description: 'Practice staff review calls & appointments', color: 'bg-white' },
+      { id: 'app', label: 'REACT 18 SPA', tech: 'React + TypeScript', description: 'Containerized architecture with 11 modular slices', color: 'bg-zinc-400' },
+      { id: 'ui', label: 'ANT DESIGN + STYLED', tech: 'AntD 6 + Scoped CSS', description: 'KPI cards, call tables & inline AudioPlayer', color: 'bg-sky-400' },
+      { id: 'state', label: 'REDUX TOOLKIT + SAGA', tech: 'Redux-Saga Effects', description: 'takeEvery for calls & takeLatest for analytics', color: 'bg-purple-500' },
+      { id: 'auth', label: 'JWT COOKIE SESSION', tech: 'SameSite=Lax + RBAC', description: 'Decodes role at restore; RequireAdmin guard', color: 'bg-amber-400' },
+      { id: 'api', label: 'REST API + AUDIO BLOB', tech: 'Bearer Auth Wrapper', description: 'Dispatches calls, recordings & PDF exports (404 empty state)', color: 'bg-emerald-400' },
     ],
     experiments: [
       {
         id: 'dentally-state',
         type: 'state',
-        title: 'Call Flow State Machine',
-        description: 'How Redux manages a live incoming call.',
+        title: 'Redux-Saga Async Telemetry Pipeline',
+        description: 'How Redux-Saga coordinates call records and audio playback.',
         steps: [
-          { label: 'Initial State', detail: '{ callActive: false, transcript: [] }' },
-          { label: 'Websocket Event', detail: '"INCOMING_CALL"' },
-          { label: 'State Update', detail: 'callActive = true' },
-          { label: 'UI Update', detail: 'Operator screen flashes with takeover prompt' }
+          { label: 'UI Action', detail: 'Operator opens call log; dispatches loadCalls()' },
+          { label: 'Saga Worker', detail: 'takeEvery intercepts action, invokes request() with Bearer JWT' },
+          { label: 'API Response', detail: 'API returns call logs with audio recording URLs (404 handled as empty data)' },
+          { label: 'Redux Store', detail: 'put(loadCallsSuccess(calls)) updates slice state' },
+          { label: 'Inline Audio', detail: 'Ant Design table mounts <AudioPlayer> with zero latency' }
+        ]
+      },
+      {
+        id: 'dentally-analytics',
+        type: 'api',
+        title: 'Dual-Mode Analytics Pipeline',
+        description: 'Debounced date-filtered analytics data shaping.',
+        steps: [
+          { label: 'Filter Change', detail: 'User toggles Calls vs Appointments or changes date range' },
+          { label: 'Debounce Saga', detail: 'takeLatest cancels previous pending request to prevent race conditions' },
+          { label: 'Data Shaping', detail: 'mapResponse() normalizes data into Recharts gradient area model' },
+          { label: 'Chart Render', detail: 'Visualizes success rates and scheduled appointment outcomes' }
+        ]
+      }
+    ]
+  },
+  {
+    projectId: 'appointlo',
+    layers: [
+      { id: 'user', label: 'PROSPECT / CLIENT', tech: 'apointlo.com', description: 'Visits marketing landing page or logs into portal', color: 'bg-white' },
+      { id: 'app', label: 'REACT 18 + TS', tech: 'Create React App', description: 'Componentized SPA with static data separation', color: 'bg-zinc-400' },
+      { id: 'data', label: 'TYPED DATA LAYER', tech: 'data.ts Architecture', description: 'Zero hardcoded JSX; centralized benefits & pricing', color: 'bg-indigo-400' },
+      { id: 'state', label: 'REDUX TOOLKIT + SAGA', tech: 'Async Slices', description: 'Coordinates portal stats, auth & OTP verification', color: 'bg-purple-500' },
+      { id: 'auth', label: 'COOKIE JWT + GOOGLE', tech: 'OAuth 2.0 Flow', description: '7-day session cookie, WelcomeBar personalization', color: 'bg-amber-400' },
+      { id: 'export', label: 'PDF EXPORT ENGINE', tech: 'Blob + URL.createObjectURL', description: 'Downloads client appointment reports seamlessly', color: 'bg-emerald-400' },
+    ],
+    experiments: [
+      {
+        id: 'appointlo-data',
+        type: 'state',
+        title: 'Static Data Separation Architecture',
+        description: 'Decoupling marketing copy & pricing from component logic.',
+        steps: [
+          { label: 'Type Schema', detail: 'Defines Benefit, JourneyStage, and PricingTier interfaces' },
+          { label: 'data.ts Registry', detail: 'Centralizes 10+ sections of copy, icons, and pricing models' },
+          { label: 'Pure UI Render', detail: 'Components map typed data; zero hard-coded strings in JSX' },
+          { label: 'Pricing Builder', detail: 'Interactive tier calculator computes dynamic rates instantly' }
         ]
       }
     ]

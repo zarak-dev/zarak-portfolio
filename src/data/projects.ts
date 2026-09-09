@@ -24,31 +24,59 @@ export interface CaseStudy {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'dentally',
-    title: 'Dentally',
-    subtitle: 'AI-Powered Receptionist Platform for Automated Calls & Booking',
+    title: 'Dentally Assist',
+    subtitle: 'AI Call Management Dashboard for Dental Clinics',
     category: 'AI Telephony & Clinical Operations',
     role: 'Frontend Software Engineer · Smart Forum',
     period: 'June 2026 – Present',
     featured: true,
     isHero: true,
     image: '/images/dentally-real.png',
-    technologies: ['Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS', 'shadcn/ui', 'REST APIs'],
+    technologies: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
     metrics: [
-      { label: 'Role', value: 'Frontend Lead' },
-      { label: 'Architecture', value: 'Next.js App Router' },
-      { label: 'State Model', value: 'Redux Toolkit' },
-      { label: 'UI System', value: 'shadcn/ui + Tailwind' },
+      { label: 'Company', value: 'Smart Forum' },
+      { label: 'State Layer', value: 'Redux-Saga + RTK' },
+      { label: 'Access Control', value: 'JWT Cookie + RBAC' },
+      { label: 'Architecture', value: '11 Modular Slices' },
     ],
     problem:
-      'Dental practices regularly miss urgent patient inquiries and high-value appointment bookings during peak patient check-in periods and outside clinic operating hours when human staff are unavailable.',
+      'Dental practices regularly miss urgent patient inquiries and high-value appointment bookings during peak clinic check-in periods and outside office operating hours when human staff are unavailable.',
     approach:
-      'Engineered an intelligent, operator-facing receptionist command interface that manages active AI telephony agents, displays live audio waveform telemetries, visualizes instant speech-to-text transcripts with sentiment indicators, and automates real-time patient calendar bookings.',
+      'Engineered an enterprise-grade operator dashboard at Smart Forum providing dental practice managers complete visibility into their AI phone assistant. Clinic staff can review AI-handled call logs with inline audio playback, track appointment outcomes, inspect dual-mode analytics, export PDF reports, and manage clinic settings, with dedicated role-gated admin controls.',
     frontendArchitecture:
-      'Leveraged Next.js App Router for optimal layout caching and streaming. Designed a centralized Redux Toolkit state machine to handle complex asynchronous call lifecycles (ringing, connected, live transcription streaming, calendar reconciliation, and wrap-up). Maintained strict TypeScript contracts across all REST payload schemas.',
+      'Built on React 18 and strict TypeScript. State side-effects are coordinated via Redux-Saga (takeEvery for parallel call list/detail queries; takeLatest for analytics debouncing), with reducers lazily injected using redux-injectors. Cookie-based JWT auth (SameSite=Lax) decodes user roles directly on session restore to power <RequireAuth> and <RequireAdmin> route guards without extra network hops. API 404s are treated gracefully as empty states.',
     interfaceDetails:
-      'Created a high-density, low-cognitive-load dashboard featuring live active call cards with one-click operator takeover, dynamic audio waveform visualizer, timestamped conversation transcript drawer, and an integrated clinic calendar view showing appointment conflicts.',
+      'Features 11 modular containers: KPI summary cards (total calls, success rate, follow-up flags), paginated call logs with custom inline <AudioPlayer> recording playback, dual-mode area chart analytics (calls vs appointment funnels with UK locale formatting), one-click PDF blob export (/dashboard/export/pdf), and user profile management with cookie synchronization.',
     impact:
-      'Provides dental clinic operators with reliable visibility into concurrent automated phone interactions, reducing manual booking friction and eliminating dropped patient inquiries.',
+      'Successfully deployed across client dental practices at Smart Forum, transforming unattended patient calls into structured, actionable appointment records and eliminating dropped patient inquiries.',
+  },
+  {
+    id: 'appointlo',
+    title: 'Appointlo',
+    subtitle: 'SaaS Landing + Client Onboarding Portal for AI Appointment Scheduling',
+    category: 'SaaS Platform & Client Portal',
+    role: 'Frontend Software Engineer · Smart Forum',
+    period: 'Production Deployment',
+    featured: true,
+    image: '/images/apointlo-real.png',
+    liveUrl: 'https://apointlo.com/',
+    technologies: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
+    metrics: [
+      { label: 'Live Platform', value: 'apointlo.com' },
+      { label: 'Company', value: 'Smart Forum' },
+      { label: 'Architecture', value: 'Redux-Saga + CRA' },
+      { label: 'Landing UI', value: '10+ Data-Driven Sections' },
+    ],
+    problem:
+      'Service businesses lose substantial booking revenue and customer retention due to manual scheduling friction, unattended phone calls, and the absence of automated re-engagement workflows.',
+    approach:
+      'Developed at Smart Forum as the public-facing product for an AI appointment-scheduling SaaS. Built the complete client experience spanning a conversion-focused marketing landing page, interactive pricing builder, and an authenticated onboarding portal for active business clients.',
+    frontendArchitecture:
+      'Engineered using React 18, TypeScript, Redux-Saga, and Styled Components on the same reliable core architecture as Dentally Assist. Implemented strict static data separation in a typed data.ts file (zero hardcoded strings in JSX), enabling marketing copy, journey stages, and pricing tiers to be updated instantly without touching UI logic.',
+    interfaceDetails:
+      'Includes a 10+ section landing page (Hero proposition, Value Grid, 7-stage Journey Flow automation map, dynamic Pricing Builder, and Talk to Sales CTA), paired with an authenticated client portal featuring a WelcomeBar, StatsRow, RecentCalls telemetry, assistant selector, OTP verification, and blob PDF report export via ngrok-aware headers.',
+    impact:
+      'Live in production at apointlo.com, providing service businesses with an automated, end-to-end appointment scheduling and client retention system.',
   },
   {
     id: 'exynos-cooky',

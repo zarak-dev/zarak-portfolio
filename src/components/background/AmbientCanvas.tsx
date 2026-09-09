@@ -149,10 +149,10 @@ export default function AmbientCanvas() {
             const depthFactor = (a.z + b.z) * 0.5;
             const distRatio = 1 - dist / maxDistance;
 
-            // Prominent, classic alpha for both light and dark modes
+            // Subtle, elegant alpha for ambient network
             const alpha = isDark
-              ? distRatio * 0.28 * depthFactor
-              : distRatio * 0.32 * depthFactor;
+              ? distRatio * 0.14 * depthFactor
+              : distRatio * 0.16 * depthFactor;
 
             ctx.beginPath();
             if (isDark) {
@@ -161,7 +161,7 @@ export default function AmbientCanvas() {
               // Classic rich slate-blue line in light mode
               ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
             }
-            ctx.lineWidth = depthFactor * (isDark ? 1.15 : 1.25);
+            ctx.lineWidth = depthFactor * (isDark ? 0.95 : 1.05);
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
@@ -176,12 +176,12 @@ export default function AmbientCanvas() {
           const mDist = Math.hypot(mdx, mdy);
           if (mDist < 190) {
             const mRatio = 1 - mDist / 190;
-            const mAlpha = isDark ? mRatio * 0.45 : mRatio * 0.5;
+            const mAlpha = isDark ? mRatio * 0.25 : mRatio * 0.28;
             ctx.beginPath();
             ctx.strokeStyle = isDark
               ? `rgba(129, 140, 248, ${mAlpha})`
               : `rgba(37, 99, 235, ${mAlpha})`;
-            ctx.lineWidth = mRatio * 1.5;
+            ctx.lineWidth = mRatio * 1.2;
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(mouse.x, mouse.y);
             ctx.stroke();
@@ -192,13 +192,13 @@ export default function AmbientCanvas() {
       // Draw subtle interactive cursor focal ring
       if (mouse.x > -1000) {
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 4.5, 0, Math.PI * 2);
-        ctx.fillStyle = isDark ? 'rgba(129, 140, 248, 0.85)' : 'rgba(37, 99, 235, 0.85)';
+        ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = isDark ? 'rgba(129, 140, 248, 0.6)' : 'rgba(37, 99, 235, 0.6)';
         ctx.fill();
 
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 14, 0, Math.PI * 2);
-        ctx.strokeStyle = isDark ? 'rgba(129, 140, 248, 0.3)' : 'rgba(37, 99, 235, 0.35)';
+        ctx.arc(mouse.x, mouse.y, 12, 0, Math.PI * 2);
+        ctx.strokeStyle = isDark ? 'rgba(129, 140, 248, 0.2)' : 'rgba(37, 99, 235, 0.25)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -234,10 +234,10 @@ export default function AmbientCanvas() {
 
         const px = a.x + (b.x - a.x) * pulse.progress;
         const py = a.y + (b.y - a.y) * pulse.progress;
-        const pulseAlpha = Math.sin(pulse.progress * Math.PI) * (isDark ? 0.95 : 0.85);
+        const pulseAlpha = Math.sin(pulse.progress * Math.PI) * (isDark ? 0.55 : 0.45);
 
         ctx.beginPath();
-        const pulseRadius = 2.5 * ((a.z + b.z) * 0.5);
+        const pulseRadius = 2.2 * ((a.z + b.z) * 0.5);
         ctx.arc(px, py, pulseRadius, 0, Math.PI * 2);
 
         if (isDark) {
@@ -245,13 +245,13 @@ export default function AmbientCanvas() {
             ? `rgba(94, 234, 212, ${pulseAlpha})`
             : `rgba(129, 140, 248, ${pulseAlpha})`;
           ctx.shadowColor = pulse.isCyan ? '#5eead4' : '#818cf8';
-          ctx.shadowBlur = 10;
+          ctx.shadowBlur = 6;
         } else {
           ctx.fillStyle = pulse.isCyan
             ? `rgba(37, 99, 235, ${pulseAlpha})`
             : `rgba(79, 70, 229, ${pulseAlpha})`;
           ctx.shadowColor = pulse.isCyan ? '#2563eb' : '#4f46e5';
-          ctx.shadowBlur = 6;
+          ctx.shadowBlur = 4;
         }
         ctx.fill();
         ctx.shadowBlur = 0;
@@ -263,13 +263,13 @@ export default function AmbientCanvas() {
         const pulseScale = 0.85 + Math.sin(n.phase * 2) * 0.2;
         const currentRadius = n.radius * pulseScale;
 
-        // Outer ambient glow ring
+        // Outer ambient glow ring (gentle and low-prominence)
         ctx.beginPath();
-        ctx.arc(n.x, n.y, currentRadius * 1.8, 0, Math.PI * 2);
+        ctx.arc(n.x, n.y, currentRadius * 1.6, 0, Math.PI * 2);
         if (isDark) {
-          ctx.fillStyle = `rgba(129, 140, 248, ${0.12 * n.z})`;
+          ctx.fillStyle = `rgba(129, 140, 248, ${0.05 * n.z})`;
         } else {
-          ctx.fillStyle = `rgba(37, 99, 235, ${0.12 * n.z})`;
+          ctx.fillStyle = `rgba(37, 99, 235, ${0.05 * n.z})`;
         }
         ctx.fill();
 
@@ -277,13 +277,13 @@ export default function AmbientCanvas() {
         ctx.beginPath();
         ctx.arc(n.x, n.y, currentRadius, 0, Math.PI * 2);
         if (isDark) {
-          const coreAlpha = Math.min(0.7 + n.z * 0.3, 0.98);
+          const coreAlpha = Math.min(0.28 + n.z * 0.22, 0.5);
           ctx.fillStyle = i % 3 === 0
             ? `rgba(94, 234, 212, ${coreAlpha})`
             : `rgba(129, 140, 248, ${coreAlpha})`;
         } else {
           // Classic royal blue/indigo distinct nodes in light mode
-          const coreAlpha = Math.min(0.72 + n.z * 0.28, 0.95);
+          const coreAlpha = Math.min(0.32 + n.z * 0.2, 0.52);
           ctx.fillStyle = i % 3 === 0
             ? `rgba(37, 99, 235, ${coreAlpha})`
             : `rgba(79, 70, 229, ${coreAlpha})`;
@@ -307,7 +307,7 @@ export default function AmbientCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-100 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-0 opacity-80 transition-opacity duration-500"
       aria-hidden="true"
     />
   );
