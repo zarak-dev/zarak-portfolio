@@ -8,7 +8,10 @@ export async function POST() {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey || apiKey.trim() === '') {
       return NextResponse.json(
-        { error: 'GEMINI_API_KEY is not configured on the server. Please add your key to .env.local to enable real-time voice with Aimmyy.' },
+        {
+          error:
+            'GEMINI_API_KEY is not configured on the server. On Vercel, add GEMINI_API_KEY in Project Settings → Environment Variables and redeploy. Locally, add it to your .env.local file.',
+        },
         { status: 500 }
       );
     }

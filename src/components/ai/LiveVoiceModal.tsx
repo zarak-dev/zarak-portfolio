@@ -560,12 +560,24 @@ export default function LiveVoiceModal({
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="relative z-10 mb-4 flex w-full items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-left text-xs text-rose-300">
-              <AlertCircle className="h-4 w-4 shrink-0 text-rose-400" />
-              <div>
-                <p className="font-semibold">Voice connection error</p>
-                <p className="mt-0.5 opacity-90">{errorMessage}</p>
+            <div className="relative z-10 mb-4 flex w-full flex-col gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-left text-xs text-rose-300">
+              <div className="flex items-start gap-2.5">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
+                <div className="flex-1">
+                  <p className="font-semibold">Voice connection error</p>
+                  <p className="mt-0.5 opacity-90">{errorMessage}</p>
+                </div>
               </div>
+              <button
+                type="button"
+                onClick={() => {
+                  handleEndCall();
+                  onSwitchToChat();
+                }}
+                className="self-end rounded-lg border border-rose-400/30 bg-rose-500/20 px-2.5 py-1 text-[11px] font-medium text-rose-200 transition-colors hover:bg-rose-500/30"
+              >
+                Switch to Text Chat →
+              </button>
             </div>
           )}
 
