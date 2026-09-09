@@ -29,7 +29,7 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
     {
       role: 'model',
       content:
-        "Hi! I'm Aimmyyy AI, Zarak's AI engineering assistant! ✨ I can answer questions about his career, frontend architectures, projects, and technical skills. What would you like to know?",
+        "Hi! I'm Aimmyyy AI, Zarak's assistant! ✨ I can answer questions about his career, frontend architectures, projects, and technical skills. What would you like to know?",
     },
   ]);
   const [input, setInput] = useState('');
@@ -103,9 +103,9 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
           ];
         });
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message || 'Aimmyyy AI is temporarily unavailable.');
+      setError(err instanceof Error ? err.message : 'Aimmyyy AI is temporarily unavailable.');
     } finally {
       setIsLoading(false);
     }

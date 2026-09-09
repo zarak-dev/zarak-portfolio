@@ -2,8 +2,6 @@ export interface TechnologyEvidence {
   name: string;
   category: 'Core Frontend' | 'Architecture & State' | 'Styling & UI Systems' | 'Integration & Cloud' | 'Engineering Tools';
   importance: 'Primary Specialization' | 'Professional Stack' | 'Academic / Extended';
-  iconKey: string;
-  color: string;
   summary: string;
   usedIn: {
     project: string;
@@ -17,8 +15,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Next.js',
     category: 'Core Frontend',
     importance: 'Primary Specialization',
-    iconKey: 'nextjs',
-    color: '#ffffff',
     summary: 'App Router, Server/Client components, dynamic metadata, and performance optimization.',
     usedIn: [
       {
@@ -42,8 +38,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'React.js',
     category: 'Core Frontend',
     importance: 'Primary Specialization',
-    iconKey: 'react',
-    color: '#61DAFB',
     summary: 'Component lifecycles, custom hooks, virtual DOM reconciliation, and accessible interface design.',
     usedIn: [
       {
@@ -67,8 +61,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'TypeScript',
     category: 'Core Frontend',
     importance: 'Primary Specialization',
-    iconKey: 'typescript',
-    color: '#3178C6',
     summary: 'Strict typing, generic abstractions, discriminated unions, and safe API boundary contracts.',
     usedIn: [
       {
@@ -92,8 +84,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Redux Toolkit',
     category: 'Architecture & State',
     importance: 'Professional Stack',
-    iconKey: 'redux',
-    color: '#764ABC',
     summary: 'Predictable state management, slice architecture, and asynchronous action handling.',
     usedIn: [
       {
@@ -112,8 +102,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Tailwind CSS',
     category: 'Styling & UI Systems',
     importance: 'Primary Specialization',
-    iconKey: 'tailwind',
-    color: '#38BDF8',
     summary: 'Utility-first styling, design token systems, responsive breakpoints, and dark mode theming.',
     usedIn: [
       {
@@ -137,8 +125,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'shadcn/ui',
     category: 'Styling & UI Systems',
     importance: 'Professional Stack',
-    iconKey: 'shadcn',
-    color: '#ffffff',
     summary: 'Accessible, unstyled Radix UI primitives composed into tailored, maintainable component libraries.',
     usedIn: [
       {
@@ -157,8 +143,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Ant Design',
     category: 'Styling & UI Systems',
     importance: 'Professional Stack',
-    iconKey: 'antdesign',
-    color: '#0170FE',
     summary: 'Enterprise component framework for rapid dashboard design, data tables, and form validations.',
     usedIn: [
       {
@@ -172,8 +156,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Styled Components',
     category: 'Styling & UI Systems',
     importance: 'Professional Stack',
-    iconKey: 'styledcomponents',
-    color: '#DB7093',
     summary: 'Scoped CSS-in-JS component architecture and dynamic style prop binding.',
     usedIn: [
       {
@@ -187,8 +169,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'REST APIs',
     category: 'Integration & Cloud',
     importance: 'Primary Specialization',
-    iconKey: 'restapi',
-    color: '#10B981',
     summary: 'Asynchronous HTTP communications, payload validation, caching, and error resilience.',
     usedIn: [
       {
@@ -212,8 +192,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Google Gemini API',
     category: 'Integration & Cloud',
     importance: 'Professional Stack',
-    iconKey: 'gemini',
-    color: '#8E75FF',
     summary: 'Multimodal generative AI prompting, structured JSON schema outputs, and domain reasoning.',
     usedIn: [
       {
@@ -227,8 +205,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Supabase',
     category: 'Integration & Cloud',
     importance: 'Professional Stack',
-    iconKey: 'supabase',
-    color: '#3ECF8E',
     summary: 'PostgreSQL database, Row-Level Security, authentication, and real-time subscription channels.',
     usedIn: [
       {
@@ -242,8 +218,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Git & GitHub',
     category: 'Engineering Tools',
     importance: 'Primary Specialization',
-    iconKey: 'git',
-    color: '#F05032',
     summary: 'Branching strategies, semantic commits, code reviews, and automated CI/CD deployment pipelines.',
     usedIn: [
       {
@@ -257,8 +231,6 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     name: 'Node.js & Extended Stack',
     category: 'Integration & Cloud',
     importance: 'Academic / Extended',
-    iconKey: 'nodejs',
-    color: '#68A063',
     summary: 'Node runtime, HTML5/CSS3 foundations, MySQL, MongoDB, and Laravel/PHP from CV coursework and projects.',
     usedIn: [
       {

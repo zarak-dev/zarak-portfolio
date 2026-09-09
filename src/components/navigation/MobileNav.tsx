@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import { IDENTITY } from '@/data/identity';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 interface MobileNavProps {
   open: boolean;
@@ -35,6 +36,8 @@ const NAV_ITEMS = [
 ];
 
 export default function MobileNav({ open, onClose, onOpenCommand }: MobileNavProps) {
+  useScrollLock(open);
+
   const handleNavClick = (href: string) => {
     onClose();
     const el = document.querySelector(href);

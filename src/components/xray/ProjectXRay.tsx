@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Layers, Activity, Bot, ArrowDown, Sparkles } from 'lucide-react';
-import { PROJECT_XRAYS, type XRayLayer, type ProjectXRay as ProjectXRayData } from '@/data/xray';
+import { PROJECT_XRAYS, type XRayLayer } from '@/data/xray';
 import { CASE_STUDIES } from '@/data/projects';
 import XRayExperiment from './XRayExperiment';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 interface ProjectXRayProps {
   projectId: string | null;
@@ -17,14 +18,27 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
   const [activeTab, setActiveTab] = useState<'architecture' | 'experiment'>('architecture');
   const [activeLayer, setActiveLayer] = useState<XRayLayer | null>(null);
 
-  if (!projectId) return null;
+  const xrayData = projectId ? PROJECT_XRAYS.find(x => x.projectId === projectId) : null;
+  const projectInfo = projectId ? CASE_STUDIES.find(p => p.id === projectId) : null;
+  const isOpen = Boolean(projectId && xrayData && projectInfo);
 
-  const xrayData = PROJECT_XRAYS.find(x => x.projectId === projectId);
-  const projectInfo = CASE_STUDIES.find(p => p.id === projectId);
+  useScrollLock(isOpen);
 
-  if (!xrayData || !projectInfo) return null;
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   const handleAskAI = () => {
+    if (!projectInfo) return;
     onClose(); // Close the modal
     // Pass context to AskZarak
     onAskAI(`Tell me about the engineering architecture of ${projectInfo.title}.`);
@@ -32,20 +46,21 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[140] flex items-center justify-center p-4 sm:p-6 lg:p-10">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-          className="fixed inset-0 bg-black/80 backdrop-blur-lg"
-          aria-hidden="true"
-        />
+      {isOpen && projectInfo && xrayData && (
+        <div className="fixed inset-0 z-[140] flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-lg"
+            aria-hidden="true"
+          />
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
           className="relative w-full max-w-5xl h-[85vh] bg-[#0a0a0e] border border-accent/30 rounded-2xl shadow-[0_0_50px_-12px_rgba(var(--accent),0.3)] overflow-hidden z-10 flex flex-col glow-border"
         >
           {/* Header */}
@@ -193,6 +208,7 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
           </div>
         </motion.div>
       </div>
+      )}
     </AnimatePresence>
   );
 }

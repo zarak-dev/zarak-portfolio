@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { FolderGit2, ArrowRight, ExternalLink, Sparkles, Activity, Layers, Github } from 'lucide-react';
+import { FolderGit2, ArrowRight, ExternalLink, Sparkles, Layers, Github } from 'lucide-react';
 import CaseStudyModal from './CaseStudyModal';
 import { CASE_STUDIES, type CaseStudy } from '@/data/projects';
 

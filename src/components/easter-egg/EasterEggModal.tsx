@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, X, CheckCircle2, Sparkles, Cpu } from 'lucide-react';
+import { X } from 'lucide-react';
 import { IDENTITY } from '@/data/identity';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 export default function EasterEggModal({
   open,
@@ -13,6 +14,19 @@ export default function EasterEggModal({
   onClose: () => void;
 }) {
   const [typedInput, setTypedInput] = useState('');
+
+  useScrollLock(open);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [open, onClose]);
   const [outputLines, setOutputLines] = useState<string[]>([
     'ZARAK.OS Kernel Diagnostics v2.4.0',
     '----------------------------------------',

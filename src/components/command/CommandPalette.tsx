@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
@@ -21,6 +21,7 @@ import {
   Quote,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 interface CommandItem {
   id: string;
@@ -44,20 +45,15 @@ export default function CommandPalette({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { resolvedTheme, setTheme } = useTheme();
 
-  const navigateTo = useCallback(
-    (id: string) => {
-      onOpenChange(false);
-      setQuery('');
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    },
-    [onOpenChange]
-  );
+  useScrollLock(open);
 
-  const commands: CommandItem[] = useMemo(
-    () => [
+  const navigateTo = (id: string) => {
+    onOpenChange(false);
+    setQuery('');
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const commands: CommandItem[] = [
       {
         id: 'aimmyyy-ai',
         title: 'Open Aimmyyy AI (Portfolio Agent)',
@@ -191,20 +187,17 @@ export default function CommandPalette({
           if (onTriggerEasterEgg) onTriggerEasterEgg();
         },
       },
-    ],
-    [navigateTo, resolvedTheme, setTheme, onOpenChange, onTriggerEasterEgg]
-  );
+  ];
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return commands;
-    return commands.filter(
-      (c) =>
-        c.title.toLowerCase().includes(q) ||
-        c.category.toLowerCase().includes(q) ||
-        c.shortcut?.toLowerCase().includes(q)
-    );
-  }, [commands, query]);
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? commands.filter(
+        (c) =>
+          c.title.toLowerCase().includes(q) ||
+          c.category.toLowerCase().includes(q) ||
+          c.shortcut?.toLowerCase().includes(q)
+      )
+    : commands;
 
   // Reset selected index when query changes
   useEffect(() => {
