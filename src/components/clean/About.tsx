@@ -3,7 +3,6 @@
 import { Brain, Code2, ExternalLink, GraduationCap, Sparkles } from 'lucide-react';
 
 import SectionHeading from './SectionHeading';
-import { PROFILE } from '@/data/profile';
 import { EASE, fadeUp, stagger, VIEWPORT } from '@/lib/animations';
 import { motion } from 'framer-motion';
 
@@ -72,27 +71,6 @@ export default function About() {
               </motion.p>
             </div>
 
-            {/* Open To Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.05 }}
-              transition={{ duration: 0.5, delay: 0.35, ease: EASE }}
-              className="mt-8 rounded-2xl border border-brand-line bg-brand-soft/60 p-5"
-            >
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
-                </span>
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand font-semibold">
-                  Open to
-                </p>
-              </div>
-              <p className="mt-2 text-[15px] font-medium leading-relaxed text-ink-soft">
-                Full-stack frontend engineering roles, enterprise React/Redux architectures, and high-impact AI product teams. Based in {PROFILE.locationShort}.
-              </p>
-            </motion.div>
           </div>
 
           {/* 4 Pillars Column */}

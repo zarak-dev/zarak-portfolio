@@ -1,19 +1,29 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function FramerBackdrop() {
-  const reduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  const [isMobileOrReduced, setIsMobileOrReduced] = useState(false);
   const { scrollYProgress } = useScroll();
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)');
-    setIsMobile(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
+    setMounted(true);
+    const mqlMobile = window.matchMedia('(max-width: 768px)');
+    const mqlReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const update = () => {
+      setIsMobileOrReduced(mqlMobile.matches || mqlReduced.matches);
+    };
+    update();
+
+    mqlMobile.addEventListener('change', update);
+    mqlReduced.addEventListener('change', update);
+    return () => {
+      mqlMobile.removeEventListener('change', update);
+      mqlReduced.removeEventListener('change', update);
+    };
   }, []);
 
   // Gentle scroll-driven positional drift across the entire page height
@@ -22,8 +32,8 @@ export default function FramerBackdrop() {
   const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
 
-  // On mobile or reduced-motion: render only a lightweight static grid, no blur orbs
-  if (isMobile || reduced) {
+  // On mobile or reduced-motion after mount: render only a lightweight static grid, no blur orbs
+  if (mounted && isMobileOrReduced) {
     return (
       <div
         aria-hidden="true"

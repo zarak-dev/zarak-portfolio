@@ -6,7 +6,7 @@ import { ChevronDown, ExternalLink, Quote } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import { RECOMMENDATIONS, type Recommendation } from '@/data/recommendations';
 import { EASE, VIEWPORT } from '@/lib/animations';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const CARD_WIDTH = '24rem';
@@ -120,7 +120,6 @@ function RecommendationCard({ rec }: { rec: Recommendation }) {
 }
 
 export default function Recommendations() {
-  const reduced = useReducedMotion();
   const [isPaused, setIsPaused] = useState(false);
   const looped = [...RECOMMENDATIONS, ...RECOMMENDATIONS];
 
@@ -149,9 +148,8 @@ export default function Recommendations() {
 
           <div
             className={cn(
-              'flex w-max items-stretch gap-5',
-              !reduced && 'marquee-track',
-              !reduced && isPaused && 'is-paused',
+              'flex w-max items-stretch gap-5 marquee-track motion-reduce:animate-none',
+              isPaused && 'is-paused',
             )}
             aria-label="Recommendations carousel"
           >

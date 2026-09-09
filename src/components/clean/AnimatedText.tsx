@@ -39,16 +39,12 @@ export function AnimatedParagraph({
       ? { animate: { opacity: 1, y: 0 } }
       : { whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.05, margin: '0px 0px -40px 0px' } };
 
-  if (reduced) {
-    return <p className={className}>{children}</p>;
-  }
-
   return (
     <motion.p
       className={className}
-      initial={{ opacity: 0, y: 12 }}
-      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
-      {...motionState}
+      initial={reduced ? false : { opacity: 0, y: 12 }}
+      transition={reduced ? { duration: 0 } : { duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      {...(reduced ? {} : motionState)}
     >
       {children}
     </motion.p>

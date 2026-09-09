@@ -116,6 +116,7 @@ export default function Home() {
       {/* Aimmyyy AI Assistant */}
       <AskZarak
         onOpenXRay={setXrayProject}
+        onOpenCaseStudy={handleOpenCaseStudy}
         initialContextMessage={aiContextMessage}
         onClearContextMessage={() => setAiContextMessage(null)}
       />

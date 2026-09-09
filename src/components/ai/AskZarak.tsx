@@ -2,11 +2,13 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github, Download } from 'lucide-react';
+import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github, Download, Mic } from 'lucide-react';
 import AiMessage from './AiMessage';
+import LiveVoiceModal from './LiveVoiceModal';
 
 interface AskZarakProps {
   onOpenXRay: (projectId: string) => void;
+  onOpenCaseStudy?: (projectId: string) => void;
   initialContextMessage?: string | null;
   onClearContextMessage?: () => void;
 }
@@ -34,8 +36,14 @@ function AimmyLogo({ className }: { className?: string }) {
   );
 }
 
-export default function AskZarak({ onOpenXRay, initialContextMessage, onClearContextMessage }: AskZarakProps) {
+export default function AskZarak({
+  onOpenXRay,
+  onOpenCaseStudy,
+  initialContextMessage,
+  onClearContextMessage,
+}: AskZarakProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVoiceOpen, setIsVoiceOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -80,6 +88,17 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
     };
     window.addEventListener('open-aimmyyy-ai', handleOpen);
     return () => window.removeEventListener('open-aimmyyy-ai', handleOpen);
+  }, []);
+
+  // Global listener for opening Aimmyyy Live Voice
+  useEffect(() => {
+    const handleOpenVoice = () => {
+      setIsVoiceOpen(true);
+      setIsOpen(false);
+      setIsExpanded(false);
+    };
+    window.addEventListener('open-aimmyyy-voice', handleOpenVoice);
+    return () => window.removeEventListener('open-aimmyyy-voice', handleOpenVoice);
   }, []);
 
   // Close the expanded options pill when clicking or touching outside
@@ -160,9 +179,9 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
 
   return (
     <>
-      {/* Floating Trigger Button: Spreads animatedly on hover/click into 2 options (Download CV & AI Chatbot) */}
+      {/* Floating Trigger Button: Spreads animatedly on hover/click into 3 options (Download CV, Live Voice, & AI Chat) */}
       <AnimatePresence>
-        {!isOpen && (
+        {!isOpen && !isVoiceOpen && (
           <motion.div
             ref={triggerRef}
             data-aimmyyy-trigger
@@ -199,7 +218,23 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
                     <span>Download CV</span>
                   </motion.a>
 
-                  {/* Option 2: AI Chatbot */}
+                  {/* Option 2: Live Voice with Aimmyy */}
+                  <motion.button
+                    type="button"
+                    onClick={() => {
+                      setIsExpanded(false);
+                      setIsVoiceOpen(true);
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand via-cyan-400 to-brand-dark px-3 py-1.5 text-xs font-bold text-black transition-all whitespace-nowrap shadow-md shadow-brand/40 hover:brightness-110"
+                    title="Start real-time voice call with Aimmyy"
+                  >
+                    <Mic className="h-3.5 w-3.5 text-black" aria-hidden="true" />
+                    <span>Live Voice ✨</span>
+                  </motion.button>
+
+                  {/* Option 3: AI Chatbot */}
                   <motion.button
                     type="button"
                     onClick={() => {
@@ -208,11 +243,11 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
                     }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-brand hover:bg-brand-dark px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-md shadow-brand/40"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-sm"
                     title="Chat with Aimmy AI"
                   >
-                    <Sparkles className="h-3.5 w-3.5 text-white" aria-hidden="true" />
-                    <span>AI Chatbot</span>
+                    <Sparkles className="h-3.5 w-3.5 text-brand-line" aria-hidden="true" />
+                    <span>Chat</span>
                   </motion.button>
                 </motion.div>
               )}
@@ -290,13 +325,26 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
                     <p className="font-mono text-[10px] text-muted-foreground">PORTFOLIO INTELLIGENCE SYSTEM</p>
                   </div>
                 </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-                  aria-label="Close chat"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsVoiceOpen(true);
+                    }}
+                    className="flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand/10 hover:bg-brand/20 px-2.5 py-1 text-xs font-semibold text-brand transition-colors"
+                    title="Switch to Real-Time Voice Call with Aimmyy"
+                  >
+                    <Mic className="w-3.5 h-3.5" />
+                    <span>Live Voice</span>
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                    aria-label="Close chat"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               {/* Chat Area */}
@@ -417,6 +465,18 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
           </>
         )}
       </AnimatePresence>
+
+      {/* Real-time Gemini Live Voice Modal */}
+      <LiveVoiceModal
+        isOpen={isVoiceOpen}
+        onClose={() => setIsVoiceOpen(false)}
+        onSwitchToChat={() => {
+          setIsVoiceOpen(false);
+          setIsOpen(true);
+        }}
+        onOpenXRay={onOpenXRay}
+        onOpenCaseStudy={onOpenCaseStudy}
+      />
     </>
   );
 }
