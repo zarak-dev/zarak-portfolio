@@ -1,16 +1,41 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
 export default function FramerBackdrop() {
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   // Gentle scroll-driven positional drift across the entire page height
   const y1 = useTransform(scrollYProgress, [0, 1], ['0%', '60%']);
   const y2 = useTransform(scrollYProgress, [0, 1], ['0%', '-45%']);
   const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+
+  // On mobile or reduced-motion: render only a lightweight static grid, no blur orbs
+  if (isMobile || reduced) {
+    return (
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
+      >
+        <div className="grid-veil absolute inset-0 opacity-40 dark:opacity-35" />
+        {/* Lightweight static gradient tint instead of expensive blur orbs */}
+        <div className="absolute -top-24 -right-24 h-[28rem] w-[28rem] rounded-full bg-brand/6 dark:bg-brand/8" />
+        <div className="absolute top-1/3 -left-24 h-[22rem] w-[22rem] rounded-full bg-mint/5 dark:bg-mint/6" />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -22,15 +47,11 @@ export default function FramerBackdrop() {
 
       {/* Orb 1: Soft Electric Indigo / Brand Aura (Top-Right / Mid-Right) */}
       <motion.div
-        style={reduced ? undefined : { y: y1, rotate: rotate1 }}
-        animate={
-          reduced
-            ? undefined
-            : {
-                x: [0, 30, -25, 0],
-                scale: [1, 1.08, 0.95, 1],
-              }
-        }
+        style={{ y: y1, rotate: rotate1 }}
+        animate={{
+          x: [0, 30, -25, 0],
+          scale: [1, 1.08, 0.95, 1],
+        }}
         transition={{
           duration: 28,
           repeat: Infinity,
@@ -41,15 +62,11 @@ export default function FramerBackdrop() {
 
       {/* Orb 2: Whisper-Soft Mint / Cyan Light Source (Mid-Left / Lower) */}
       <motion.div
-        style={reduced ? undefined : { y: y2, rotate: rotate2 }}
-        animate={
-          reduced
-            ? undefined
-            : {
-                x: [0, -35, 20, 0],
-                scale: [1, 0.94, 1.06, 1],
-              }
-        }
+        style={{ y: y2, rotate: rotate2 }}
+        animate={{
+          x: [0, -35, 20, 0],
+          scale: [1, 0.94, 1.06, 1],
+        }}
         transition={{
           duration: 32,
           repeat: Infinity,
@@ -61,14 +78,10 @@ export default function FramerBackdrop() {
 
       {/* Orb 3: Ultra-Subtle Deep Ambient Center Glow */}
       <motion.div
-        animate={
-          reduced
-            ? undefined
-            : {
-                opacity: [0.35, 0.6, 0.35],
-                scale: [0.95, 1.05, 0.95],
-              }
-        }
+        animate={{
+          opacity: [0.35, 0.6, 0.35],
+          scale: [0.95, 1.05, 0.95],
+        }}
         transition={{
           duration: 18,
           repeat: Infinity,
@@ -79,3 +92,4 @@ export default function FramerBackdrop() {
     </div>
   );
 }
+

@@ -294,16 +294,35 @@
   background: var(--color-ink-mute);
 }
 
-/* Theme transition smoothness for color props */
-section,
-header,
-footer,
-a,
-button,
-span,
-input,
-textarea {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 0.25s;
-  transition-timing-function: ease;
+/* Theme transition smoothness for color props — desktop only.
+   On mobile these transitions fire during scroll/touch on dozens of
+   elements simultaneously, causing jank. */
+@media (min-width: 769px) {
+  section,
+  header,
+  footer,
+  a,
+  button,
+  span,
+  input,
+  textarea {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+  }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Mobile Performance: disable expensive GPU effects                  */
+/* ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  /* backdrop-blur is the most expensive CSS property on mobile GPUs.
+     Disable it globally — elements already have solid bg-* fallbacks. */
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+

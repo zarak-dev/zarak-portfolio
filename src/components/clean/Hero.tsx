@@ -79,8 +79,9 @@ export default function Hero() {
       />
 
       <div className="shell relative">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
-          <motion.div className="lg:col-span-7" style={{ y: copyY }}>
+        <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-8">
+          {/* Part 1: Identity + Description */}
+          <motion.div className="order-1 lg:col-span-7" style={{ y: copyY }}>
             <motion.div
               className="flex flex-wrap items-center gap-2.5"
               initial="hidden"
@@ -139,9 +140,60 @@ export default function Hero() {
               Appointlo with bulletproof state synchronization, scoped design systems, and AI
               integrations.
             </motion.p>
+          </motion.div>
 
+          {/* Portrait — sits between description and CTAs on mobile, alongside text on desktop */}
+          <div className="order-2 lg:col-span-5 lg:row-span-2">
             <motion.div
-              className="mt-8 flex flex-wrap items-center gap-3"
+              className="relative mx-auto max-w-sm lg:max-w-md"
+              style={{ y: portraitY }}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
+            >
+              {/* Subtle ambient glow backing */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-brand/20 via-brand-soft to-mint/20 opacity-70 blur-xl dark:opacity-40"
+              />
+
+              {/* Main Portrait Card */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-line bg-white shadow-[0_24px_50px_-20px_rgba(15,23,42,0.18)] dark:border-white/10 dark:shadow-[0_24px_50px_-20px_rgba(0,0,0,0.6)]">
+                <Image
+                  src={PROFILE.portrait}
+                  alt={`${PROFILE.name}, Software Engineer at Smart Forum`}
+                  fill
+                  priority
+                  className="h-full w-full object-cover object-top"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 40vw, 400px"
+                />
+              </div>
+
+              {/* Status Pill */}
+              <motion.div
+                className="mt-4 flex items-center justify-center gap-2.5 rounded-full border border-line bg-surface/95 px-5 py-2.5 shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)] backdrop-blur dark:bg-surface-2/95"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint">
+                  Currently
+                </span>
+                <span className="text-sm font-bold text-ink">
+                  {PROFILE.role} @ {PROFILE.company}
+                </span>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Part 2: Actions + Stats */}
+          <motion.div className="order-3 lg:col-span-7" style={{ y: copyY }}>
+            <motion.div
+              className="flex flex-wrap items-center gap-3"
               initial="hidden"
               animate="show"
               variants={stagger(0.08, 1.15)}
@@ -217,54 +269,6 @@ export default function Hero() {
               ))}
             </motion.div>
           </motion.div>
-
-          <div className="lg:col-span-5">
-            <motion.div
-              className="relative mx-auto max-w-sm lg:max-w-md"
-              style={{ y: portraitY }}
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
-            >
-              {/* Subtle ambient glow backing */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-brand/20 via-brand-soft to-mint/20 opacity-70 blur-xl dark:opacity-40"
-              />
-
-              {/* Main Portrait Card: Preserving original crisp white studio background */}
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-line bg-white shadow-[0_24px_50px_-20px_rgba(15,23,42,0.18)] dark:border-white/10 dark:shadow-[0_24px_50px_-20px_rgba(0,0,0,0.6)]">
-                <img
-                  src={PROFILE.portrait}
-                  alt={`${PROFILE.name}, Software Engineer at Smart Forum`}
-                  width={805}
-                  height={1024}
-                  loading="eager"
-                  decoding="async"
-                  className="h-full w-full object-cover object-top"
-                />
-              </div>
-
-              {/* Clean Status Pill positioned underneath without obstructing the photo */}
-              <motion.div
-                className="mt-4 flex items-center justify-center gap-2.5 rounded-full border border-line bg-surface/95 px-5 py-2.5 shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)] backdrop-blur dark:bg-surface-2/95"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6, ease: EASE }}
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
-                </span>
-                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint">
-                  Currently
-                </span>
-                <span className="text-sm font-bold text-ink">
-                  {PROFILE.role} @ {PROFILE.company}
-                </span>
-              </motion.div>
-            </motion.div>
-          </div>
         </div>
 
         <motion.div

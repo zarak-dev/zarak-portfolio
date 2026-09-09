@@ -37,6 +37,7 @@ function AimmyLogo({ className }: { className?: string }) {
 export default function AskZarak({ onOpenXRay, initialContextMessage, onClearContextMessage }: AskZarakProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
@@ -74,6 +75,11 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
     const handleOpen = () => setIsOpen(true);
     window.addEventListener('open-aimmyyy-ai', handleOpen);
     return () => window.removeEventListener('open-aimmyyy-ai', handleOpen);
+  }, []);
+
+  // Detect touch devices to skip hover-expansion behavior
+  useEffect(() => {
+    setIsTouch(window.matchMedia('(pointer: coarse)').matches);
   }, []);
 
   const handleSubmit = async (e?: React.FormEvent, overrideInput?: string) => {
@@ -145,12 +151,12 @@ export default function AskZarak({ onOpenXRay, initialContextMessage, onClearCon
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={isTouch ? undefined : () => setIsHovered(true)}
+            onMouseLeave={isTouch ? undefined : () => setIsHovered(false)}
             className="fixed bottom-6 right-6 z-50 flex items-center p-1.5 rounded-full bg-[#0a0f1d]/95 dark:bg-[#0b1020]/95 backdrop-blur-xl border border-white/20 dark:border-brand/50 shadow-2xl shadow-black/50 glow-pill group transition-all duration-300"
           >
             <AnimatePresence>
-              {isHovered && (
+              {isHovered && !isTouch && (
                 <motion.div
                   initial={{ opacity: 0, width: 0, scale: 0.85 }}
                   animate={{ opacity: 1, width: 'auto', scale: 1 }}
