@@ -64,9 +64,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://zarak.dev',
-    title: 'Zarak K.',
+    title: 'Zarak K. — Developer Portfolio',
     description: IDENTITY.tagline,
-    siteName: `${IDENTITY.name} Personal Developer OS`,
+    siteName: `Portfolio`,
     images: [
       {
         url: '/images/dentally-preview.jpg',
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zarak K.',
+    title: 'Zarak K. — Developer Portfolio',
     description: IDENTITY.tagline,
     images: ['/images/dentally-preview.jpg'],
   },

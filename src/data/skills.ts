@@ -28,9 +28,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
         application: 'Engineered health portal with authenticated routes, Supabase server queries, and fast page loads.',
       },
       {
-        project: 'Personal Developer OS',
+        project: 'Developer Portfolio',
         role: 'Portfolio Architecture',
-        application: 'Powering this interactive developer experience with optimized client/server split and SEO.',
+        application: 'Powering this interactive portfolio with optimized client/server split and SEO.',
       },
     ],
   },
@@ -115,9 +115,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
         application: 'Styled medical telemetry graphs, diet plan cards, and mobile-friendly patient forms.',
       },
       {
-        project: 'Personal Developer OS',
+        project: 'Developer Portfolio',
         role: 'Design Architecture',
-        application: 'Configured custom OS palette, glass surfaces, and responsive layouts.',
+        application: 'Configured custom dark/light theme palette, glass surfaces, and responsive layouts.',
       },
     ],
   },
@@ -128,7 +128,7 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Accessible, unstyled Radix UI primitives composed into tailored, maintainable component libraries.',
     usedIn: [
       {
-        project: 'Personal Developer OS',
+        project: 'Developer Portfolio',
         role: 'Component System',
         application: 'Built command palette, drawer dialogs, and interactive badges.',
       },

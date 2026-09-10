@@ -29,7 +29,7 @@ export const GITHUB_DATA: GitHubProfile = {
     {
       name: 'portfolio',
       description:
-        'Next-generation Personal Developer Operating System engineered with Next.js App Router, TypeScript, Tailwind CSS, shadcn/ui, and Framer Motion.',
+        'Modern developer portfolio engineered with Next.js App Router, TypeScript, Tailwind CSS, shadcn/ui, and Framer Motion.',
       language: 'TypeScript',
       languageColor: '#3178C6',
       url: 'https://github.com/zarak-dev/portfolio',

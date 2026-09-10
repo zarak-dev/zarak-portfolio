@@ -36,7 +36,7 @@ export function getWebSiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: `${IDENTITY.name} — Personal Developer Operating System`,
+    name: `${IDENTITY.name} — Developer Portfolio`,
     url: 'https://zarak.dev',
     description: IDENTITY.tagline,
     author: {

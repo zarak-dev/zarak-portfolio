@@ -15,7 +15,7 @@ export default function NotFound() {
         </h1>
 
         <p className="font-mono text-sm text-muted-foreground leading-relaxed">
-          The requested route or module does not exist in Zarak&apos;s Developer Operating System.
+          The requested route or module does not exist in Zarak&apos;s portfolio.
         </p>
 
         <div>
@@ -24,7 +24,7 @@ export default function NotFound() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent text-accent-foreground font-mono text-xs font-semibold hover:bg-accent/90 transition-colors shadow-md"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Return to Operating System</span>
+            <span>Return to Portfolio</span>
           </Link>
         </div>
       </div>

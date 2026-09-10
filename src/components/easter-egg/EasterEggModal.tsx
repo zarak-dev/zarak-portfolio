@@ -117,7 +117,7 @@ export default function EasterEggModal({
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
             role="dialog"
             aria-modal="true"
-            aria-label="Developer OS Terminal"
+            aria-label="Developer Portfolio Terminal"
             className="relative w-full max-w-2xl bg-black border border-emerald-500/40 rounded-2xl shadow-2xl overflow-hidden z-10 font-mono text-xs text-emerald-400 glow-border"
           >
             {/* Header */}
