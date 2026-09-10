@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github, Download, Mic } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github, Download, FileDown, Mic } from 'lucide-react';
 import AiMessage from './AiMessage';
 import LiveVoiceModal from './LiveVoiceModal';
 
@@ -44,9 +44,10 @@ export default function AskZarak({
 }: AskZarakProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isVoiceOpen, setIsVoiceOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isRadialOpen, setIsRadialOpen] = useState(false);
+  const [radius, setRadius] = useState(135);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
@@ -70,11 +71,21 @@ export default function AskZarak({
     }
   }, [messages, isOpen]);
 
+  // Handle responsive radius for desktop vs mobile
+  useEffect(() => {
+    const updateRadius = () => {
+      setRadius(window.innerWidth < 640 ? 100 : 135);
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
+
   // Handle incoming context message from X-Ray
   useEffect(() => {
     if (initialContextMessage && !isOpen) {
       setIsOpen(true);
-      setIsExpanded(false);
+      setIsRadialOpen(false);
       setInput(initialContextMessage);
       if (onClearContextMessage) onClearContextMessage();
     }
@@ -84,7 +95,7 @@ export default function AskZarak({
   useEffect(() => {
     const handleOpen = () => {
       setIsOpen(true);
-      setIsExpanded(false);
+      setIsRadialOpen(false);
     };
     window.addEventListener('open-aimmyyy-ai', handleOpen);
     return () => window.removeEventListener('open-aimmyyy-ai', handleOpen);
@@ -95,27 +106,34 @@ export default function AskZarak({
     const handleOpenVoice = () => {
       setIsVoiceOpen(true);
       setIsOpen(false);
-      setIsExpanded(false);
+      setIsRadialOpen(false);
     };
     window.addEventListener('open-aimmyyy-voice', handleOpenVoice);
     return () => window.removeEventListener('open-aimmyyy-voice', handleOpenVoice);
   }, []);
 
-  // Close the expanded options pill when clicking or touching outside
+  // Close radial menu when clicking outside or pressing Escape
   useEffect(() => {
-    if (!isExpanded) return;
+    if (!isRadialOpen) return;
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
       if (triggerRef.current && !triggerRef.current.contains(e.target as Node)) {
-        setIsExpanded(false);
+        setIsRadialOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsRadialOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isExpanded]);
+  }, [isRadialOpen]);
 
   const handleSubmit = async (e?: React.FormEvent, overrideInput?: string) => {
     if (e) e.preventDefault();
@@ -175,118 +193,228 @@ export default function AskZarak({
     handleSubmit(undefined, text);
   };
 
-  const showOptions = isHovered || isExpanded;
+  const radialActions = [
+    {
+      id: 'chat',
+      label: 'Ask Aimmyy',
+      angle: 0,
+      icon: Sparkles,
+      onClick: () => {
+        setIsRadialOpen(false);
+        setIsOpen(true);
+      },
+      iconColor: 'text-cyan-400',
+      glowHover: 'hover:border-cyan-400/60 hover:shadow-[0_0_24px_rgba(34,211,238,0.35),inset_0_1px_1px_rgba(255,255,255,0.4)]',
+      dotColor: 'bg-cyan-400 shadow-[0_0_6px_rgba(34,211,238,0.9)]',
+      labelPos: 'right-full mr-3.5 top-1/2 -translate-y-1/2',
+      labelAnim: { initial: { opacity: 0, x: 8 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: 8 } },
+    },
+    {
+      id: 'cv',
+      label: 'Download CV',
+      angle: 45,
+      icon: FileDown,
+      onClick: () => {
+        setIsRadialOpen(false);
+        const link = document.createElement('a');
+        link.href = '/Zarak_Qaisar_CV.pdf';
+        link.download = 'Zarak_Qaisar_CV.pdf';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+      iconColor: 'text-emerald-400',
+      glowHover: 'hover:border-emerald-400/60 hover:shadow-[0_0_24px_rgba(52,211,153,0.35),inset_0_1px_1px_rgba(255,255,255,0.4)]',
+      dotColor: 'bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]',
+      labelPos: 'right-full mr-3.5 top-1/2 -translate-y-1/2',
+      labelAnim: { initial: { opacity: 0, x: 8 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: 8 } },
+    },
+    {
+      id: 'voice',
+      label: 'Voice Mode',
+      angle: 90,
+      icon: Mic,
+      onClick: () => {
+        setIsRadialOpen(false);
+        setIsVoiceOpen(true);
+      },
+      iconColor: 'text-violet-400',
+      glowHover: 'hover:border-violet-400/60 hover:shadow-[0_0_24px_rgba(167,139,250,0.4),inset_0_1px_1px_rgba(255,255,255,0.4)]',
+      dotColor: 'bg-violet-400 shadow-[0_0_6px_rgba(167,139,250,0.9)] animate-pulse',
+      labelPos: 'bottom-full mb-3 right-0',
+      labelAnim: { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: 8 } },
+    },
+  ];
 
   return (
     <>
-      {/* Floating Trigger Button: Spreads animatedly on hover/click into 3 options (Download CV, Live Voice, & AI Chat) */}
+      {/* Subtle Backdrop when Radial Menu is open */}
+      <AnimatePresence>
+        {isRadialOpen && !isOpen && !isVoiceOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsRadialOpen(false)}
+            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px]"
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Floating 3-Option Radial AI Button (Inspired by Samsung S Pen Air Command) */}
       <AnimatePresence>
         {!isOpen && !isVoiceOpen && (
-          <motion.div
+          <div
             ref={triggerRef}
             data-aimmyyy-trigger
-            layout
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 flex items-center p-1.5 rounded-full bg-[#0a0f1d]/95 dark:bg-[#0b1020]/95 backdrop-blur-xl border border-white/20 dark:border-brand/50 shadow-2xl shadow-black/50 glow-pill group transition-all duration-300"
+            className="fixed bottom-6 right-6 sm:bottom-7 sm:right-8 z-50 flex items-center justify-center pointer-events-auto select-none"
           >
+            {/* Radial Action Buttons (0° Ask Aimmyy, 45° Download CV, 90° Voice Mode) */}
             <AnimatePresence>
-              {showOptions && (
-                <motion.div
-                  initial={{ opacity: 0, width: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, width: 'auto', scale: 1 }}
-                  exit={{ opacity: 0, width: 0, scale: 0.85 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center gap-2 overflow-hidden pl-2.5 pr-1"
-                >
-                  {/* Option 1: Download CV */}
-                  <motion.a
-                    href="/Zarak_Qaisar_CV.pdf"
-                    download="Zarak_Qaisar_CV.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsExpanded(false)}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-sm"
-                    title="Download Zarak's Europass CV"
-                  >
-                    <Download className="h-3.5 w-3.5 text-brand-line" aria-hidden="true" />
-                    <span>Download CV</span>
-                  </motion.a>
-
-                  {/* Option 2: Live Voice with Aimmyy */}
-                  <motion.button
-                    type="button"
-                    onClick={() => {
-                      setIsExpanded(false);
-                      setIsVoiceOpen(true);
+              {isRadialOpen && (
+                <>
+                  {/* Subtle Glassmorphic Radial Arc Guide Line */}
+                  <svg
+                    className="absolute pointer-events-none overflow-visible -z-10"
+                    style={{
+                      width: radius,
+                      height: radius,
+                      right: 0,
+                      bottom: 0,
                     }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand via-cyan-400 to-brand-dark px-3 py-1.5 text-xs font-bold text-black transition-all whitespace-nowrap shadow-md shadow-brand/40 hover:brightness-110"
-                    title="Start real-time voice call with Aimmyy"
                   >
-                    <Mic className="h-3.5 w-3.5 text-black" aria-hidden="true" />
-                    <span>Live Voice ✨</span>
-                  </motion.button>
+                    <defs>
+                      <linearGradient id="radial-track-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.4" />
+                        <stop offset="50%" stopColor="#34d399" stopOpacity="0.4" />
+                        <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.4" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d={`M ${-radius} 0 A ${radius} ${radius} 0 0 1 ${-14} ${-radius}`}
+                      fill="none"
+                      stroke="url(#radial-track-grad)"
+                      strokeWidth="1.5"
+                      strokeDasharray="4 5"
+                    />
+                  </svg>
 
-                  {/* Option 3: AI Chatbot */}
-                  <motion.button
-                    type="button"
-                    onClick={() => {
-                      setIsExpanded(false);
-                      setIsOpen(true);
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 px-3 py-1.5 text-xs font-semibold text-white transition-colors whitespace-nowrap shadow-sm"
-                    title="Chat with Aimmy AI"
-                  >
-                    <Sparkles className="h-3.5 w-3.5 text-brand-line" aria-hidden="true" />
-                    <span>Chat</span>
-                  </motion.button>
-                </motion.div>
+                  {radialActions.map((action, index) => {
+                    const rad = (action.angle * Math.PI) / 180;
+                    // Subtle 14px inward offset for Voice Mode so it has generous margin from viewport edge
+                    const xOffset = action.angle === 90 ? -14 : 0;
+                    const x = -radius * Math.cos(rad) + xOffset;
+                    const y = -radius * Math.sin(rad);
+                    const Icon = action.icon;
+
+                    return (
+                      <motion.div
+                        key={action.id}
+                        initial={{
+                          opacity: 0,
+                          scale: 0.4,
+                          x: 0,
+                          y: 0,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          scale: 1,
+                          x,
+                          y,
+                        }}
+                        exit={{
+                          opacity: 0,
+                          scale: 0.4,
+                          x: 0,
+                          y: 0,
+                        }}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0.2, ease: 'easeOut' }
+                            : {
+                                type: 'spring',
+                                stiffness: 400,
+                                damping: 25,
+                                mass: 0.8,
+                                delay: index * 0.05,
+                              }
+                        }
+                        className="absolute flex items-center justify-center pointer-events-auto"
+                      >
+                        <div className="relative group/action flex items-center justify-center">
+                          {/* Label positioned beside the button */}
+                          <motion.div
+                            initial={action.labelAnim.initial}
+                            animate={action.labelAnim.animate}
+                            exit={action.labelAnim.exit}
+                            transition={{ duration: 0.2, delay: index * 0.05 + 0.08 }}
+                            className={`absolute pointer-events-none px-3 py-1 rounded-full bg-[#080d1a]/95 dark:bg-[#050814]/95 backdrop-blur-xl border border-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.15)] text-white text-xs font-semibold tracking-wide whitespace-nowrap flex items-center gap-2 group-hover/action:border-white/30 transition-colors ${action.labelPos}`}
+                          >
+                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${action.dotColor}`} />
+                            <span>{action.label}</span>
+                          </motion.div>
+
+                          {/* Sleek Glassmorphic Circular Action Button */}
+                          <button
+                            type="button"
+                            onClick={action.onClick}
+                            aria-label={action.label}
+                            className={`group/btn relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-full bg-[#0c1222] dark:bg-[#070b16] backdrop-blur-2xl border border-white/20 dark:border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.28)] hover:bg-[#121c32] hover:scale-115 active:scale-95 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand cursor-pointer overflow-hidden ${action.glowHover}`}
+                          >
+                            {/* Inner ambient light sheen */}
+                            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.08] via-transparent to-transparent pointer-events-none" />
+                            <Icon className={`h-5 w-5 sm:h-5.5 sm:w-5.5 ${action.iconColor} transition-transform duration-300 group-hover/btn:scale-110 relative z-10`} strokeWidth={1.8} aria-hidden="true" />
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </>
               )}
             </AnimatePresence>
 
-            {/* Main AiM Logo Button / Toggle Close */}
+            {/* Main Central Aimmyy Button */}
             <motion.button
               type="button"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
-              onClick={() => setIsExpanded((prev) => !prev)}
-              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/5 hover:bg-white/15 transition-colors shrink-0"
-              aria-label={showOptions ? 'Close options' : 'Toggle Aimmy AI Assistant'}
+              onClick={() => setIsRadialOpen((prev) => !prev)}
+              aria-label={isRadialOpen ? 'Close Aimmyy menu' : 'Open Aimmyy menu'}
+              aria-expanded={isRadialOpen}
+              className="relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-full bg-[#0c1222] dark:bg-[#070b16] backdrop-blur-2xl border-2 border-white/25 dark:border-brand/60 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-[#121c32] hover:border-cyan-400/80 hover:shadow-[0_0_25px_rgba(56,189,248,0.4)] group transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand z-50 cursor-pointer overflow-hidden"
             >
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.08] via-transparent to-black/20 pointer-events-none" />
               <AnimatePresence mode="wait" initial={false}>
-                {showOptions ? (
+                {isRadialOpen ? (
                   <motion.div
                     key="close"
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.18 }}
+                    className="relative z-10"
                   >
-                    <X className="h-4 w-4 sm:h-5 sm:w-5 text-white" aria-hidden="true" />
+                    <X className="h-5 w-5 text-white" strokeWidth={2} aria-hidden="true" />
                   </motion.div>
                 ) : (
                   <motion.div
                     key="logo"
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
+                    exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.18 }}
+                    className="relative z-10 flex items-center justify-center"
                   >
-                    <AimmyLogo className="h-4 sm:h-5 w-auto object-contain transition-transform duration-300 group-hover:rotate-6" />
+                    <AimmyLogo className="h-5 sm:h-6 w-auto object-contain transition-transform duration-300 group-hover:rotate-6" />
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.button>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
