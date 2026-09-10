@@ -19,9 +19,9 @@ type ConnectionStatus = 'initializing' | 'connecting' | 'listening' | 'speaking'
 
 const QUICK_PROMPTS = [
   'Who are you?',
-  'Does Zarak have a girlfriend? 😌',
+  'What are your key achievements?',
   'Tell me about Dentally Assist',
-  'What is his frontend tech stack?',
+  'What is your frontend tech stack?',
 ];
 
 function AimmyLogo({ className }: { className?: string }) {
@@ -391,49 +391,49 @@ export default function LiveVoiceModal({
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-        {/* Fullscreen Backdrop */}
+        {/* Fullscreen Translucent Glass Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-[#050814]/90 backdrop-blur-2xl"
+          className="fixed inset-0 bg-black/55 backdrop-blur-2xl"
           onClick={handleEndCall}
         />
 
-        {/* Central Voice Card */}
+        {/* Central iPhone iOS 26 Glassmorphic Voice Card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          initial={{ opacity: 0, scale: 0.92, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.92, y: 20 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ opacity: 0, scale: 0.92, y: 24 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           onClick={(e) => e.stopPropagation()}
-          className="relative flex w-full max-w-lg flex-col items-center overflow-hidden rounded-[2.5rem] border border-white/15 bg-gradient-to-b from-[#0e1628]/95 via-[#0a0f1d]/95 to-[#060913]/98 p-6 shadow-2xl shadow-black/80 sm:p-8"
+          className="relative flex w-full max-w-lg flex-col items-center overflow-hidden rounded-[2.85rem] border border-white/20 bg-gradient-to-b from-[#34495E]/80 via-[#2C3E50]/85 to-[#2C3E50]/95 p-6 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.7),_inset_0_1px_1px_rgba(255,255,255,0.35),_0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur-3xl sm:p-8"
         >
-          {/* Ambient Glows */}
+          {/* iOS Specular Refraction Gloss Sheen */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-brand/20 blur-3xl"
+            className="pointer-events-none absolute -top-28 left-1/2 h-52 w-80 -translate-x-1/2 rounded-full bg-white/12 blur-2xl"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-purple-500/15 blur-3xl"
+            className="pointer-events-none absolute -bottom-28 left-1/2 h-56 w-72 -translate-x-1/2 rounded-full bg-white/[0.04] blur-3xl"
           />
 
-          {/* Header Bar */}
+          {/* iOS Dynamic Island Style Header Bar */}
           <div className="relative z-10 flex w-full items-center justify-between">
-            <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5 text-brand" />
-              <span className="font-mono text-xs font-semibold tracking-wide text-white">Aimmyy ✨</span>
-              <span className="text-[10px] text-white/50">Gemini Live</span>
+            <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] px-3.5 py-1.5 shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.3)] backdrop-blur-2xl">
+              <Sparkles className="h-3.5 w-3.5 text-[#ECF0F1]" />
+              <span className="font-mono text-xs font-semibold tracking-wide text-[#ECF0F1]">Aimmyy ✨</span>
+              <span className="rounded-full bg-white/10 px-1.5 py-0.5 font-mono text-[9px] font-medium text-[#ECF0F1]/75">Gemini Live</span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.2)] backdrop-blur-2xl">
               <span
-                className={`flex h-2.5 w-2.5 rounded-full ${
+                className={`flex h-2 w-2 rounded-full ${
                   status === 'speaking'
-                    ? 'animate-ping bg-brand'
+                    ? 'animate-ping bg-emerald-400'
                     : status === 'listening'
-                    ? 'animate-pulse bg-mint'
+                    ? 'animate-pulse bg-[#ECF0F1]'
                     : status === 'connecting' || status === 'initializing'
                     ? 'animate-spin bg-amber-400'
                     : status === 'muted'
@@ -441,7 +441,7 @@ export default function LiveVoiceModal({
                     : 'bg-rose-500'
                 }`}
               />
-              <span className="font-mono text-xs capitalize text-white/70">
+              <span className="font-mono text-[11px] font-medium capitalize text-[#ECF0F1]/80">
                 {status === 'speaking'
                   ? 'Speaking'
                   : status === 'listening'
@@ -464,28 +464,28 @@ export default function LiveVoiceModal({
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                className="relative z-10 mt-3 flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand/15 px-3 py-1 text-xs font-medium text-brand-line"
+                className="relative z-10 mt-3 flex items-center gap-1.5 rounded-full border border-white/25 bg-white/15 px-3.5 py-1 text-xs font-medium text-[#ECF0F1] shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.2)] backdrop-blur-xl"
               >
-                <ArrowRight className="h-3 w-3" />
+                <ArrowRight className="h-3 w-3 text-[#BDC3C7]" />
                 <span>{toolActionNotice}</span>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Centerpiece: Animated Pulsing Aimmyy Avatar */}
+          {/* Centerpiece: iPhone Glass Orb with Dynamic Fluid Volume Rings */}
           <div className="relative my-8 flex items-center justify-center">
             {/* Dynamic Volume Pulse Rings */}
             <motion.div
-              className="absolute rounded-full bg-brand/25 blur-md"
+              className="absolute rounded-full bg-white/10 blur-xl"
               animate={{
                 width: 140 + volume * 120,
                 height: 140 + volume * 120,
-                opacity: 0.3 + volume * 0.7,
+                opacity: 0.25 + volume * 0.75,
               }}
               transition={{ duration: 0.1, ease: 'linear' }}
             />
             <motion.div
-              className="absolute rounded-full bg-purple-500/20 blur-xl"
+              className="absolute rounded-full bg-[#BDC3C7]/15 blur-2xl"
               animate={{
                 width: 180 + volume * 150,
                 height: 180 + volume * 150,
@@ -494,9 +494,9 @@ export default function LiveVoiceModal({
               transition={{ duration: 0.1, ease: 'linear' }}
             />
 
-            {/* Core Aimmyy Orb */}
+            {/* Core iOS Glass Sphere */}
             <motion.div
-              className="relative flex h-28 w-28 items-center justify-center rounded-full border-2 border-brand/60 bg-gradient-to-br from-[#121c38] via-[#091024] to-[#04060e] shadow-2xl shadow-brand/40"
+              className="relative flex h-28 w-28 items-center justify-center rounded-full border border-white/35 bg-gradient-to-br from-white/20 via-[#34495E]/85 to-[#2C3E50]/95 shadow-[inset_0_2px_4px_rgba(255,255,255,0.45),_0_20px_40px_-10px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
               whileHover={{ scale: 1.05 }}
               animate={
                 status === 'speaking'
@@ -505,7 +505,7 @@ export default function LiveVoiceModal({
               }
               transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <AimmyLogo className="h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,245,255,0.7)]" />
+              <AimmyLogo className="h-12 w-auto object-contain drop-shadow-[0_0_16px_rgba(255,255,255,0.6)]" />
             </motion.div>
           </div>
 
@@ -520,9 +520,9 @@ export default function LiveVoiceModal({
                   key={idx}
                   className={`w-1 rounded-full transition-all duration-75 ${
                     status === 'speaking'
-                      ? 'bg-gradient-to-t from-brand to-cyan-300'
+                      ? 'bg-gradient-to-t from-[#BDC3C7] to-[#ECF0F1] shadow-[0_0_8px_rgba(236,240,241,0.5)]'
                       : status === 'listening'
-                      ? 'bg-gradient-to-t from-mint to-emerald-300'
+                      ? 'bg-gradient-to-t from-[#7F8C8D] to-[#BDC3C7]'
                       : 'bg-white/20'
                   }`}
                   style={{ height: `${barHeight}px` }}
@@ -531,36 +531,36 @@ export default function LiveVoiceModal({
             })}
           </div>
 
-          {/* Live Transcript / Caption Container */}
-          <div className="relative z-10 mb-6 flex w-full flex-col gap-2 rounded-2xl border border-white/10 bg-black/40 p-4 text-center">
+          {/* Live Transcript / Caption Glass Box */}
+          <div className="relative z-10 mb-6 flex w-full flex-col gap-2 rounded-3xl border border-white/15 bg-white/[0.05] p-4 text-center shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.18),_0_8px_24px_rgba(0,0,0,0.2)] backdrop-blur-2xl">
             {userTranscript && (
-              <p className="text-xs text-white/60">
-                <span className="font-semibold text-white/80">You:</span> “{userTranscript}”
+              <p className="text-xs text-[#BDC3C7]">
+                <span className="font-semibold text-[#ECF0F1]">You:</span> “{userTranscript}”
               </p>
             )}
-            <p className="text-sm font-medium leading-relaxed text-white">
+            <p className="text-sm font-medium leading-relaxed text-[#ECF0F1]">
               {aimmyTranscript ? (
                 `“${aimmyTranscript.slice(-180)}”`
               ) : status === 'speaking' ? (
-                <span className="text-brand-line">Aimmyy is answering...</span>
+                <span className="text-[#ECF0F1] font-semibold">Aimmyy is answering...</span>
               ) : status === 'listening' ? (
-                <span className="text-white/70">Listening... Speak naturally, Aimmyy is all ears 😌</span>
+                <span className="text-[#BDC3C7]">Listening... Speak naturally, Aimmyy is all ears 👂</span>
               ) : status === 'connecting' || status === 'initializing' ? (
-                <span className="flex items-center justify-center gap-2 text-white/60">
-                  <Loader2 className="h-4 w-4 animate-spin text-brand" />
+                <span className="flex items-center justify-center gap-2 text-[#BDC3C7]">
+                  <Loader2 className="h-4 w-4 animate-spin text-[#ECF0F1]" />
                   Connecting to Gemini Live...
                 </span>
               ) : status === 'muted' ? (
                 <span className="text-amber-300">Microphone is muted. Tap Unmute to speak.</span>
               ) : (
-                <span className="text-white/50">Ready</span>
+                <span className="text-[#BDC3C7]/70">Ready</span>
               )}
             </p>
           </div>
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="relative z-10 mb-4 flex w-full flex-col gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-left text-xs text-rose-300">
+            <div className="relative z-10 mb-4 flex w-full flex-col gap-2 rounded-2xl border border-rose-500/30 bg-rose-500/15 p-3.5 text-left text-xs text-rose-200 shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.15)] backdrop-blur-xl">
               <div className="flex items-start gap-2.5">
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
                 <div className="flex-1">
@@ -574,52 +574,52 @@ export default function LiveVoiceModal({
                   handleEndCall();
                   onSwitchToChat();
                 }}
-                className="self-end rounded-lg border border-rose-400/30 bg-rose-500/20 px-2.5 py-1 text-[11px] font-medium text-rose-200 transition-colors hover:bg-rose-500/30"
+                className="self-end rounded-full border border-rose-400/30 bg-rose-500/20 px-3 py-1 text-[11px] font-medium text-rose-100 transition-colors hover:bg-rose-500/30"
               >
                 Switch to Text Chat →
               </button>
             </div>
           )}
 
-          {/* Quick Suggestions Chips */}
+          {/* Quick Suggestions Frosted Glass Pills */}
           <div className="relative z-10 mb-6 flex flex-wrap items-center justify-center gap-2">
             {QUICK_PROMPTS.map((prompt) => (
               <button
                 key={prompt}
                 type="button"
                 onClick={() => handleSendPrompt(prompt)}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/80 transition-colors hover:border-brand hover:bg-brand/15 hover:text-white"
+                className="rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-medium text-[#ECF0F1] shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.2)] backdrop-blur-xl transition-all duration-200 hover:border-white/35 hover:bg-white/[0.16] hover:scale-[1.03] active:scale-[0.97]"
               >
                 {prompt}
               </button>
             ))}
           </div>
 
-          {/* Control Toolbar */}
-          <div className="relative z-10 flex items-center justify-center gap-4">
+          {/* iOS Floating Island Dock Toolbar */}
+          <div className="relative z-10 flex items-center justify-center gap-3.5 rounded-full border border-white/20 bg-white/[0.08] p-2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),_0_12px_32px_rgba(0,0,0,0.4)] backdrop-blur-3xl">
             {/* Mute Button */}
             <motion.button
               type="button"
-              whileHover={{ scale: 1.08 }}
+              whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
               onClick={toggleMute}
               className={`flex h-12 w-12 items-center justify-center rounded-full border transition-all ${
                 isMuted
-                  ? 'border-amber-400 bg-amber-500/20 text-amber-300'
-                  : 'border-white/15 bg-white/10 text-white hover:bg-white/20'
+                  ? 'border-amber-400/50 bg-amber-500/25 text-amber-300 shadow-[0_0_16px_rgba(251,191,36,0.3)]'
+                  : 'border-white/20 bg-white/[0.12] text-[#ECF0F1] shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.25)] hover:bg-white/[0.2]'
               }`}
               title={isMuted ? 'Unmute microphone' : 'Mute microphone'}
             >
               {isMuted ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
             </motion.button>
 
-            {/* End Call Button */}
+            {/* Apple Style Red Call End Button */}
             <motion.button
               type="button"
-              whileHover={{ scale: 1.08 }}
+              whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
               onClick={handleEndCall}
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-rose-600 text-white shadow-lg shadow-rose-600/40 transition-all hover:bg-rose-500"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF3B30] text-white shadow-[0_8px_24px_rgba(255,59,48,0.55),_inset_0_1px_1px_rgba(255,255,255,0.35)] transition-all hover:bg-[#FF453A]"
               title="End Voice Call"
             >
               <PhoneOff className="h-6 w-6" />
@@ -628,13 +628,13 @@ export default function LiveVoiceModal({
             {/* Switch to Text Chat Button */}
             <motion.button
               type="button"
-              whileHover={{ scale: 1.08 }}
+              whileHover={{ scale: 1.06 }}
               whileTap={{ scale: 0.94 }}
               onClick={() => {
                 handleEndCall();
                 onSwitchToChat();
               }}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all hover:bg-white/20"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/[0.12] text-[#ECF0F1] shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.25)] transition-all hover:bg-white/[0.2]"
               title="Switch to Text Chat"
             >
               <MessageSquare className="h-5 w-5" />
