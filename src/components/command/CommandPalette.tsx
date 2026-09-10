@@ -61,10 +61,10 @@ export default function CommandPalette({
 
   const commands: CommandItem[] = [
       {
-        id: 'aimmyyy-ai',
-        title: 'Open Aimmyyy AI (Portfolio Agent)',
+        id: 'aimmyy-ai',
+        title: 'Open Aimmyy AI (Portfolio Agent)',
         category: 'AI Assistant',
-        shortcut: '/aimmyyy',
+        shortcut: '/aimmyy',
         icon: Sparkles,
         action: () => {
           onOpenChange(false);

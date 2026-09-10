@@ -135,7 +135,7 @@ export default function Hero() {
             >
               Software Engineer @{' '}
               <strong className="font-bold text-brand">Smart Forum</strong> ·{' '}
-              <span>Frontend Architecture & AI Systems</span>
+              <span>FE Architecture & AI Systems</span>
             </motion.p>
 
             <motion.p
@@ -145,7 +145,7 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 1, ease: EASE }}
             >
               I architect scalable, state-heavy web applications with React 18, TypeScript, and
-              Redux-Saga at Smart Forum — building production platforms like Dentally Assist and
+              Redux-Saga at Smart Forum, building production platforms like Dentally Assist and
               Appointlo with bulletproof state synchronization, scoped design systems, and AI
               integrations.
             </motion.p>
@@ -212,7 +212,7 @@ export default function Hero() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:bg-brand hover:dark:text-white shrink-0"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:bg-brand hover:dark:text-black shrink-0"
               >
                 View my work
                 <ArrowRight
@@ -306,10 +306,25 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="relative mt-10 border-y border-line bg-surface-2 py-3.5 sm:mt-14 sm:py-4">
-        <div className="shell flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 font-mono text-xs sm:text-sm text-ink-mute sm:gap-x-8">
+      <div className="relative mt-10 overflow-x-auto no-scrollbar border-y border-line bg-surface-2 py-3.5 sm:mt-14 sm:py-4 select-none">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-20 z-10 bg-gradient-to-r from-surface-2 to-transparent"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-20 z-10 bg-gradient-to-l from-surface-2 to-transparent"
+        />
+
+        <div
+          className="flex w-max items-center gap-8 px-6 sm:px-10"
+          aria-label="Technologies and skills"
+        >
           {MARQUEE.map((item, index) => (
-            <span key={item} className="inline-flex items-center gap-6 sm:gap-8 whitespace-nowrap">
+            <span
+              key={`${item}-${index}`}
+              className="flex items-center gap-8 whitespace-nowrap font-mono text-xs sm:text-sm text-ink-mute"
+            >
               <span>{item}</span>
               {index < MARQUEE.length - 1 && (
                 <span className="h-1 w-1 rounded-full bg-brand-line" aria-hidden="true" />

@@ -40,10 +40,12 @@ export async function POST() {
       token: token.name,
       model: 'gemini-3.1-flash-live-preview',
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : 'Failed to mint ephemeral session token for Gemini Live';
     console.error('Error generating ephemeral token for Aimmyy Live:', error);
     return NextResponse.json(
-      { error: error?.message || 'Failed to mint ephemeral session token for Gemini Live' },
+      { error: message },
       { status: 500 }
     );
   }

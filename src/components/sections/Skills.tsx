@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-import SectionHeading from './SectionHeading';
+import SectionHeading from '@/components/ui/SectionHeading';
 import { SKILL_GROUPS, TOP_SKILLS } from '@/data/profile';
 import { chipIn, EASE, fadeUp, stagger, VIEWPORT } from '@/lib/animations';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -41,19 +41,21 @@ function SkillGroupCard({
         viewport={VIEWPORT}
         variants={stagger(0.025)}
       >
-        {items.map((item, index) => (
-          <motion.li
-            key={item}
-            variants={chipIn}
-            whileHover={{ y: -2, scale: 1.03 }}
-            className={cn(
-              'rounded-lg border border-line bg-surface-2 px-3 py-1.5 text-[13px] font-medium text-ink-soft transition-colors hover:border-brand-line hover:bg-brand-soft hover:text-brand',
-              !expanded && index >= PREVIEW_COUNT && 'hidden',
-            )}
-          >
-            {item}
-          </motion.li>
-        ))}
+        {items.map((item, index) => {
+          if (!expanded && index >= PREVIEW_COUNT) return null;
+          return (
+            <motion.li
+              key={item}
+              variants={index < PREVIEW_COUNT ? chipIn : undefined}
+              initial={index >= PREVIEW_COUNT ? { opacity: 0, scale: 0.92 } : undefined}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.18 }}
+              className="rounded-lg border border-line bg-surface-2 px-3 py-1.5 text-[13px] font-medium text-ink-soft transition-colors hover:border-brand-line hover:bg-brand-soft hover:text-brand"
+            >
+              {item}
+            </motion.li>
+          );
+        })}
       </motion.ul>
 
       {hiddenCount > 0 ? (
@@ -62,7 +64,7 @@ function SkillGroupCard({
           onClick={() => setExpanded((value) => !value)}
           aria-expanded={expanded}
           aria-controls={panelId}
-          className="mt-4 inline-flex items-center gap-1.5 self-start text-[13px] font-semibold text-brand transition-colors hover:text-brand-dark"
+          className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 self-start text-[13px] font-semibold text-brand transition-colors hover:text-brand-dark touch-manipulation active:scale-95 cursor-pointer"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
@@ -113,6 +115,14 @@ export default function Skills() {
       }
     } else {
       setIsExpanded(true);
+      setTimeout(() => {
+        const el = document.getElementById('skills-expanded-content');
+        if (el) {
+          const yOffset = -80;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
@@ -190,11 +200,11 @@ export default function Skills() {
           {isExpanded && (
             <motion.div
               id="skills-expanded-content"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.45, ease: EASE }}
-              className="overflow-hidden"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
+              transition={{ duration: 0.35, ease: EASE }}
+              className="scroll-mt-24"
             >
               <div className="mt-5 grid gap-5 md:grid-cols-2">
                 {remainingGroups.map((group) => (
@@ -210,23 +220,23 @@ export default function Skills() {
           )}
         </AnimatePresence>
 
-        {/* Centered Glowing Action Toggle Button */}
-        <div className="relative z-20 mt-8 flex justify-center">
+        {/* Centered Action Toggle Button */}
+        <div className="relative z-20 mt-8 flex justify-center px-4">
           <button
             type="button"
             onClick={handleToggle}
             aria-expanded={isExpanded}
             aria-controls="skills-expanded-content"
-            className="group inline-flex items-center gap-2.5 rounded-full border border-brand/40 bg-surface px-6 py-3.5 text-sm font-semibold text-ink shadow-[0_0_24px_-6px_rgba(99,102,241,0.25)] transition-all duration-200 hover:border-brand hover:bg-brand-soft hover:shadow-[0_0_30px_-4px_rgba(99,102,241,0.45)] active:scale-[0.98]"
+            className="group inline-flex min-h-[48px] w-full max-w-sm sm:w-auto items-center justify-center gap-2.5 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink shadow-[0_4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(255,255,255,0.06)] transition-all duration-200 hover:border-brand-line hover:bg-brand-soft active:scale-[0.98] touch-manipulation cursor-pointer"
           >
-            <span>
+            <span className="text-center">
               {isExpanded
                 ? 'Collapse Skills Showcase'
                 : `Explore All ${total} Technologies (5 Categories)`}
             </span>
             <ChevronDown
               className={cn(
-                'h-4 w-4 text-brand transition-transform duration-300 group-hover:translate-y-0.5',
+                'h-4 w-4 shrink-0 text-brand transition-transform duration-300 group-hover:translate-y-0.5',
                 isExpanded && 'rotate-180 group-hover:-translate-y-0.5',
               )}
               aria-hidden="true"

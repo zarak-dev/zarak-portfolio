@@ -10,7 +10,7 @@ export default function ScrollProgress() {
     <motion.div
       style={{ scaleX }}
       aria-hidden="true"
-      className="no-print fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-gradient-to-r from-brand via-mint to-brand"
+      className="no-print fixed inset-x-0 top-0 z-[60] h-0.5 origin-left bg-gradient-to-r from-brand via-mint to-brand pointer-events-none"
     />
   );
 }

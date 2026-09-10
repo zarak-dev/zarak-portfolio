@@ -1,187 +1,257 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { Menu, Terminal, FileDown } from 'lucide-react';
+import { ArrowUpRight, Menu, Search, Sparkles, X } from 'lucide-react';
+
+import { NAV_LINKS, PROFILE } from '@/data/profile';
+import { EASE } from '@/lib/animations';
+import { AnimatePresence, motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import { useScrollLock } from '@/hooks/useScrollLock';
 import ThemeToggle from './ThemeToggle';
-import MobileNav from './MobileNav';
-import { IDENTITY } from '@/data/identity';
 
 interface NavigationProps {
-  onOpenCommand: () => void;
+  onOpenAimmy?: () => void;
+  onOpenCommand?: () => void;
 }
 
-const DESKTOP_LINKS = [
-  { name: 'Projects', href: '#projects' },
-  { name: 'Timeline', href: '#experience' },
-  { name: 'Tech Map', href: '#skills' },
-  { name: 'Workflow', href: '#workflow' },
-  { name: 'Reviews', href: '#recommendations' },
-  { name: 'Contact', href: '#contact' },
-];
-
-export default function Navigation({ onOpenCommand }: NavigationProps) {
+export default function Navigation({ onOpenAimmy, onOpenCommand }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('');
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string>('about');
+  const scrolledRef = useRef(false);
 
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  // Lock background scroll when mobile navigation drawer is open
+  useScrollLock(open);
 
+  // Optimized scroll handler: updates state only when boolean boundary transitions
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-
-      // Detect current section in view
-      const sectionIds = ['projects', 'experience', 'skills', 'workflow', 'github', 'recommendations', 'contact'];
-      for (let i = sectionIds.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sectionIds[i]);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 160 && rect.bottom >= 160) {
-            setActiveSection(sectionIds[i]);
-            break;
-          }
-        }
+    const onScroll = () => {
+      const isScrolled = window.scrollY > 24;
+      if (scrolledRef.current !== isScrolled) {
+        scrolledRef.current = isScrolled;
+        setScrolled(isScrolled);
       }
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    setActiveSection(targetId);
-    const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // IntersectionObserver for active section link detection
+  useEffect(() => {
+    const sections = NAV_LINKS.map((link) => document.getElementById(link.id)).filter(
+      (el): el is HTMLElement => el !== null,
+    );
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <>
-      {/* Top Scroll Progress Bar */}
-      <motion.div
-        style={{ scaleX }}
-        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-accent via-indigo-500 to-sky-400 origin-left z-[70] pointer-events-none"
-      />
-
-      <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-background/85 backdrop-blur-xl border-b border-border/70 py-3 shadow-sm'
-            : 'bg-transparent py-4 sm:py-5'
-        }`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-12 flex items-center justify-between">
-          {/* Logo / OS Identity */}
-          <a
-            href="#hero"
-            onClick={(e) => handleNavClick(e, '#hero')}
-            className="flex items-center gap-2.5 group"
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: EASE }}
+      className={cn(
+        'no-print fixed inset-x-0 top-0 z-50 transition-all duration-300',
+        scrolled || open
+          ? 'border-b border-line bg-surface/85 backdrop-blur-xl'
+          : 'border-b border-transparent',
+      )}
+    >
+      <div className="shell flex h-16 items-center justify-between gap-4 sm:h-[4.5rem]">
+        <a
+          href="#top"
+          className="group flex items-center gap-2.5"
+          aria-label={`${PROFILE.name} — back to top`}
+        >
+          <motion.div
+            whileHover={{ rotate: -8, scale: 1.06 }}
+            whileTap={{ scale: 0.94 }}
+            className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-line bg-black shadow-sm dark:border-white/10"
           >
-            <div className="w-8 h-8 rounded-lg overflow-hidden border border-border/80 bg-black flex items-center justify-center shadow-xs transition-transform duration-200 group-hover:scale-105 shrink-0">
-              <Image
-                src="/images/zk-logo.png"
-                alt="ZK Logo"
-                width={32}
-                height={32}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-sm tracking-tight text-foreground flex items-center gap-1.5">
-                {IDENTITY.name}
-                <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              </span>
-              <span className="font-mono text-[10px] text-muted-foreground tracking-wider uppercase">
-                Software Engineer
-              </span>
-            </div>
-          </a>
+            <Image
+              src="/images/zk-logo.png"
+              alt={`${PROFILE.name} Logo`}
+              width={36}
+              height={36}
+              className="h-full w-full object-cover"
+              priority
+              loading="eager"
+            />
+          </motion.div>
+          <span className="hidden flex-col leading-tight sm:flex">
+            <span className="font-display text-[15px] font-bold text-ink">{PROFILE.name}</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
+              {PROFILE.role}
+            </span>
+          </span>
+        </a>
 
-          {/* Desktop Nav Links with Animated Active Pill */}
-          <nav className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-full bg-card/70 border border-border/70 backdrop-blur-md">
-            {DESKTOP_LINKS.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className={`relative px-3 py-1.5 rounded-full text-xs font-mono transition-colors duration-200 whitespace-nowrap ${
-                    isActive ? 'text-accent font-semibold' : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeNavPill"
-                      className="absolute inset-0 rounded-full bg-accent/15 border border-accent/40"
-                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.name}</span>
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Right Action Suite: CMD+K, Resume, Theme */}
-          <div className="flex items-center gap-2.5">
-            {/* Command palette trigger */}
-            <button
-              onClick={onOpenCommand}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/80 bg-card/60 backdrop-blur-md text-xs font-mono text-muted-foreground hover:text-foreground hover:border-accent/50 transition-colors shadow-xs"
-              aria-label="Open command palette"
-            >
-              <Terminal className="w-3.5 h-3.5 text-accent" />
-              <span className="hidden md:inline">Command</span>
-              <kbd className="px-1.5 py-0.5 rounded text-[10px] bg-secondary border border-border text-foreground font-mono">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* Resume CTA */}
+        <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex">
+          {NAV_LINKS.map((link) => (
             <a
-              href="#resume"
-              onClick={(e) => handleNavClick(e, '#resume')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent text-accent-foreground font-mono text-xs font-semibold hover:bg-accent/90 transition-colors shadow-xs"
+              key={link.id}
+              href={`#${link.id}`}
+              aria-current={active === link.id ? 'true' : undefined}
+              className={cn(
+                'relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors',
+                active === link.id ? 'text-brand' : 'text-ink-mute hover:text-ink',
+              )}
             >
-              <FileDown className="w-3.5 h-3.5" />
-              <span>Resume</span>
+              {active === link.id ? (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0 rounded-full bg-brand-soft"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                />
+              ) : null}
+              <span className="relative">{link.label}</span>
             </a>
+          ))}
+        </nav>
 
-            <ThemeToggle />
-
-            {/* Mobile Menu Trigger */}
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="lg:hidden p-2 rounded-xl border border-border/70 text-muted-foreground hover:text-foreground"
-              aria-label="Open navigation menu"
+        <div className="flex items-center gap-2">
+          {onOpenCommand && (
+            <motion.button
+              type="button"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              onClick={onOpenCommand}
+              className="hidden items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3 py-1.5 font-mono text-xs font-medium text-ink-mute transition-colors hover:border-brand hover:text-ink md:inline-flex cursor-pointer"
+              aria-label="Open command palette (CMD+K)"
             >
-              <Menu className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </motion.header>
+              <Search className="h-3 w-3" />
+              <span className="text-[11px] opacity-70">⌘K</span>
+            </motion.button>
+          )}
 
-      {/* Mobile Navigation Drawer */}
-      <MobileNav
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-        onOpenCommand={onOpenCommand}
-      />
-    </>
+          <ThemeToggle />
+
+          {onOpenAimmy && (
+            <motion.button
+              type="button"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.94 }}
+              onClick={onOpenAimmy}
+              className="group inline-flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand-soft px-3.5 py-1.5 text-xs font-semibold text-brand transition-all duration-200 hover:border-brand hover:bg-brand hover:text-white dark:border-white/30 dark:bg-white/[0.08] dark:text-white dark:hover:border-white dark:hover:bg-white dark:hover:text-black shadow-sm cursor-pointer"
+              aria-label="Open Aimmyy AI assistant"
+            >
+              <Sparkles className="h-3.5 w-3.5 shrink-0 text-current transition-transform duration-200 group-hover:rotate-12" />
+              <span>Aimmyy AI</span>
+            </motion.button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line text-ink transition-colors hover:bg-surface-3 lg:hidden cursor-pointer"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={open ? 'close' : 'open'}
+                initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                transition={{ duration: 0.2, ease: EASE }}
+              >
+                {open ? (
+                  <X className="h-5 w-5" aria-hidden="true" />
+                ) : (
+                  <Menu className="h-5 w-5" aria-hidden="true" />
+                )}
+              </motion.span>
+            </AnimatePresence>
+          </button>
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            id="mobile-nav"
+            key="mobile-nav"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+            className="overflow-hidden border-t border-line bg-surface lg:hidden"
+          >
+            <motion.nav
+              aria-label="Mobile"
+              className="shell grid max-h-[calc(100dvh-5rem)] gap-1 overflow-y-auto py-4"
+              initial="hidden"
+              animate="show"
+              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.045 } } }}
+            >
+              {NAV_LINKS.map((link) => (
+                <motion.a
+                  key={link.id}
+                  variants={{
+                    hidden: { opacity: 0, x: -14 },
+                    show: { opacity: 1, x: 0, transition: { duration: 0.35, ease: EASE } },
+                  }}
+                  href={`#${link.id}`}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    'rounded-xl px-4 py-3 text-[15px] font-medium transition-colors',
+                    active === link.id
+                      ? 'bg-brand-soft text-brand font-semibold'
+                      : 'text-ink-soft hover:bg-surface-3',
+                  )}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+              {onOpenAimmy && (
+                <motion.button
+                  variants={{
+                    hidden: { opacity: 0, x: -14 },
+                    show: { opacity: 1, x: 0, transition: { duration: 0.35, ease: EASE } },
+                  }}
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    onOpenAimmy();
+                  }}
+                  className="flex items-center gap-2 rounded-xl bg-brand-soft px-4 py-3 text-[15px] font-semibold text-brand text-left cursor-pointer"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  <span>Ask Aimmyy AI</span>
+                </motion.button>
+              )}
+              <motion.a
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE } },
+                }}
+                href={`mailto:${PROFILE.email}`}
+                onClick={() => setOpen(false)}
+                className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-ink px-4 py-3 text-[15px] font-semibold text-white dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:bg-brand-soft hover:dark:text-brand"
+              >
+                Email me
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </motion.a>
+            </motion.nav>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.header>
   );
 }

@@ -1,23 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 
-import ScrollProgress from '@/components/clean/ScrollProgress';
-import Navigation from '@/components/clean/Navigation';
-import Hero from '@/components/clean/Hero';
-import About from '@/components/clean/About';
-import Experience from '@/components/clean/Experience';
-import Projects from '@/components/clean/Projects';
-import Skills from '@/components/clean/Skills';
-import Education from '@/components/clean/Education';
-import Recommendations from '@/components/clean/Recommendations';
-import Contact from '@/components/clean/Contact';
-import Footer from '@/components/clean/Footer';
-import FramerBackdrop from '@/components/clean/FramerBackdrop';
+import ScrollProgress from '@/components/navigation/ScrollProgress';
+import Navigation from '@/components/navigation/Navigation';
+import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
+import Experience from '@/components/sections/Experience';
+import Projects from '@/components/sections/Projects';
+import Skills from '@/components/sections/Skills';
+import Education from '@/components/sections/Education';
+import Recommendations from '@/components/sections/Recommendations';
+import Contact from '@/components/sections/Contact';
+import Footer from '@/components/layout/Footer';
+import FramerBackdrop from '@/components/background/FramerBackdrop';
 import { CASE_STUDIES, type CaseStudy } from '@/data/projects';
 
-// Interactive AI, Architectural X-Ray, and Developer Experience widgets
+// Lazy-load heavy interactive overlays on demand to optimize initial page performance
 const AskZarak = dynamic(() => import('@/components/ai/AskZarak'), { ssr: false });
 const ProjectXRay = dynamic(() => import('@/components/xray/ProjectXRay'), { ssr: false });
 const CaseStudyModal = dynamic(() => import('@/components/projects/CaseStudyModal'), { ssr: false });
@@ -31,16 +31,16 @@ export default function Home() {
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
   const [aiContextMessage, setAiContextMessage] = useState<string | null>(null);
 
-  const handleOpenAimmy = () => {
+  const handleOpenAimmy = useCallback(() => {
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('open-aimmyyy-ai'));
     }
-  };
+  }, []);
 
-  const handleOpenCaseStudy = (projectId: string) => {
+  const handleOpenCaseStudy = useCallback((projectId: string) => {
     const study = CASE_STUDIES.find((cs) => cs.id === projectId);
     if (study) setSelectedCaseStudy(study);
-  };
+  }, []);
 
   // Keyboard shortcut: CMD+K / Ctrl+K for Command Palette
   useEffect(() => {
@@ -83,10 +83,10 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-surface text-ink font-sans antialiased selection:bg-brand selection:text-white">
-      {/* Unique, Whisper-Quiet Framer Motion Background */}
+      {/* Whisper-quiet ambient motion background */}
       <FramerBackdrop />
 
-      {/* Top Scroll Indicator */}
+      {/* Top scroll indicator */}
       <ScrollProgress />
 
       {/* Clean Navigation Bar */}
@@ -95,7 +95,7 @@ export default function Home() {
         onOpenCommand={() => setCommandOpen(true)}
       />
 
-      {/* Main Sections */}
+      {/* Main Portfolio Sections */}
       <main id="main-content" className="relative z-10">
         <Hero />
         <About />
@@ -113,7 +113,7 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Aimmyyy AI Assistant */}
+      {/* Aimmyy AI Assistant Drawer */}
       <AskZarak
         onOpenXRay={setXrayProject}
         onOpenCaseStudy={handleOpenCaseStudy}

@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowUpRight, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 
-import SectionHeading from './SectionHeading';
+import SectionHeading from '@/components/ui/SectionHeading';
 import { PROFILE } from '@/data/profile';
 import { EASE, fadeRight, fadeUp, stagger, VIEWPORT } from '@/lib/animations';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -136,7 +136,7 @@ export default function Contact() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center justify-between gap-3 rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-brand-line hover:bg-brand-soft/30"
+                  className="group flex items-center justify-between gap-3 rounded-2xl border border-line bg-surface p-4 transition-colors hover:border-brand-line hover:bg-brand-soft/30 cursor-pointer"
                 >
                   <span className="flex items-center gap-3">
                     <social.icon className="h-5 w-5 text-brand" aria-hidden="true" />
@@ -250,7 +250,7 @@ export default function Contact() {
                 whileTap={{ scale: 0.97 }}
                 type="submit"
                 disabled={loading}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand disabled:opacity-50 sm:w-auto dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:text-white"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand disabled:opacity-50 sm:w-auto dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:text-white cursor-pointer"
               >
                 {loading ? 'Sending...' : 'Send message'}
                 <Send className="h-4 w-4" aria-hidden="true" />

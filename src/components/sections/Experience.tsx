@@ -2,7 +2,7 @@
 
 import { Briefcase } from 'lucide-react';
 
-import SectionHeading from './SectionHeading';
+import SectionHeading from '@/components/ui/SectionHeading';
 import { EXPERIENCE } from '@/data/profile';
 import { chipIn, EASE, fadeRight, fadeUp, stagger, VIEWPORT } from '@/lib/animations';
 import { motion } from 'framer-motion';

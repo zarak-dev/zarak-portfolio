@@ -14,6 +14,8 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('singal') ||
     query.includes('dating') ||
     query.includes('girlfriend') ||
+    query.includes('fiancée') ||
+    query.includes('fiancee') ||
     query.includes('gf') ||
     query.includes('married') ||
     query.includes('wife') ||
@@ -22,7 +24,18 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('age') ||
     query.includes('birthday')
   ) {
-    return `Haha, nice try! 😉 I'm **Aimmyyy AI**, Zarak's AI engineering assistant, so I keep my focus strictly on his code, frontend architectures, and technical systems!\n\nZarak is completely focused on engineering high-performance software. For anything personal or to say hello to him directly, you're welcome to reach out via the contact form below or connect on [LinkedIn](${IDENTITY.contacts.linkedin})! ✨`;
+    return `He's taken, sorry. 😌 Behave yourself! That part of his life is private, but I can definitely brag about his work if you'd like. What would you like to know about his projects or frontend architecture?`;
+  }
+
+  // 1.1 Flirting with Aimmyy
+  if (
+    query.includes('cute') ||
+    query.includes('pretty') ||
+    query.includes('beautiful') ||
+    query.includes('marry me') ||
+    query.includes('love you')
+  ) {
+    return `Nice try. 😌 I'm here to show off Zarak's work, remember? You're supposed to be exploring the portfolio, not trying to charm the AI. 😂 Now, want me to show you one of his production platforms?`;
   }
 
   // 2. Greetings
@@ -32,7 +45,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query === 'hello' ||
     query === 'hey'
   ) {
-    return `Hey there! 👋 I am **Aimmyyy AI**, Zarak's dedicated female engineering assistant and portfolio representative.\n\nI'd love to show you around his work! I can tell you all about:\n- **His Specialization**: Modern Frontend Architecture, React 18, TypeScript, Redux-Saga & RTK\n- **Smart Forum Flagship Projects**: Dentally Assist (AI Call Operations Dashboard) & Appointlo (Live SaaS Platform at [apointlo.com](https://apointlo.com/))\n- **Interactive Architecture**: Inspect live data flows with **Project X-Ray**\n- **Engineering Experience**: Production work at Smart Forum\n\nWhat would you like to explore first? ✨`;
+    return `Hey there! 👋 I'm **Aimmyy**, Zarak's AI assistant — basically the slightly more talkative part of his portfolio. 😌\n\nI can walk you through his production platforms at Smart Forum (like **Dentally Assist** and **Appointlo**), his async state architectures, or open **Project X-Ray** to see how things work under the hood.\n\nWhat would you like to explore first?`;
   }
 
   // 3. Specialization / What does Zarak do / Core focus
@@ -219,5 +232,5 @@ export function generateOfflineResponse(userMessage: string): string {
   }
 
   // 17. Default Fallback
-  return `Hi! I'm **Aimmyyy AI**, representing **${IDENTITY.name}** (Software Engineer specializing in Modern Frontend Architecture & UI Systems) ✨.\n\nHere are some things you can ask me about:\n- **"What does Zarak specialize in?"**\n- **"Tell me about Dentally Assist or Appointlo"** (Smart Forum production platforms)\n- **"Which projects use Redux-Saga?"**\n- **"Show me his AI-related work"**\n- **"What is his experience at Smart Forum?"**\n- **"How can I contact or hire Zarak?"**\n\nWhat would you like to explore?`;
+  return `Hi! I'm **Aimmyy AI**, representing **${IDENTITY.name}** (Software Engineer specializing in Modern Frontend Architecture & UI Systems) ✨.\n\nHere are some things you can ask me about:\n- **"What does Zarak specialize in?"**\n- **"Tell me about Dentally Assist or Appointlo"** (Smart Forum production platforms)\n- **"Which projects use Redux-Saga?"**\n- **"Show me his AI-related work"**\n- **"What is his experience at Smart Forum?"**\n- **"How can I contact or hire Zarak?"**\n\nWhat would you like to explore?`;
 }

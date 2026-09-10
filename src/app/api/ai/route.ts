@@ -31,30 +31,35 @@ function createStreamResponse(text: string) {
   });
 }
 
+interface MessageItem {
+  role: 'user' | 'model';
+  content: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { messages } = body;
+    const { messages } = body as { messages?: MessageItem[] };
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json({ error: 'Messages array is required' }, { status: 400 });
     }
 
     const lastUserMessage =
-      [...messages].reverse().find((m: any) => m.role === 'user')?.content || '';
+      [...messages].reverse().find((m: MessageItem) => m.role === 'user')?.content || '';
 
     // 1. If GEMINI_API_KEY is configured, attempt live streaming generation
     if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim() !== '') {
       try {
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-        const formattedMessages = messages.map((m: any) => ({
+        const formattedMessages = messages.map((m: MessageItem) => ({
           role: m.role === 'user' ? 'user' : 'model',
           parts: [{ text: m.content }],
         }));
 
         const responseStream = await ai.models.generateContentStream({
-          model: 'gemini-2.5-flash',
+          model: process.env.GEMINI_MODEL || 'gemini-3.6-flash',
           contents: formattedMessages,
           config: {
             systemInstruction: getZarakContext(),
@@ -97,7 +102,7 @@ export async function POST(req: NextRequest) {
     // Delivers context-grounded responses without requiring an external API key or network call
     const fallbackResponse = generateOfflineResponse(lastUserMessage);
     return createStreamResponse(fallbackResponse);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('AI Route Error:', error);
     // Even on server-level errors, return a graceful response instead of an unhandled failure
     return createStreamResponse(

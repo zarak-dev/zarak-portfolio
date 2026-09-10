@@ -61,8 +61,8 @@ export default function AmbientCanvas() {
     const mouse = { x: -9999, y: -9999, targetX: -9999, targetY: -9999, isHovering: false };
     const isDark = resolvedTheme !== 'light';
 
-    // Node density calibrated for aesthetic elegance
-    const count = Math.min(Math.max(Math.floor((width * height) / 12000), 50), 95);
+    // Node density calibrated for aesthetic elegance and performance
+    const count = Math.min(Math.max(Math.floor((width * height) / 14000), 45), 85);
     const nodes: Node3D[] = [];
 
     for (let i = 0; i < count; i++) {
@@ -71,8 +71,8 @@ export default function AmbientCanvas() {
         x: Math.random() * width,
         y: Math.random() * height,
         z,
-        vx: (Math.random() - 0.5) * 0.45 * (1.1 - z * 0.3),
-        vy: (Math.random() - 0.5) * 0.45 * (1.1 - z * 0.3),
+        vx: (Math.random() - 0.5) * 0.4 * (1.1 - z * 0.3),
+        vy: (Math.random() - 0.5) * 0.4 * (1.1 - z * 0.3),
         radius: (Math.random() * 2.2 + 1.8) * z,
         phase: Math.random() * Math.PI * 2,
         speed: 0.015 + Math.random() * 0.025,
@@ -80,7 +80,14 @@ export default function AmbientCanvas() {
     }
 
     const pulses: Pulse[] = [];
-    const maxPulses = 24;
+    const maxPulses = 18;
+    const maxDistance = 160;
+    const maxDistanceSq = maxDistance * maxDistance;
+    const mouseRange = 180;
+    const mouseRangeSq = mouseRange * mouseRange;
+
+    // Spatial partitioning grid setup (cell size = maxDistance)
+    const cellSize = maxDistance;
 
     const onMouseMove = (e: MouseEvent) => {
       mouse.targetX = e.clientX;
@@ -94,8 +101,10 @@ export default function AmbientCanvas() {
       mouse.isHovering = false;
     };
 
+    let resizeTimer: number;
     const onResize = () => {
-      setupCanvasSize();
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(setupCanvasSize, 150);
     };
 
     const handleVisibilityChange = () => {
@@ -113,6 +122,8 @@ export default function AmbientCanvas() {
     window.addEventListener('resize', onResize);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
+    const strokeColor = isDark ? '204, 204, 204' : '51, 51, 51';
+
     const render = () => {
       if (!isRunning) return;
       ctx.clearRect(0, 0, width, height);
@@ -126,22 +137,27 @@ export default function AmbientCanvas() {
         mouse.y = -9999;
       }
 
-      // Update node positions
+      // Update node positions and populate spatial grid
+      const cols = Math.ceil(width / cellSize) + 1;
+      const rows = Math.ceil(height / cellSize) + 1;
+      const grid: number[][] = Array.from({ length: cols * rows }, () => []);
+
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         n.phase += n.speed;
-        n.x += n.vx + Math.sin(n.phase) * 0.25;
-        n.y += n.vy + Math.cos(n.phase) * 0.25;
+        n.x += n.vx + Math.sin(n.phase) * 0.22;
+        n.y += n.vy + Math.cos(n.phase) * 0.22;
 
         // Interactive mouse gentle repulsion
         if (mouse.x > -1000) {
           const dx = n.x - mouse.x;
           const dy = n.y - mouse.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 170 && dist > 1) {
-            const force = (1 - dist / 170) * 0.8;
-            n.x += (dx / dist) * force * 2.5;
-            n.y += (dy / dist) * force * 2.5;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < mouseRangeSq && distSq > 1) {
+            const dist = Math.sqrt(distSq);
+            const force = (1 - dist / mouseRange) * 0.7;
+            n.x += (dx / dist) * force * 2.2;
+            n.y += (dy / dist) * force * 2.2;
           }
         }
 
@@ -150,81 +166,102 @@ export default function AmbientCanvas() {
         if (n.x > width + 30) n.x = -30;
         if (n.y < -30) n.y = height + 30;
         if (n.y > height + 30) n.y = -30;
+
+        // Bin into grid
+        const c = Math.max(0, Math.min(cols - 1, Math.floor(n.x / cellSize)));
+        const r = Math.max(0, Math.min(rows - 1, Math.floor(n.y / cellSize)));
+        grid[r * cols + c].push(i);
       }
 
-      // Connections between nodes
-      const maxDistance = 165;
+      // Spatial bucketing connection checks: only test same cell and 4 forward neighbors
       const activeConnections: { i: number; j: number }[] = [];
+      const neighborOffsets = [
+        [0, 0],   // same cell
+        [1, 0],   // right
+        [-1, 1],  // bottom-left
+        [0, 1],   // bottom
+        [1, 1],   // bottom-right
+      ];
 
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i];
-          const b = nodes[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const dist = Math.hypot(dx, dy);
+      // Batch line rendering to minimize GPU draw calls
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${strokeColor}, ${isDark ? 0.09 : 0.11})`;
+      ctx.lineWidth = isDark ? 0.95 : 1.05;
 
-          if (dist < maxDistance) {
-            activeConnections.push({ i, j });
-            const depthFactor = (a.z + b.z) * 0.5;
-            const distRatio = 1 - dist / maxDistance;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const cellNodes = grid[r * cols + c];
+          if (!cellNodes || cellNodes.length === 0) continue;
 
-            // Subtle, elegant alpha for ambient network
-            const alpha = isDark
-              ? distRatio * 0.14 * depthFactor
-              : distRatio * 0.16 * depthFactor;
+          for (const [dc, dr] of neighborOffsets) {
+            const nc = c + dc;
+            const nr = r + dr;
+            if (nc < 0 || nc >= cols || nr < 0 || nr >= rows) continue;
 
-            ctx.beginPath();
-            if (isDark) {
-              ctx.strokeStyle = `rgba(189, 195, 199, ${alpha})`;
-            } else {
-              // Rich slate line in light mode
-              ctx.strokeStyle = `rgba(52, 73, 94, ${alpha})`;
+            const neighborNodes = grid[nr * cols + nc];
+            if (!neighborNodes || neighborNodes.length === 0) continue;
+
+            const isSameCell = dc === 0 && dr === 0;
+
+            for (let idxA = 0; idxA < cellNodes.length; idxA++) {
+              const i = cellNodes[idxA];
+              const startIdxB = isSameCell ? idxA + 1 : 0;
+
+              for (let idxB = startIdxB; idxB < neighborNodes.length; idxB++) {
+                const j = neighborNodes[idxB];
+                const a = nodes[i];
+                const b = nodes[j];
+
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const distSq = dx * dx + dy * dy;
+
+                if (distSq < maxDistanceSq) {
+                  activeConnections.push({ i, j });
+                  ctx.moveTo(a.x, a.y);
+                  ctx.lineTo(b.x, b.y);
+                }
+              }
             }
-            ctx.lineWidth = depthFactor * (isDark ? 0.95 : 1.05);
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
           }
         }
+      }
+      ctx.stroke();
 
-        // Connect node to mouse cursor if within range
-        if (mouse.x > -1000) {
+      // Connect node to mouse cursor if within range
+      if (mouse.x > -1000) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(${strokeColor}, ${isDark ? 0.22 : 0.25})`;
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i < nodes.length; i++) {
           const n = nodes[i];
           const mdx = n.x - mouse.x;
           const mdy = n.y - mouse.y;
-          const mDist = Math.hypot(mdx, mdy);
-          if (mDist < 190) {
-            const mRatio = 1 - mDist / 190;
-            const mAlpha = isDark ? mRatio * 0.25 : mRatio * 0.28;
-            ctx.beginPath();
-            ctx.strokeStyle = isDark
-              ? `rgba(189, 195, 199, ${mAlpha})`
-              : `rgba(52, 73, 94, ${mAlpha})`;
-            ctx.lineWidth = mRatio * 1.2;
+          const mDistSq = mdx * mdx + mdy * mdy;
+
+          if (mDistSq < mouseRangeSq) {
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
           }
         }
-      }
+        ctx.stroke();
 
-      // Draw subtle interactive cursor focal ring
-      if (mouse.x > -1000) {
+        // Subtle interactive cursor focal rings
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = isDark ? 'rgba(189, 195, 199, 0.6)' : 'rgba(52, 73, 94, 0.6)';
+        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.6)';
         ctx.fill();
 
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 12, 0, Math.PI * 2);
-        ctx.strokeStyle = isDark ? 'rgba(189, 195, 199, 0.25)' : 'rgba(52, 73, 94, 0.25)';
+        ctx.strokeStyle = isDark ? 'rgba(204, 204, 204, 0.25)' : 'rgba(51, 51, 51, 0.25)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
 
       // Spawn electrical firing pulses
-      if (pulses.length < maxPulses && activeConnections.length > 0 && Math.random() < 0.16) {
+      if (pulses.length < maxPulses && activeConnections.length > 0 && Math.random() < 0.15) {
         const conn = activeConnections[Math.floor(Math.random() * activeConnections.length)];
         pulses.push({
           sourceIdx: conn.i,
@@ -235,7 +272,10 @@ export default function AmbientCanvas() {
         });
       }
 
-      // Render & update pulses
+      // Render & update pulses (batched)
+      ctx.beginPath();
+      ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)';
+
       for (let p = pulses.length - 1; p >= 0; p--) {
         const pulse = pulses[p];
         pulse.progress += pulse.speed;
@@ -254,82 +294,43 @@ export default function AmbientCanvas() {
 
         const px = a.x + (b.x - a.x) * pulse.progress;
         const py = a.y + (b.y - a.y) * pulse.progress;
-        const pulseAlpha = Math.sin(pulse.progress * Math.PI) * (isDark ? 0.55 : 0.45);
 
-        ctx.beginPath();
-        const pulseRadius = 2.2 * ((a.z + b.z) * 0.5);
-        ctx.arc(px, py, pulseRadius, 0, Math.PI * 2);
-
-        if (isDark) {
-          ctx.fillStyle = pulse.isCyan
-            ? `rgba(236, 240, 241, ${pulseAlpha})`
-            : `rgba(189, 195, 199, ${pulseAlpha})`;
-          ctx.shadowColor = pulse.isCyan ? '#ECF0F1' : '#BDC3C7';
-          ctx.shadowBlur = 6;
-        } else {
-          ctx.fillStyle = pulse.isCyan
-            ? `rgba(44, 62, 80, ${pulseAlpha})`
-            : `rgba(52, 73, 94, ${pulseAlpha})`;
-          ctx.shadowColor = pulse.isCyan ? '#2C3E50' : '#34495E';
-          ctx.shadowBlur = 4;
-        }
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        ctx.moveTo(px + 2, py);
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
       }
+      ctx.fill();
 
-      // Render Nodes with classic distinct core & soft outer ring
+      // Render nodes (batched by theme)
+      ctx.beginPath();
+      ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.35)';
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
-        const pulseScale = 0.85 + Math.sin(n.phase * 2) * 0.2;
-        const currentRadius = n.radius * pulseScale;
-
-        // Outer ambient glow ring (gentle and low-prominence)
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, currentRadius * 1.6, 0, Math.PI * 2);
-        if (isDark) {
-          ctx.fillStyle = `rgba(189, 195, 199, ${0.05 * n.z})`;
-        } else {
-          ctx.fillStyle = `rgba(52, 73, 94, ${0.05 * n.z})`;
-        }
-        ctx.fill();
-
-        // Inner solid core
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, currentRadius, 0, Math.PI * 2);
-        if (isDark) {
-          const coreAlpha = Math.min(0.28 + n.z * 0.22, 0.5);
-          ctx.fillStyle = i % 3 === 0
-            ? `rgba(236, 240, 241, ${coreAlpha})`
-            : `rgba(189, 195, 199, ${coreAlpha})`;
-        } else {
-          const coreAlpha = Math.min(0.32 + n.z * 0.2, 0.52);
-          ctx.fillStyle = i % 3 === 0
-            ? `rgba(44, 62, 80, ${coreAlpha})`
-            : `rgba(52, 73, 94, ${coreAlpha})`;
-        }
-        ctx.fill();
+        ctx.moveTo(n.x + n.radius, n.y);
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
       }
+      ctx.fill();
 
       animId = requestAnimationFrame(render);
     };
 
-    render();
+    animId = requestAnimationFrame(render);
 
     return () => {
       isRunning = false;
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      cancelAnimationFrame(animId);
+      window.clearTimeout(resizeTimer);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);
       window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [resolvedTheme]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-80 transition-opacity duration-500 hidden md:block"
       aria-hidden="true"
+      className="pointer-events-none fixed inset-0 z-0 hidden md:block"
     />
   );
 }

@@ -2,7 +2,7 @@
 
 import { GraduationCap } from 'lucide-react';
 
-import SectionHeading from './SectionHeading';
+import SectionHeading from '@/components/ui/SectionHeading';
 import { EDUCATION } from '@/data/profile';
 import { chipIn, fadeUp, stagger, VIEWPORT } from '@/lib/animations';
 import { motion } from 'framer-motion';

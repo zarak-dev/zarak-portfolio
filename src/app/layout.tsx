@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import AmbientCanvas from '@/components/background/AmbientCanvas';
@@ -6,10 +7,28 @@ import CursorSpotlight from '@/components/background/CursorSpotlight';
 import { getPersonJsonLd, getWebSiteJsonLd } from '@/lib/seo';
 import { IDENTITY } from '@/data/identity';
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+});
+
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ECF0F1' },
-    { media: '(prefers-color-scheme: dark)', color: '#2C3E50' },
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
 };
 
@@ -78,7 +97,11 @@ export default function RootLayout({
   const websiteJsonLd = getWebSiteJsonLd();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           type="application/ld+json"

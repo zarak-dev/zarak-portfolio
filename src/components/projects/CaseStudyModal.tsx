@@ -61,7 +61,7 @@ export default function CaseStudyModal({ study, onClose, onOpenXRay }: CaseStudy
             role="dialog"
             aria-modal="true"
             aria-label={study.title}
-            className="relative w-full max-w-4xl bg-card border border-border/90 rounded-2xl shadow-2xl overflow-hidden z-10 my-auto max-h-[90vh] flex flex-col glow-border overscroll-contain"
+            className="relative w-full max-w-4xl bg-card border border-border/90 rounded-2xl shadow-2xl overflow-hidden z-10 my-auto max-h-[90dvh] flex flex-col glow-border overscroll-contain"
           >
             {/* Header Bar */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-border/70 bg-secondary/40 shrink-0">

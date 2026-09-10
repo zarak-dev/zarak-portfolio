@@ -1,35 +1,47 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTheme } from 'next-themes';
 import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  if (!mounted) {
-    return <div className="w-9 h-9 rounded-full border border-border/40" />;
-  }
-
-  const isDark = resolvedTheme === 'dark';
+  const isDark = mounted ? resolvedTheme === 'dark' : true;
+  const toggle = () => setTheme(isDark ? 'light' : 'dark');
 
   return (
     <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.92 }}
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      className="relative w-9 h-9 rounded-full border border-border/70 bg-card/60 backdrop-blur-md flex items-center justify-center text-muted-foreground hover:text-accent hover:border-accent/50 transition-colors shadow-xs"
-    >
-      {isDark ? (
-        <Sun className="w-4 h-4 text-emerald-400" />
-      ) : (
-        <Moon className="w-4 h-4 text-sky-600" />
+      type="button"
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.94 }}
+      onClick={toggle}
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+      aria-pressed={isDark}
+      className={cn(
+        'inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line transition-colors hover:border-brand-line hover:bg-brand-soft cursor-pointer',
+        isDark ? 'text-brand' : 'text-ink-mute hover:text-brand',
+        className,
       )}
+    >
+      <motion.div
+        initial={false}
+        animate={{ rotate: isDark ? 0 : 180, scale: 1 }}
+        transition={{ duration: 0.35, ease: 'easeInOut' }}
+      >
+        {isDark ? (
+          <Sun className="h-[18px] w-[18px]" aria-hidden="true" />
+        ) : (
+          <Moon className="h-[18px] w-[18px]" aria-hidden="true" />
+        )}
+      </motion.div>
     </motion.button>
   );
 }

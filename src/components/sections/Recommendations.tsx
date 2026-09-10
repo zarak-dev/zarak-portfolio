@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ChevronDown, ExternalLink, Quote } from 'lucide-react';
 
-import SectionHeading from './SectionHeading';
+import SectionHeading from '@/components/ui/SectionHeading';
 import { RECOMMENDATIONS, type Recommendation } from '@/data/recommendations';
 import { EASE, VIEWPORT } from '@/lib/animations';
 import { motion } from 'framer-motion';
@@ -71,7 +71,7 @@ function RecommendationCard({ rec }: { rec: Recommendation }) {
             type="button"
             onClick={() => setExpanded((value) => !value)}
             aria-expanded={expanded}
-            className="mt-2 inline-flex items-center gap-1 self-start text-xs font-semibold text-brand transition-colors hover:text-brand-dark"
+            className="mt-2 inline-flex items-center gap-1 self-start text-xs font-semibold text-brand transition-colors hover:text-brand-dark cursor-pointer"
           >
             {expanded ? 'Show less' : 'Show more'}
             <motion.span

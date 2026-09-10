@@ -1,10 +1,13 @@
 'use client';
-
 import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Bot, X, Send, Sparkles, Loader2, Briefcase, FolderGit2, Wrench, Github, Download, FileDown, Mic } from 'lucide-react';
 import AiMessage from './AiMessage';
-import LiveVoiceModal from './LiveVoiceModal';
+
+// Dynamically import heavy WebAudio & Gemini Live streaming module on-demand
+const LiveVoiceModal = dynamic(() => import('./LiveVoiceModal'), { ssr: false });
 
 interface AskZarakProps {
   onOpenXRay: (projectId: string) => void;
@@ -27,9 +30,11 @@ const SUGGESTED_QUESTIONS = [
 
 function AimmyLogo({ className }: { className?: string }) {
   return (
-    <img
+    <Image
       src="/images/aimmy-logo-white.png"
-      alt="Aimmy AI Logo"
+      alt="Aimmyy AI Logo"
+      width={24}
+      height={24}
       className={className}
       loading="eager"
     />
@@ -52,7 +57,7 @@ export default function AskZarak({
     {
       role: 'model',
       content:
-        "Hi! I'm Aimmyyy AI, Zarak's assistant! ✨ I can answer questions about his career, frontend architectures, projects, and technical skills. What would you like to know?",
+        "Hi! I'm Aimmyy AI, Zarak's assistant! ✨ I can answer questions about his career, frontend architectures, projects, and technical skills. What would you like to know?",
     },
   ]);
   const [input, setInput] = useState('');
@@ -183,7 +188,7 @@ export default function AskZarak({
       }
     } catch (err: unknown) {
       console.error(err);
-      setError(err instanceof Error ? err.message : 'Aimmyyy AI is temporarily unavailable.');
+      setError(err instanceof Error ? err.message : 'Aimmyy AI is temporarily unavailable.');
     } finally {
       setIsLoading(false);
     }
@@ -437,7 +442,7 @@ export default function AskZarak({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed bottom-0 right-0 w-full h-[85vh] md:h-[600px] md:w-[400px] md:bottom-6 md:right-6 bg-card border-t md:border border-border/80 md:rounded-2xl shadow-2xl z-[101] flex flex-col overflow-hidden glow-border"
+              className="fixed bottom-0 right-0 w-full h-[85dvh] md:h-[600px] md:w-[400px] md:bottom-6 md:right-6 bg-card border-t md:border border-border/80 md:rounded-2xl shadow-2xl z-[101] flex flex-col overflow-hidden glow-border"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border/70 bg-secondary/30">
@@ -447,7 +452,7 @@ export default function AskZarak({
                   </div>
                   <div>
                     <h3 className="font-display font-bold text-sm text-foreground flex items-center gap-1.5">
-                      Aimmyyy AI
+                      Aimmyy AI
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     </h3>
                     <p className="font-mono text-[10px] text-muted-foreground">PORTFOLIO INTELLIGENCE SYSTEM</p>
@@ -492,7 +497,7 @@ export default function AskZarak({
                     </div>
                     <span className="font-mono text-xs flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-accent animate-ping" />
-                      AIMMYYY IS ANALYZING ZARAK'S WORK...
+                      AIMMYY IS ANALYZING ZARAK'S WORK...
                     </span>
                   </motion.div>
                 )}
@@ -576,7 +581,7 @@ export default function AskZarak({
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask Aimmyyy about Zarak's engineering work..."
+                    placeholder="Ask Aimmyy about Zarak's engineering work..."
                     disabled={isLoading}
                     className="w-full bg-background border border-border rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/50 transition-all font-sans disabled:opacity-50"
                   />

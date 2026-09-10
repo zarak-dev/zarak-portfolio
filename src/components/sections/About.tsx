@@ -2,8 +2,8 @@
 
 import { Brain, Code2, ExternalLink, GraduationCap, Sparkles } from 'lucide-react';
 
-import SectionHeading from './SectionHeading';
-import { EASE, fadeUp, stagger, VIEWPORT } from '@/lib/animations';
+import SectionHeading from '@/components/ui/SectionHeading';
+import { EASE, fadeUp, stagger } from '@/lib/animations';
 import { motion } from 'framer-motion';
 
 const PILLARS = [
@@ -70,7 +70,6 @@ export default function About() {
                 I graduated with a <strong className="font-semibold text-ink">BS in Software Engineering from Sarhad University</strong>, where my capstone Smart Sugar Management platform was awarded <strong className="font-semibold text-ink">Grade A+</strong>. I am passionate about crafting resilient frontend architectures, eliminating state synchronization leaks, and building software that feels as good as it functions.
               </motion.p>
             </div>
-
           </div>
 
           {/* 4 Pillars Column */}
