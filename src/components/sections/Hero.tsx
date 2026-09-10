@@ -99,10 +99,10 @@ export default function Hero() {
             >
               <motion.span
                 variants={chipIn}
-                className="inline-flex items-center gap-2 rounded-full border border-mint/25 bg-mint-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-mint"
+                className="inline-flex items-center gap-2 rounded-full border border-rose/30 bg-rose-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-rose dark:shadow-[0_0_16px_-3px_rgba(228,64,95,0.35)]"
               >
                 <motion.span
-                  className="h-1.5 w-1.5 rounded-full bg-mint"
+                  className="h-1.5 w-1.5 rounded-full bg-rose shadow-[0_0_8px_rgba(228,64,95,0.7)]"
                   aria-hidden="true"
                   animate={reduced ? undefined : { opacity: [1, 0.3, 1] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -163,7 +163,7 @@ export default function Hero() {
               {/* Subtle ambient glow backing */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-brand/20 via-brand-soft to-mint/20 opacity-70 blur-xl dark:opacity-40"
+                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] bg-gradient-to-tr from-brand/20 via-brand-soft to-rose/25 opacity-70 blur-xl dark:from-rose/30 dark:via-brand-soft dark:to-rose/15 dark:opacity-50"
               />
 
               {/* Main Portrait Card */}
@@ -186,8 +186,8 @@ export default function Hero() {
                 transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
               >
                 <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-mint" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-rose shadow-[0_0_8px_rgba(228,64,95,0.7)]" />
                 </span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint shrink-0">
                   Currently
@@ -212,7 +212,7 @@ export default function Hero() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 href="#projects"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-brand hover:dark:bg-brand hover:dark:text-black shrink-0"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-rose/50 hover:dark:bg-rose hover:dark:text-white hover:dark:shadow-[0_0_24px_rgba(228,64,95,0.45)] shrink-0"
               >
                 View my work
                 <ArrowRight
@@ -240,7 +240,7 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${PROFILE.name} on LinkedIn`}
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink-mute transition-colors hover:border-brand hover:bg-brand-soft hover:text-brand"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink-mute transition-colors hover:border-rose/50 hover:bg-rose-soft hover:text-rose"
                 >
                   <Linkedin className="h-[18px] w-[18px]" aria-hidden="true" />
                 </motion.a>
@@ -252,7 +252,7 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${PROFILE.name} on GitHub`}
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink-mute transition-colors hover:border-brand hover:bg-brand-soft hover:text-brand"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink-mute transition-colors hover:border-rose/50 hover:bg-rose-soft hover:text-rose"
                 >
                   <Github className="h-[18px] w-[18px]" aria-hidden="true" />
                 </motion.a>

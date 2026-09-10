@@ -48,9 +48,11 @@ export default function FramerBackdrop() {
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
       >
+        {/* Atmospheric dark-mode top radial glow */}
+        <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(228,64,95,0.16),transparent_70%)]" />
         <div className="grid-veil absolute inset-0 opacity-40 dark:opacity-35" />
         <div className="absolute -top-24 -right-24 h-[26rem] w-[26rem] rounded-full bg-brand/5 dark:bg-brand/8" />
-        <div className="absolute top-1/3 -left-24 h-[20rem] w-[20rem] rounded-full bg-mint/5 dark:bg-mint/6" />
+        <div className="absolute top-1/3 -left-24 h-[20rem] w-[20rem] rounded-full bg-rose/5 dark:bg-rose/8" />
       </div>
     );
   }
@@ -60,6 +62,9 @@ export default function FramerBackdrop() {
       aria-hidden="true"
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
     >
+      {/* Atmospheric dark-mode top radial glow (inspire dev-mohamed ambient lighting) */}
+      <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-[48rem] bg-[radial-gradient(ellipse_80%_55%_at_50%_-10%,rgba(228,64,95,0.18),transparent_75%)]" />
+
       {/* Subtle Engineering Grid Veil */}
       <div className="grid-veil absolute inset-0 opacity-40 dark:opacity-35" />
 
@@ -79,10 +84,10 @@ export default function FramerBackdrop() {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="absolute -top-24 -right-24 h-[34rem] w-[34rem] rounded-full bg-gradient-radial from-brand/12 via-brand/5 to-transparent blur-[70px] sm:h-[42rem] sm:w-[42rem] sm:blur-[90px] dark:from-brand/15 dark:via-brand/6"
+        className="absolute -top-24 -right-24 h-[34rem] w-[34rem] rounded-full bg-gradient-radial from-brand/10 via-brand/4 to-transparent blur-[70px] sm:h-[42rem] sm:w-[42rem] sm:blur-[90px] dark:from-brand/12 dark:via-brand/5"
       />
 
-      {/* Orb 2: Ambient Slate Light Source (Mid-Left / Lower) */}
+      {/* Orb 2: Ambient Rose Cyber Light Source (Mid-Left / Lower) */}
       <motion.div
         style={{ y: y2, rotate: rotate2 }}
         animate={
@@ -99,7 +104,7 @@ export default function FramerBackdrop() {
           ease: 'easeInOut',
           delay: 2,
         }}
-        className="absolute top-1/3 -left-36 h-[30rem] w-[30rem] rounded-full bg-gradient-radial from-mint/10 via-mint/4 to-transparent blur-[65px] sm:h-[36rem] sm:w-[36rem] sm:blur-[85px] dark:from-mint/12 dark:via-mint/5"
+        className="absolute top-1/3 -left-36 h-[30rem] w-[30rem] rounded-full bg-gradient-radial from-rose/6 via-rose/2 to-transparent blur-[65px] sm:h-[36rem] sm:w-[36rem] sm:blur-[85px] dark:from-rose/16 dark:via-rose/6"
       />
 
       {/* Orb 3: Ultra-Subtle Deep Ambient Center Glow */}
@@ -117,7 +122,7 @@ export default function FramerBackdrop() {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="absolute bottom-1/4 left-1/2 -translate-x-1/2 h-[32rem] w-[32rem] rounded-full bg-gradient-radial from-brand-soft/50 via-brand-soft/20 to-transparent blur-[75px] sm:h-[40rem] sm:w-[40rem] sm:blur-[100px] dark:from-brand/10 dark:via-brand/3"
+        className="absolute bottom-1/4 left-1/2 -translate-x-1/2 h-[32rem] w-[32rem] rounded-full bg-gradient-radial from-brand-soft/50 via-brand-soft/20 to-transparent blur-[75px] sm:h-[40rem] sm:w-[40rem] sm:blur-[100px] dark:from-rose/10 dark:via-brand/3"
       />
     </div>
   );

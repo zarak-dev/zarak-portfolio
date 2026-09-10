@@ -28,7 +28,7 @@ function SkillGroupCard({
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -4 }}
-      className="flex h-full flex-col rounded-2xl border border-line bg-surface p-6 sm:p-7"
+      className="flex h-full flex-col rounded-2xl border border-line bg-surface p-6 sm:p-7 transition-all duration-300 dark:hover:border-rose/30 dark:hover:shadow-[0_15px_40px_-15px_rgba(228,64,95,0.15)]"
     >
       <h3 className="font-display text-lg font-bold text-ink sm:text-xl">{title}</h3>
       <p className="mt-1.5 text-sm leading-relaxed text-ink-mute">{blurb}</p>
@@ -50,7 +50,7 @@ function SkillGroupCard({
               initial={index >= PREVIEW_COUNT ? { opacity: 0, scale: 0.92 } : undefined}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.18 }}
-              className="rounded-lg border border-line bg-surface-2 px-3 py-1.5 text-[13px] font-medium text-ink-soft transition-colors hover:border-brand-line hover:bg-brand-soft hover:text-brand"
+              className="rounded-lg border border-line bg-surface-2 px-3 py-1.5 text-[13px] font-medium text-ink-soft transition-colors hover:border-rose/40 hover:bg-rose-soft hover:text-rose"
             >
               {item}
             </motion.li>
@@ -140,7 +140,7 @@ export default function Skills() {
 
         {/* Core Competencies Highlight Banner */}
         <motion.div
-          className="mt-10 rounded-2xl border border-brand-line bg-brand-soft/50 p-5 sm:p-6"
+          className="mt-10 rounded-2xl border border-line bg-surface p-5 sm:p-6 dark:border-rose/25 dark:bg-rose-soft/20 dark:shadow-[0_0_30px_-10px_rgba(228,64,95,0.15)]"
           initial="hidden"
           whileInView="show"
           viewport={VIEWPORT}
@@ -148,7 +148,7 @@ export default function Skills() {
         >
           <motion.p
             variants={fadeUp}
-            className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand"
+            className="font-mono text-[11px] uppercase tracking-[0.18em] text-rose font-bold"
           >
             Core Competencies
           </motion.p>

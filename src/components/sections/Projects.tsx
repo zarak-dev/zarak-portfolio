@@ -128,7 +128,7 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-mint/10 blur-3xl"
+            className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-rose/10 blur-3xl dark:bg-rose/15"
           />
 
           {/* Top Row: Metadata Badges (Left) & Professional CTA Button (Right) */}
@@ -141,7 +141,7 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
                     key={project.title}
                     type="button"
                     onClick={() => handleProjectClick(project.title)}
-                    className="rounded-lg border border-line bg-surface-2 px-2.5 py-1 font-mono text-[11px] font-medium text-ink-mute transition-all hover:border-brand-line hover:bg-brand-soft hover:text-brand active:scale-95 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 touch-manipulation cursor-pointer"
+                    className="rounded-lg border border-line bg-surface-2 px-2.5 py-1 font-mono text-[11px] font-medium text-ink-mute transition-all hover:border-rose/40 hover:bg-rose-soft hover:text-rose active:scale-95 dark:border-white/10 dark:bg-white/[0.04] dark:text-slate-300 touch-manipulation cursor-pointer"
                     aria-label={`Jump to ${project.title}`}
                   >
                     {project.title}
@@ -151,10 +151,10 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
 
               {/* Status & Category Highlight Badges (Industry Standard Tokens) */}
               <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="inline-flex items-center gap-2 rounded-full border border-mint/25 bg-mint-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-mint">
+                <span className="inline-flex items-center gap-2 rounded-full border border-rose/30 bg-rose-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-rose dark:shadow-[0_0_15px_-3px_rgba(228,64,95,0.3)]">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-mint" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-rose shadow-[0_0_8px_rgba(228,64,95,0.7)]" />
                   </span>
                   {PROJECTS.length} Production Platforms
                 </span>
@@ -311,11 +311,11 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
                       variants={fadeUp}
                       whileHover={shouldReduceMotion ? undefined : { y: -6 }}
                       transition={{ duration: 0.35, ease: EASE }}
-                      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-colors duration-300 hover:border-brand-line hover:shadow-[0_24px_60px_-40px_rgba(79,70,229,0.5)] sm:p-8 scroll-mt-24"
+                      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:border-line hover:shadow-md dark:hover:border-rose/40 dark:hover:shadow-[0_20px_50px_-20px_rgba(228,64,95,0.25)] sm:p-8 scroll-mt-24"
                     >
                       <span
                         aria-hidden="true"
-                        className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-brand transition-transform duration-500 group-hover:scale-x-100"
+                        className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-rose transition-transform duration-500 group-hover:scale-x-100"
                       />
 
                       {/* Project preview image with Next.js Image */}

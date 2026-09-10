@@ -82,7 +82,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-surface text-ink font-sans antialiased selection:bg-brand selection:text-white">
+    <div className="relative min-h-screen bg-surface text-ink font-sans antialiased selection:bg-rose selection:text-white">
       {/* Whisper-quiet ambient motion background */}
       <FramerBackdrop />
 

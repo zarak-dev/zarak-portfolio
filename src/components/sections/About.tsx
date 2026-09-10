@@ -58,7 +58,7 @@ export default function About() {
                 viewport={{ once: true, amount: 0.05 }}
                 transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
               >
-                At Smart Forum, I engineered the production frontend for enterprise AI products including <strong className="font-semibold text-ink">Dentally Assist</strong> (an AI-powered call management dashboard for dental practices) and <a href="https://apointlo.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-brand hover:underline"><strong className="font-semibold text-brand">Appointlo</strong><ExternalLink className="h-3.5 w-3.5" /></a> (a production appointment scheduling SaaS platform live at apointlo.com). I own state side-effect coordination, scoped design systems, and role-based access control.
+                At Smart Forum, I engineered the production frontend for enterprise AI products including <strong className="font-semibold text-ink">Dentally Assist</strong> (an AI-powered call management dashboard for dental practices) and <a href="https://apointlo.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-rose hover:underline"><strong className="font-semibold text-rose">Appointlo</strong><ExternalLink className="h-3.5 w-3.5" /></a> (a production appointment scheduling SaaS platform live at apointlo.com). I own state side-effect coordination, scoped design systems, and role-based access control.
               </motion.p>
 
               <motion.p
@@ -86,12 +86,12 @@ export default function About() {
                   key={pillar.title}
                   variants={fadeUp}
                   whileHover={{ y: -4 }}
-                  className="flex h-full flex-col justify-between rounded-2xl border border-line bg-surface-2 p-5 transition-colors hover:border-brand-line hover:bg-brand-soft/40 sm:p-6"
+                  className="flex h-full flex-col justify-between rounded-2xl border border-line bg-surface-2 p-5 transition-all duration-300 hover:border-line sm:p-6 dark:hover:border-rose/35 dark:hover:shadow-[0_15px_35px_-15px_rgba(228,64,95,0.2)]"
                 >
                   <div>
                     <motion.span
                       whileHover={{ rotate: -8, scale: 1.06 }}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-brand ring-1 ring-line"
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-ink ring-1 ring-line dark:text-rose dark:ring-rose/25 dark:bg-rose/10"
                     >
                       <pillar.icon className="h-5 w-5" aria-hidden="true" />
                     </motion.span>
