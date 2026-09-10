@@ -27,12 +27,20 @@ export default function AmbientCanvas() {
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
+    // Skip heavy canvas animation on mobile touch devices or if reduced motion is requested
+    const isTouch = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 768;
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isTouch || isReduced) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let animId: number;
+    let isRunning = true;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -90,11 +98,23 @@ export default function AmbientCanvas() {
       setupCanvasSize();
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isRunning = false;
+        cancelAnimationFrame(animId);
+      } else if (!isRunning) {
+        isRunning = true;
+        animId = requestAnimationFrame(render);
+      }
+    };
+
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     window.addEventListener('mouseleave', onMouseLeave);
     window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const render = () => {
+      if (!isRunning) return;
       ctx.clearRect(0, 0, width, height);
 
       // Mouse smoothing
@@ -297,6 +317,8 @@ export default function AmbientCanvas() {
     render();
 
     return () => {
+      isRunning = false;
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);
       window.removeEventListener('resize', onResize);
@@ -307,7 +329,7 @@ export default function AmbientCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-80 transition-opacity duration-500"
+      className="fixed inset-0 pointer-events-none z-0 opacity-80 transition-opacity duration-500 hidden md:block"
       aria-hidden="true"
     />
   );

@@ -1,3 +1,5 @@
+import { PROFILE } from './profile';
+
 export interface PersonalIdentity {
   name: string;
   role: string;
@@ -25,11 +27,11 @@ export interface PersonalIdentity {
 }
 
 export const IDENTITY: PersonalIdentity = {
-  name: 'Zarak Qaisar',
-  role: 'Software Engineer',
+  name: PROFILE.name,
+  role: PROFILE.role,
   tagline: 'Building interfaces that feel as good as they function.',
   bio: 'Software engineer focused on modern frontend architecture, state-heavy React applications, and AI-assisted interfaces. Currently engineering production React and TypeScript systems at Smart Forum—including Dentally Assist and Appointlo (live at apointlo.com)—with an emphasis on performance, predictable state architectures, and visual excellence.',
-  location: 'Pakistan',
+  location: PROFILE.location,
   status: {
     availability: 'Available for AI Associated Frontend as well as Fullstack',
     focus: 'Frontend Architecture · UI Engineering · Interactive Systems',
@@ -37,11 +39,11 @@ export const IDENTITY: PersonalIdentity = {
     coreStack: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design', 'Styled Components', 'Next.js'],
   },
   contacts: {
-    email: 'zarak.dev@gmail.com',
-    workEmail: 'zarak@smartforum.org',
-    github: 'https://github.com/zarak-dev',
+    email: PROFILE.email,
+    workEmail: PROFILE.workEmail,
+    github: PROFILE.github,
     githubUsername: 'zarak-dev',
-    linkedin: 'https://www.linkedin.com/in/zarak-k-757937385',
+    linkedin: PROFILE.linkedin,
   },
   stats: [
     {
@@ -51,8 +53,8 @@ export const IDENTITY: PersonalIdentity = {
     },
     {
       label: 'Current Production Role',
-      value: 'Junior Software Engineer',
-      detail: 'Smart Forum (Enterprise AI & SaaS)',
+      value: PROFILE.role,
+      detail: `${PROFILE.company} (Enterprise AI & SaaS)`,
     },
     {
       label: 'Company Products',

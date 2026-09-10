@@ -50,7 +50,13 @@ export default function CommandPalette({
   const navigateTo = (id: string) => {
     onOpenChange(false);
     setQuery('');
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'projects' || id === 'dentally') {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('expand-projects'));
+      }
+    }
+    const targetElement = document.getElementById(id) || (id === 'dentally' ? document.getElementById('projects') : null);
+    targetElement?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const commands: CommandItem[] = [

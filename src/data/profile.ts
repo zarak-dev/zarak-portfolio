@@ -90,8 +90,8 @@ export interface Job {
 export const EXPERIENCE: Job[] = [
   {
     company: 'Smart Forum',
-    employment: 'Full-time & Apprenticeship',
-    span: 'Nov 2025 — Present',
+    employment: 'Full-time',
+    span: 'June 2026 — Present',
     roles: [
       {
         title: 'Junior Software Engineer',
