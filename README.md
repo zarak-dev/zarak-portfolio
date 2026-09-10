@@ -1,4 +1,4 @@
-# Zarak Qaisar — Personal Developer Operating System
+# Zarak Qaisar — Personal Developer Portfolio
 
 > A next-generation personal developer experience and engineering showcase built with **Next.js 15 App Router**, **TypeScript**, **Tailwind CSS**, **shadcn/ui**, and **Framer Motion**.
 
