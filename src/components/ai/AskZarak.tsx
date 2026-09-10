@@ -57,7 +57,7 @@ export default function AskZarak({
     {
       role: 'model',
       content:
-        "Hi! I'm Aimmyy AI, Zarak's assistant! ✨ I can answer questions about his career, frontend architectures, projects, and technical skills. What would you like to know?",
+        "Hey! I'm Aimmyy. ✨ Zarak spends an unreasonable amount of time building things, so I'm here to show off his work. I can walk you through his projects, frontend architectures, or open Project X-Ray. What would you like to explore?",
     },
   ]);
   const [input, setInput] = useState('');

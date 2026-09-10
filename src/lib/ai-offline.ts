@@ -45,7 +45,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query === 'hello' ||
     query === 'hey'
   ) {
-    return `Hey there! 👋 I'm **Aimmyy**, Zarak's AI assistant — basically the slightly more talkative part of his portfolio. 😌\n\nI can walk you through his production platforms at Smart Forum (like **Dentally Assist** and **Appointlo**), his async state architectures, or open **Project X-Ray** to see how things work under the hood.\n\nWhat would you like to explore first?`;
+    return `Hey there! 👋 I'm **Aimmyy**. 😌 Zarak spends an unreasonable amount of time glued to code, so I'm here to show off what he actually builds.\n\nI can walk you through his production platforms at Smart Forum (like **Dentally Assist** and **Appointlo**), his async state architectures, or open **Project X-Ray** to see how things work under the hood.\n\nWhat would you like to explore first?`;
   }
 
   // 3. Specialization / What does Zarak do / Core focus
@@ -63,7 +63,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('focus') ||
     query.includes('background')
   ) {
-    return `**${IDENTITY.name}** specializes in **Modern Frontend Architecture**, **UI Engineering**, and **Interactive Systems**! As his AI assistant, I can tell you he obsesses over high-performance interfaces, predictable state architectures, and polished user experiences.\n\nHere is what he excels at:\n\n- **Core Frameworks**: React 18 & Next.js with strict TypeScript typings, component boundaries, and streaming hydration.\n- **State Architecture**: Centralized, predictable async state machines using **Redux Toolkit + Redux-Saga** (takeEvery/takeLatest with redux-injectors).\n- **Design Systems**: Production enterprise interfaces crafted with **Ant Design 6**, **Styled Components**, and **Tailwind CSS**.\n- **Authentication & Security**: Cookie-based JWT sessions (SameSite=Lax) with direct client-side role decoding for RBAC route guards.\n- **AI-Assisted Interfaces**: Real-time telephony dashboards, inline audio playback, and appointment funnels (**Dentally Assist** and **Appointlo** at Smart Forum).\n\nWould you like to inspect the architecture of his flagship platform **Dentally Assist**?\n\n[XRAY:dentally]`;
+    return `**${IDENTITY.name}** is a software engineer who spends an unreasonable amount of time building things. 😭 He's mainly focused on modern frontend development, especially React, TypeScript, Next.js, and predictable async state machines.\n\nHere's what he's actually good at:\n\n- **Core Frameworks**: React 18 & Next.js with strict TypeScript typings, component boundaries, and streaming hydration.\n- **State Architecture**: Centralized, predictable async state machines using **Redux Toolkit + Redux-Saga**.\n- **Design Systems**: Production enterprise interfaces crafted with **Ant Design 6**, **Tailwind CSS**, and **Framer Motion**.\n- **AI-Assisted Interfaces**: Real-time telephony dashboards, inline audio telemetry, and appointment funnels (**Dentally Assist** and **Appointlo** at Smart Forum).\n\nHe actually did a pretty decent job with that one. 😌 Want to inspect the architecture of his flagship platform **Dentally Assist**?\n\n[XRAY:dentally]`;
   }
 
   // 4. Dentally Assist Project

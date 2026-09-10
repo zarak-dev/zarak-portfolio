@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GoogleGenAI, Modality, Type, AudioTranscriptionConfigMode } from '@google/genai';
-import { Mic, MicOff, PhoneOff, MessageSquare, Sparkles, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
+import { Mic, MicOff, PhoneOff, MessageSquare, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import { PCMRecorder, PCMPlayer } from '@/lib/audio-stream';
 import { getZarakContext } from '@/lib/ai-context';
 
@@ -66,6 +66,7 @@ export default function LiveVoiceModal({
   const [aimmyTranscript, setAimmyTranscript] = useState<string>('');
   const [toolActionNotice, setToolActionNotice] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [sessionKey, setSessionKey] = useState(0);
 
   // References to keep state across async loops & callbacks
   const sessionRef = useRef<any>(null);
@@ -119,6 +120,13 @@ export default function LiveVoiceModal({
     onClose();
   }, [cleanup, onClose]);
 
+  const handleReconnect = useCallback(() => {
+    cleanup();
+    setStatus('initializing');
+    setErrorMessage(null);
+    setSessionKey((k) => k + 1);
+  }, [cleanup]);
+
   // Connect to Gemini Live
   useEffect(() => {
     if (!isOpen) {
@@ -128,6 +136,52 @@ export default function LiveVoiceModal({
 
     isClosingRef.current = false;
     let isCancelled = false;
+
+    // Tool execution handler (defined early so callbacks have access)
+    const handleToolCalls = (calls: any[], activeSession: any) => {
+      const responses: any[] = [];
+      for (const call of calls) {
+        let result: Record<string, any> = { success: true };
+        try {
+          if (call.name === 'openProjectXRay' && onOpenXRay) {
+            const pId = call.args?.projectId;
+            onOpenXRay(pId);
+            setToolActionNotice(`Aimmyy opened Architectural X-Ray for ${pId}`);
+            result = { success: true, message: `Opened X-Ray for ${pId}` };
+          } else if (call.name === 'openCaseStudy' && onOpenCaseStudy) {
+            const pId = call.args?.projectId;
+            onOpenCaseStudy(pId);
+            setToolActionNotice(`Aimmyy opened Case Study for ${pId}`);
+            result = { success: true, message: `Opened case study for ${pId}` };
+          } else if (call.name === 'navigateToSection') {
+            const sId = call.args?.sectionId;
+            const el = document.getElementById(sId);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth' });
+              setToolActionNotice(`Navigated to ${sId} section`);
+              result = { success: true, message: `Navigated to ${sId}` };
+            }
+          }
+        } catch (err: any) {
+          result = { success: false, error: err.message };
+        }
+
+        responses.push({
+          name: call.name,
+          id: call.id,
+          response: { output: result },
+        });
+      }
+
+      const targetSession = activeSession || sessionRef.current;
+      if (targetSession && responses.length > 0) {
+        try {
+          targetSession.sendToolResponse({ functionResponses: responses });
+        } catch (tErr) {
+          console.warn('Error sending tool response:', tErr);
+        }
+      }
+    };
 
     async function startSession() {
       try {
@@ -141,7 +195,11 @@ export default function LiveVoiceModal({
         const tokenRes = await fetch('/api/ai/live-token', { method: 'POST' });
         if (!tokenRes.ok) {
           const errData = await tokenRes.json().catch(() => null);
-          throw new Error(errData?.error || 'Unable to generate ephemeral token for Gemini Live');
+          const errMsg = errData?.error || 'Unable to generate ephemeral token for Gemini Live';
+          if (tokenRes.status === 429 || errMsg.toLowerCase().includes('quota') || errMsg.toLowerCase().includes('rate')) {
+            throw new Error('Gemini API rate limit reached. Please wait a minute or switch to text chat.');
+          }
+          throw new Error(errMsg);
         }
         const { token, model } = await tokenRes.json();
         if (isCancelled) return;
@@ -156,7 +214,6 @@ export default function LiveVoiceModal({
         recorderRef.current = recorder;
 
         // 3. Connect to Gemini Live using @google/genai SDK with ephemeral token
-        // In v1alpha, ephemeral tokens require apiVersion: 'v1alpha'
         const ai = new GoogleGenAI({
           apiKey: token,
           httpOptions: { apiVersion: 'v1alpha' },
@@ -171,7 +228,7 @@ export default function LiveVoiceModal({
             speechConfig: {
               voiceConfig: {
                 prebuiltVoiceConfig: {
-                  voiceName: 'Aoede', // Sweet, bright, warm feminine voice
+                  voiceName: 'Aoede', // Warm, clear feminine voice
                 },
               },
             },
@@ -259,14 +316,18 @@ export default function LiveVoiceModal({
             onmessage: (msg: any) => {
               if (isCancelled || isClosingRef.current) return;
 
-              const content = msg.serverContent;
-              if (!content) {
-                // Check for tool call outside serverContent
-                if (msg.toolCall?.functionCalls) {
-                  handleToolCalls(msg.toolCall.functionCalls, sessionRef.current);
-                }
-                return;
+              // 1. Process Tool Calls immediately (even if accompanied by serverContent)
+              if (msg.toolCall?.functionCalls) {
+                handleToolCalls(msg.toolCall.functionCalls, sessionRef.current || session);
               }
+
+              // 2. Check for server goAway frame (session expiry / rate limit notice)
+              if (msg.goAway) {
+                console.warn('Gemini Live session time-out warning:', msg.goAway);
+              }
+
+              const content = msg.serverContent;
+              if (!content) return;
 
               // Handle interruption: visitor spoke while Aimmyy was speaking
               if (content.interrupted) {
@@ -307,64 +368,32 @@ export default function LiveVoiceModal({
             onerror: (err: any) => {
               console.error('Gemini Live WebSocket error:', err);
               if (!isClosingRef.current) {
-                setErrorMessage('Voice connection was interrupted. You can try reconnecting or switch to text chat.');
+                const isRateLimit =
+                  String(err?.message || '').toLowerCase().includes('quota') ||
+                  String(err?.message || '').includes('429');
+                setErrorMessage(
+                  isRateLimit
+                    ? 'Gemini Live rate limit reached. Please wait a moment or switch to text chat.'
+                    : 'Voice connection was interrupted. Tap Reconnect or switch to text chat.'
+                );
                 setStatus('error');
               }
             },
-            onclose: () => {
+            onclose: (e: any) => {
+              console.log('Gemini Live WebSocket closed:', e?.code, e?.reason);
               if (!isClosingRef.current && status !== 'error') {
-                setStatus('closed');
+                if (e?.code === 1008 || e?.code === 1011) {
+                  setErrorMessage('Session limit reached by Gemini. Tap Reconnect to restart.');
+                  setStatus('error');
+                } else {
+                  setStatus('closed');
+                }
               }
             },
           },
         });
 
         sessionRef.current = session;
-
-        // Tool execution handler
-        const handleToolCalls = (calls: any[], activeSession: any) => {
-          const responses: any[] = [];
-          for (const call of calls) {
-            let result: Record<string, any> = { success: true };
-            try {
-              if (call.name === 'openProjectXRay' && onOpenXRay) {
-                const pId = call.args?.projectId;
-                onOpenXRay(pId);
-                setToolActionNotice(`Aimmyy opened Architectural X-Ray for ${pId}`);
-                result = { success: true, message: `Opened X-Ray for ${pId}` };
-              } else if (call.name === 'openCaseStudy' && onOpenCaseStudy) {
-                const pId = call.args?.projectId;
-                onOpenCaseStudy(pId);
-                setToolActionNotice(`Aimmyy opened Case Study for ${pId}`);
-                result = { success: true, message: `Opened case study for ${pId}` };
-              } else if (call.name === 'navigateToSection') {
-                const sId = call.args?.sectionId;
-                const el = document.getElementById(sId);
-                if (el) {
-                  el.scrollIntoView({ behavior: 'smooth' });
-                  setToolActionNotice(`Navigated to ${sId} section`);
-                  result = { success: true, message: `Navigated to ${sId}` };
-                }
-              }
-            } catch (err: any) {
-              result = { success: false, error: err.message };
-            }
-
-            responses.push({
-              name: call.name,
-              id: call.id,
-              response: { output: result },
-            });
-          }
-
-          if (activeSession && responses.length > 0) {
-            try {
-              activeSession.sendToolResponse({ functionResponses: responses });
-            } catch (tErr) {
-              console.warn('Error sending tool response:', tErr);
-            }
-          }
-        };
 
         // 4. Volume visualizer loop
         const updateVisualizer = () => {
@@ -384,7 +413,15 @@ export default function LiveVoiceModal({
       } catch (err: any) {
         console.error('Failed to start Live Voice session:', err);
         if (!isCancelled) {
-          setErrorMessage(err.message || 'Unable to connect to Gemini Live voice service.');
+          const isQuota =
+            err?.message?.toLowerCase().includes('quota') ||
+            err?.message?.includes('429') ||
+            err?.message?.toLowerCase().includes('resource_exhausted');
+          setErrorMessage(
+            isQuota
+              ? 'Gemini API free-tier quota/rate limit reached. Please wait a moment or use text chat.'
+              : err.message || 'Unable to connect to Gemini Live voice service.'
+          );
           setStatus('error');
         }
       }
@@ -396,7 +433,7 @@ export default function LiveVoiceModal({
       isCancelled = true;
       cleanup();
     };
-  }, [isOpen, cleanup, onOpenXRay, onOpenCaseStudy]);
+  }, [isOpen, sessionKey, cleanup, onOpenXRay, onOpenCaseStudy]);
 
   const toggleMute = () => {
     if (recorderRef.current) {
@@ -411,7 +448,16 @@ export default function LiveVoiceModal({
   const handleSendPrompt = (text: string) => {
     if (sessionRef.current) {
       try {
-        sessionRef.current.sendRealtimeInput({ text });
+        // In Gemini Live API, text prompts must be sent via sendClientContent with turnComplete: true
+        sessionRef.current.sendClientContent({
+          turns: [
+            {
+              role: 'user',
+              parts: [{ text }],
+            },
+          ],
+          turnComplete: true,
+        });
         setUserTranscript(text);
       } catch (err) {
         console.warn('Failed to send prompt:', err);
@@ -605,16 +651,25 @@ export default function LiveVoiceModal({
                   <p className="mt-0.5 opacity-90">{errorMessage}</p>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  handleEndCall();
-                  onSwitchToChat();
-                }}
-                className="self-end rounded-full border border-rose-400/40 bg-rose-500/15 dark:bg-rose-500/20 px-3 py-1 text-[11px] font-medium text-rose-900 dark:text-rose-100 transition-colors hover:bg-rose-500/25"
-              >
-                Switch to Text Chat →
-              </button>
+              <div className="flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={handleReconnect}
+                  className="rounded-full border border-zinc-400/40 dark:border-white/30 bg-black/10 dark:bg-white/15 px-3 py-1 text-[11px] font-medium text-zinc-900 dark:text-white transition-colors hover:bg-black/20 dark:hover:bg-white/25"
+                >
+                  Reconnect ↻
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleEndCall();
+                    onSwitchToChat();
+                  }}
+                  className="rounded-full border border-rose-400/40 bg-rose-500/15 dark:bg-rose-500/20 px-3 py-1 text-[11px] font-medium text-rose-900 dark:text-rose-100 transition-colors hover:bg-rose-500/25"
+                >
+                  Switch to Text Chat →
+                </button>
+              </div>
             </div>
           )}
 
