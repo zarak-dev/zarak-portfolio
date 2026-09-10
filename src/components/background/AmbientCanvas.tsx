@@ -176,10 +176,10 @@ export default function AmbientCanvas() {
 
             ctx.beginPath();
             if (isDark) {
-              ctx.strokeStyle = `rgba(129, 140, 248, ${alpha})`;
+              ctx.strokeStyle = `rgba(189, 195, 199, ${alpha})`;
             } else {
-              // Classic rich slate-blue line in light mode
-              ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
+              // Rich slate line in light mode
+              ctx.strokeStyle = `rgba(52, 73, 94, ${alpha})`;
             }
             ctx.lineWidth = depthFactor * (isDark ? 0.95 : 1.05);
             ctx.moveTo(a.x, a.y);
@@ -199,8 +199,8 @@ export default function AmbientCanvas() {
             const mAlpha = isDark ? mRatio * 0.25 : mRatio * 0.28;
             ctx.beginPath();
             ctx.strokeStyle = isDark
-              ? `rgba(129, 140, 248, ${mAlpha})`
-              : `rgba(37, 99, 235, ${mAlpha})`;
+              ? `rgba(189, 195, 199, ${mAlpha})`
+              : `rgba(52, 73, 94, ${mAlpha})`;
             ctx.lineWidth = mRatio * 1.2;
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(mouse.x, mouse.y);
@@ -213,12 +213,12 @@ export default function AmbientCanvas() {
       if (mouse.x > -1000) {
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 4, 0, Math.PI * 2);
-        ctx.fillStyle = isDark ? 'rgba(129, 140, 248, 0.6)' : 'rgba(37, 99, 235, 0.6)';
+        ctx.fillStyle = isDark ? 'rgba(189, 195, 199, 0.6)' : 'rgba(52, 73, 94, 0.6)';
         ctx.fill();
 
         ctx.beginPath();
         ctx.arc(mouse.x, mouse.y, 12, 0, Math.PI * 2);
-        ctx.strokeStyle = isDark ? 'rgba(129, 140, 248, 0.2)' : 'rgba(37, 99, 235, 0.25)';
+        ctx.strokeStyle = isDark ? 'rgba(189, 195, 199, 0.25)' : 'rgba(52, 73, 94, 0.25)';
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -262,15 +262,15 @@ export default function AmbientCanvas() {
 
         if (isDark) {
           ctx.fillStyle = pulse.isCyan
-            ? `rgba(94, 234, 212, ${pulseAlpha})`
-            : `rgba(129, 140, 248, ${pulseAlpha})`;
-          ctx.shadowColor = pulse.isCyan ? '#5eead4' : '#818cf8';
+            ? `rgba(236, 240, 241, ${pulseAlpha})`
+            : `rgba(189, 195, 199, ${pulseAlpha})`;
+          ctx.shadowColor = pulse.isCyan ? '#ECF0F1' : '#BDC3C7';
           ctx.shadowBlur = 6;
         } else {
           ctx.fillStyle = pulse.isCyan
-            ? `rgba(37, 99, 235, ${pulseAlpha})`
-            : `rgba(79, 70, 229, ${pulseAlpha})`;
-          ctx.shadowColor = pulse.isCyan ? '#2563eb' : '#4f46e5';
+            ? `rgba(44, 62, 80, ${pulseAlpha})`
+            : `rgba(52, 73, 94, ${pulseAlpha})`;
+          ctx.shadowColor = pulse.isCyan ? '#2C3E50' : '#34495E';
           ctx.shadowBlur = 4;
         }
         ctx.fill();
@@ -287,9 +287,9 @@ export default function AmbientCanvas() {
         ctx.beginPath();
         ctx.arc(n.x, n.y, currentRadius * 1.6, 0, Math.PI * 2);
         if (isDark) {
-          ctx.fillStyle = `rgba(129, 140, 248, ${0.05 * n.z})`;
+          ctx.fillStyle = `rgba(189, 195, 199, ${0.05 * n.z})`;
         } else {
-          ctx.fillStyle = `rgba(37, 99, 235, ${0.05 * n.z})`;
+          ctx.fillStyle = `rgba(52, 73, 94, ${0.05 * n.z})`;
         }
         ctx.fill();
 
@@ -299,14 +299,13 @@ export default function AmbientCanvas() {
         if (isDark) {
           const coreAlpha = Math.min(0.28 + n.z * 0.22, 0.5);
           ctx.fillStyle = i % 3 === 0
-            ? `rgba(94, 234, 212, ${coreAlpha})`
-            : `rgba(129, 140, 248, ${coreAlpha})`;
+            ? `rgba(236, 240, 241, ${coreAlpha})`
+            : `rgba(189, 195, 199, ${coreAlpha})`;
         } else {
-          // Classic royal blue/indigo distinct nodes in light mode
           const coreAlpha = Math.min(0.32 + n.z * 0.2, 0.52);
           ctx.fillStyle = i % 3 === 0
-            ? `rgba(37, 99, 235, ${coreAlpha})`
-            : `rgba(79, 70, 229, ${coreAlpha})`;
+            ? `rgba(44, 62, 80, ${coreAlpha})`
+            : `rgba(52, 73, 94, ${coreAlpha})`;
         }
         ctx.fill();
       }

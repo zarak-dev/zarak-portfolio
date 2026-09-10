@@ -83,7 +83,7 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
         />
 
         {/* Option 1: Expandable Project Showcase Teaser Hub */}
-        <div className="relative mt-10 overflow-hidden rounded-3xl border border-line bg-surface/85 backdrop-blur-xl p-6 sm:p-8 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.35)] transition-all duration-300 dark:border-white/10 dark:bg-[#0c1222]/90">
+        <div className="relative mt-10 overflow-hidden rounded-3xl border border-line bg-surface/85 backdrop-blur-xl p-6 sm:p-8 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.35)] transition-all duration-300 dark:border-white/10 dark:bg-surface-2/90">
           {/* Subtle ambient decorative gradient orbs */}
           <div
             aria-hidden="true"
@@ -167,7 +167,7 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
                   key={project.title}
                   type="button"
                   onClick={() => setIsExpanded(true)}
-                  className="group/card flex flex-col overflow-hidden rounded-xl border border-line bg-surface-2 p-2.5 text-left transition-all duration-200 hover:-translate-y-1 hover:border-brand-line hover:shadow-md dark:border-white/10 dark:bg-[#101726]"
+                  className="group/card flex flex-col overflow-hidden rounded-xl border border-line bg-surface-2 p-2.5 text-left transition-all duration-200 hover:-translate-y-1 hover:border-brand-line hover:shadow-md dark:border-white/10 dark:bg-surface"
                   aria-label={`View details for ${project.title}`}
                 >
                   {/* Mini window header */}

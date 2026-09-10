@@ -55,7 +55,7 @@ export default function FramerBackdrop() {
       {/* Subtle Engineering Grid Veil */}
       <div className="grid-veil absolute inset-0 opacity-40 dark:opacity-35" />
 
-      {/* Orb 1: Soft Electric Indigo / Brand Aura (Top-Right / Mid-Right) */}
+      {/* Orb 1: Soft Silver / Brand Aura (Top-Right / Mid-Right) */}
       <motion.div
         style={{ y: y1, rotate: rotate1 }}
         animate={{
@@ -70,7 +70,7 @@ export default function FramerBackdrop() {
         className="absolute -top-24 -right-24 h-[34rem] w-[34rem] rounded-full bg-brand/8 blur-[110px] sm:h-[44rem] sm:w-[44rem] sm:blur-[140px] dark:bg-brand/10"
       />
 
-      {/* Orb 2: Whisper-Soft Mint / Cyan Light Source (Mid-Left / Lower) */}
+      {/* Orb 2: Ambient Slate Light Source (Mid-Left / Lower) */}
       <motion.div
         style={{ y: y2, rotate: rotate2 }}
         animate={{

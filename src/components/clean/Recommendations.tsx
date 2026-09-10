@@ -133,9 +133,11 @@ export default function Recommendations() {
         />
 
         <div
-          className="mt-12 relative overflow-hidden"
+          className="mt-12 relative overflow-hidden group"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
         >
           <div
             aria-hidden="true"
@@ -148,7 +150,7 @@ export default function Recommendations() {
 
           <div
             className={cn(
-              'flex w-max items-stretch gap-5 marquee-track motion-reduce:animate-none',
+              'flex w-max items-stretch gap-5 marquee-track',
               isPaused && 'is-paused',
             )}
             aria-label="Recommendations carousel"

@@ -8,8 +8,8 @@ import { IDENTITY } from '@/data/identity';
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0b1020' },
+    { media: '(prefers-color-scheme: light)', color: '#ECF0F1' },
+    { media: '(prefers-color-scheme: dark)', color: '#2C3E50' },
   ],
 };
 

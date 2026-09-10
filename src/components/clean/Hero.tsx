@@ -306,23 +306,17 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="relative mt-10 overflow-hidden border-y border-line bg-surface-2 py-4 sm:mt-14">
-        <motion.div
-          className="flex w-max items-center gap-8"
-          aria-hidden="true"
-          animate={reduced ? undefined : { x: ['0%', '-50%'] }}
-          transition={{ duration: 42, repeat: Infinity, ease: 'linear' }}
-        >
-          {[...MARQUEE, ...MARQUEE].map((item, index) => (
-            <span
-              key={`${item}-${index}`}
-              className="flex items-center gap-8 whitespace-nowrap font-mono text-sm text-ink-mute"
-            >
-              {item}
-              <span className="h-1 w-1 rounded-full bg-brand-line" />
+      <div className="relative mt-10 border-y border-line bg-surface-2 py-3.5 sm:mt-14 sm:py-4">
+        <div className="shell flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 font-mono text-xs sm:text-sm text-ink-mute sm:gap-x-8">
+          {MARQUEE.map((item, index) => (
+            <span key={item} className="inline-flex items-center gap-6 sm:gap-8 whitespace-nowrap">
+              <span>{item}</span>
+              {index < MARQUEE.length - 1 && (
+                <span className="h-1 w-1 rounded-full bg-brand-line" aria-hidden="true" />
+              )}
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
