@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 
-export default function FramerBackdrop() {
+export default function FramerBackdrop({ active = true }: { active?: boolean }) {
   const [mounted, setMounted] = useState(false);
   const [isMobileOrReduced, setIsMobileOrReduced] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -72,7 +72,7 @@ export default function FramerBackdrop() {
       <motion.div
         style={{ y: y1, rotate: rotate1 }}
         animate={
-          isVisible && !reduced
+          active && isVisible && !reduced
             ? {
                 x: [0, 24, -20, 0],
                 scale: [1, 1.06, 0.96, 1],
@@ -91,7 +91,7 @@ export default function FramerBackdrop() {
       <motion.div
         style={{ y: y2, rotate: rotate2 }}
         animate={
-          isVisible && !reduced
+          active && isVisible && !reduced
             ? {
                 x: [0, -28, 18, 0],
                 scale: [1, 0.95, 1.05, 1],
@@ -110,7 +110,7 @@ export default function FramerBackdrop() {
       {/* Orb 3: Ultra-Subtle Deep Ambient Center Glow */}
       <motion.div
         animate={
-          isVisible && !reduced
+          active && isVisible && !reduced
             ? {
                 opacity: [0.35, 0.55, 0.35],
                 scale: [0.96, 1.04, 0.96],

@@ -88,8 +88,8 @@ export default function Home() {
       {/* Initial load screen with building monogram animation */}
       {loading && <Preloader onComplete={() => setLoading(false)} />}
 
-      {/* Whisper-quiet ambient motion background */}
-      <FramerBackdrop />
+      {/* Whisper-quiet ambient motion background (active once preloaded) */}
+      <FramerBackdrop active={!loading} />
 
       {/* Top scroll indicator */}
       <ScrollProgress />

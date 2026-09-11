@@ -1,57 +1,80 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface PreloaderProps {
   onComplete: () => void;
   monogram?: 'Z' | 'M';
 }
 
-const STAGES = [
-  { target: 20, duration: 160 },
-  { target: 45, duration: 220 },
-  { target: 68, duration: 200 },
-  { target: 85, duration: 200 },
-  { target: 96, duration: 180 },
-  { target: 100, duration: 150 },
-];
-
 export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps) {
-  const [percent, setPercent] = useState(0);
-  const [status, setStatus] = useState<'loading' | 'finishing' | 'done'>('loading');
+  const [isExit, setIsExit] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
+  const percentRef = useRef<HTMLSpanElement>(null);
+  const statusRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     // Lock scroll while preloader is active
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    let timer: NodeJS.Timeout;
-    let index = 0;
+    let animationFrameId: number;
+    const duration = 1500; // 1.5s fluid playback
+    const startTime = performance.now();
+    let completed = false;
 
-    const runStages = () => {
-      if (index >= STAGES.length) {
-        setStatus('finishing');
-        timer = setTimeout(() => {
-          setStatus('done');
-          // Allow 400ms for scale-and-fade exit transition before unmounting
+    // Fluid custom ease curve: responsive start, steady linear build, graceful ease-out to 100%
+    const getProgress = (t: number) => {
+      if (t <= 0) return 0;
+      if (t >= 1) return 1;
+      return 1 - Math.pow(1 - t, 2.6);
+    };
+
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      const progress = getProgress(t);
+      const percentVal = Math.min(100, Math.round(progress * 100));
+
+      // Direct DOM mutation for 60-120fps buttery performance without React re-renders
+      if (barRef.current) {
+        barRef.current.style.transform = `scaleX(${progress})`;
+      }
+      if (percentRef.current) {
+        percentRef.current.textContent = `${percentVal}%`;
+      }
+
+      if (t < 1) {
+        animationFrameId = requestAnimationFrame(tick);
+      } else if (!completed) {
+        completed = true;
+        if (statusRef.current) {
+          statusRef.current.textContent = 'Ready';
+        }
+        if (barRef.current) {
+          barRef.current.style.transform = 'scaleX(1)';
+        }
+        if (percentRef.current) {
+          percentRef.current.textContent = '100%';
+        }
+
+        // Brief 120ms pause at 100% for natural completion feel
+        setTimeout(() => {
+          setIsExit(true);
+
+          // Allow 400ms for hardware-accelerated scale-and-fade exit
           setTimeout(() => {
             document.body.style.overflow = originalOverflow;
             onComplete();
           }, 400);
-        }, 180);
-        return;
+        }, 120);
       }
-
-      const stage = STAGES[index];
-      setPercent(stage.target);
-      index++;
-      timer = setTimeout(runStages, stage.duration);
     };
 
-    timer = setTimeout(runStages, 80);
+    animationFrameId = requestAnimationFrame(tick);
 
     return () => {
-      clearTimeout(timer);
+      cancelAnimationFrame(animationFrameId);
       document.body.style.overflow = originalOverflow;
     };
   }, [onComplete]);
@@ -66,10 +89,9 @@ export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps
 
   return (
     <div
-      className={`loading-screen ${status === 'done' ? 'loading-screen--exit' : ''}`}
-      aria-hidden={status === 'done'}
+      className={`loading-screen ${isExit ? 'loading-screen--exit' : ''}`}
+      aria-hidden={isExit}
       role="progressbar"
-      aria-valuenow={percent}
       aria-valuemin={0}
       aria-valuemax={100}
     >
@@ -97,8 +119,8 @@ export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps
               rx="12"
               stroke="var(--color-rose)"
               strokeWidth="2"
-              strokeDasharray="160"
-              strokeDashoffset="160"
+              strokeDasharray="140"
+              strokeDashoffset="140"
               className="loading-logo-rect"
             />
             {/* Building Monogram */}
@@ -121,20 +143,20 @@ export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps
           <p className="loading-title">Software Engineer</p>
         </div>
 
-        {/* Shimmering Progress Bar (GPU scaleX transform) */}
+        {/* Shimmering Progress Bar (High-Performance GPU compositor) */}
         <div className="loading-bar-track">
-          <div
-            className="loading-bar-fill"
-            style={{ transform: `scaleX(${percent / 100})` }}
-          />
+          <div ref={barRef} className="loading-bar-fill" />
+          <div className="loading-bar-shine" />
         </div>
 
         {/* Meta Status and Percentage */}
         <div className="loading-meta">
-          <span className="loading-status">
-            {percent < 100 ? 'Initializing portfolio...' : 'Ready'}
+          <span ref={statusRef} className="loading-status">
+            Initializing portfolio...
           </span>
-          <span className="loading-percent">{percent}%</span>
+          <span ref={percentRef} className="loading-percent">
+            0%
+          </span>
         </div>
       </div>
     </div>
