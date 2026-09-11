@@ -134,7 +134,8 @@ export default function Hero() {
               className="mt-4 text-lg font-semibold leading-snug text-ink-soft sm:text-xl lg:text-[1.4rem]"
             >
               Software Engineer @{' '}
-              <strong className="font-bold text-brand">Smart Forum</strong> ·{' '}
+              <strong className="font-bold text-brand">Smart Forum</strong> {' '}
+              <br />
               <span>FE Architecture & AI Systems</span>
             </motion.p>
 
@@ -144,10 +145,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 1, ease: EASE }}
             >
-              I architect scalable, state-heavy web applications with React 18, TypeScript, and
-              Redux-Saga at Smart Forum, building production platforms like Dentally Assist and
-              Appointlo with bulletproof state synchronization, scoped design systems, and AI
-              integrations.
+             I build accessible, pixel-perfect experiences for the web.
             </motion.p>
           </motion.div>
 

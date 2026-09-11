@@ -16,6 +16,7 @@ import Contact from '@/components/sections/Contact';
 import Footer from '@/components/layout/Footer';
 import FramerBackdrop from '@/components/background/FramerBackdrop';
 import { CASE_STUDIES, type CaseStudy } from '@/data/projects';
+import Preloader from '@/components/ui/Preloader';
 
 // Lazy-load heavy interactive overlays on demand to optimize initial page performance
 const AskZarak = dynamic(() => import('@/components/ai/AskZarak'), { ssr: false });
@@ -25,6 +26,7 @@ const CommandPalette = dynamic(() => import('@/components/command/CommandPalette
 const EasterEggModal = dynamic(() => import('@/components/easter-egg/EasterEggModal'), { ssr: false });
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [commandOpen, setCommandOpen] = useState(false);
   const [easterEggOpen, setEasterEggOpen] = useState(false);
   const [xrayProject, setXrayProject] = useState<string | null>(null);
@@ -83,6 +85,9 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-surface text-ink font-sans antialiased selection:bg-rose selection:text-white">
+      {/* Initial load screen with building monogram animation */}
+      {loading && <Preloader onComplete={() => setLoading(false)} />}
+
       {/* Whisper-quiet ambient motion background */}
       <FramerBackdrop />
 

@@ -10,7 +10,7 @@ const PILLARS = [
   {
     icon: Code2,
     title: 'Frontend Architecture',
-    body: 'React 18, TypeScript, Redux Toolkit and Redux-Saga — building predictable, scalable frontend architectures that hold up under heavy multitasking.',
+    body: 'React 19, TypeScript, Redux Toolkit and Redux-Saga — building predictable, scalable frontend architectures that hold up under heavy multitasking.',
   },
   {
     icon: Brain,
@@ -49,7 +49,7 @@ export default function About() {
                 viewport={{ once: true, amount: 0.05 }}
                 transition={{ duration: 0.5, delay: 0.05, ease: EASE }}
               >
-                Working as a <strong className="font-semibold text-ink">Software Engineer at Smart Forum</strong>, I specialize in building state-heavy, high-performance web applications using <strong className="font-semibold text-ink">React 18</strong>, <strong className="font-semibold text-ink">TypeScript</strong>, and <strong className="font-semibold text-ink">Redux-Saga</strong>. I focus on creating predictable, accessible, and responsive user interfaces that deliver seamless operator experiences under heavy multitasking.
+                Working as a <strong className="font-semibold text-ink">Software Engineer at Smart Forum</strong>, I specialize in building state-heavy, high-performance web applications using <strong className="font-semibold text-ink">React 19</strong>, <strong className="font-semibold text-ink">TypeScript</strong>, and <strong className="font-semibold text-ink">Redux-Saga</strong>. I focus on creating predictable, accessible, and responsive user interfaces that deliver seamless operator experiences under heavy multitasking.
               </motion.p>
 
               <motion.p

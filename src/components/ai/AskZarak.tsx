@@ -464,7 +464,7 @@ export default function AskZarak({
                       setIsOpen(false);
                       setIsVoiceOpen(true);
                     }}
-                    className="flex items-center gap-1.5 rounded-full border border-brand/40 bg-brand/10 hover:bg-brand/20 px-2.5 py-1 text-xs font-semibold text-brand transition-colors"
+                    className="flex items-center gap-1.5 rounded-full border border-rose/40 bg-rose/10 hover:bg-rose/20 px-2.5 py-1 text-xs font-semibold text-rose dark:text-rose-300 transition-all hover:shadow-[0_0_15px_rgba(228,64,95,0.25)] active:scale-95"
                     title="Switch to Real-Time Voice Call with Aimmyy"
                   >
                     <Mic className="w-3.5 h-3.5" />

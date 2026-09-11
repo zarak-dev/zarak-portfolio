@@ -12,7 +12,7 @@ export const PROFILE = {
   company: 'Smart Forum',
   headline: 'Software Engineer @ Smart Forum · Modern Frontend Architecture & UI Systems',
   subheadline:
-    'React 18 · TypeScript · Redux Toolkit · Redux-Saga · Ant Design · Styled Components · Next.js',
+    'React 19 · TypeScript · Redux Toolkit · Redux-Saga · Ant Design · Styled Components · Next.js',
   location: 'Islamabad, Pakistan',
   locationShort: 'Islamabad, Pakistan',
   email: 'zarak.dev@gmail.com',
@@ -22,11 +22,11 @@ export const PROFILE = {
   linkedin: 'https://www.linkedin.com/in/zarak-k-757937385',
   github: 'https://github.com/zarak-dev',
   portrait: '/images/zarak-portrait.jpg',
-  metaTitle: 'Zarak Qaisar — Software Engineer | React 18, TypeScript, Redux-Saga',
+  metaTitle: 'Zarak Qaisar — Software Engineer | React 19, TypeScript, Redux-Saga',
   metaDescription:
     'Zarak Qaisar is a Software Engineer at Smart Forum in Islamabad, Pakistan. Specializing in modern frontend architecture, state-heavy React applications, Redux-Saga, and AI-assisted interfaces.',
   about: [
-    'Working as a Software Engineer at Smart Forum, I specialize in building state-heavy, high-performance web applications using React 18, TypeScript, Redux-Saga, and Redux Toolkit. I focus on creating predictable, accessible, and responsive user interfaces that deliver seamless operator experiences under heavy multitasking.',
+    'Working as a Software Engineer at Smart Forum, I specialize in building state-heavy, high-performance web applications using React 19, TypeScript, Redux-Saga, and Redux Toolkit. I focus on creating predictable, accessible, and responsive user interfaces that deliver seamless operator experiences under heavy multitasking.',
     'At Smart Forum, I engineered the production frontend for enterprise AI products including Dentally Assist (an AI-powered call management dashboard for dental practices) and Appointlo (a production appointment scheduling SaaS platform live at apointlo.com). I own state side-effect coordination, scoped design systems, and role-based access control.',
     'I graduated with a BS in Software Engineering from Sarhad University, where my capstone Smart Sugar Management platform was awarded Grade A+. I am passionate about crafting resilient frontend architectures, eliminating state synchronization leaks, and building interactive software that feels as good as it functions.',
   ],
@@ -41,7 +41,6 @@ export const STATS = [
 
 export const TOP_SKILLS = [
   'React 19',
-  'React 18',
   'TypeScript',
   'Redux Toolkit',
   'Redux-Saga',
@@ -54,7 +53,6 @@ export const TOP_SKILLS = [
 
 export const MARQUEE = [
   'React 19',
-  'React 18',
   'TypeScript',
   'Redux-Saga',
   'Redux Toolkit',
@@ -104,7 +102,7 @@ export const EXPERIENCE: Job[] = [
           'Built predictable asynchronous state architectures using Redux Toolkit and Redux-Saga (takeEvery/takeLatest) with redux-injectors for lazy-loaded reducer/saga slices.',
           'Implemented cookie-based JWT session restoration (SameSite=Lax) with direct client-side role decoding for <RequireAuth> and <RequireAdmin> route guards.',
         ],
-        skills: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components', 'REST APIs'],
+        skills: ['React 19', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components', 'REST APIs'],
       },
       {
         title: 'Frontend Web Developer (PSEB Apprenticeship @ Smart Forum)',
@@ -160,7 +158,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Multi-role internal dashboard giving dental practices complete visibility into their AI phone assistant. Clinic staff review call logs with inline audio playback, track appointment outcomes, inspect dual-mode analytics, and export PDF reports.',
-    tech: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
+    tech: ['React 19', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
     codeUrl: 'https://github.com/zarak-dev',
     image: '/images/dentally-real.png',
     xrayId: 'dentally',
@@ -171,7 +169,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     description:
       'Production AI appointment-scheduling SaaS platform live at apointlo.com. Includes a 10+ section conversion landing page with decoupled data architecture, dynamic pricing builder, and client onboarding portal with PDF report export.',
-    tech: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
+    tech: ['React 19', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
     demoUrl: 'https://apointlo.com/',
     codeUrl: 'https://github.com/zarak-dev',
     image: '/images/apointlo-real.png',
@@ -224,7 +222,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     title: 'Core Frontend',
     blurb: 'Modern component architectures, typed interfaces, and reactive UI runtimes.',
-    items: ['React 19', 'React 18', 'React.js', 'TypeScript', 'JavaScript (ESNext)', 'Next.js (App Router)', 'HTML5', 'CSS3'],
+    items: ['React 19', 'React.js', 'TypeScript', 'JavaScript (ESNext)', 'Next.js (App Router)', 'HTML5', 'CSS3'],
   },
   {
     title: 'State Architecture & Side-Effects',

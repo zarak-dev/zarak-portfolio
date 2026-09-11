@@ -135,7 +135,7 @@ export default function Skills() {
         <SectionHeading
           eyebrow="Skills"
           title={`${total} technologies & architectural patterns on record.`}
-          description="Everything from React 18 & Redux-Saga async side-effects to design systems, Ant Design, and Gemini AI APIs."
+          description="Everything from React 19 & Redux-Saga async side-effects to design systems, Ant Design, and Gemini AI APIs."
         />
 
         {/* Core Competencies Highlight Banner */}
