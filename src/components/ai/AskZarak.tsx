@@ -86,15 +86,22 @@ export default function AskZarak({
     return () => window.removeEventListener('resize', updateRadius);
   }, []);
 
-  // Handle incoming context message from X-Ray
+  // Handle incoming context message from X-Ray or external triggers
   useEffect(() => {
-    if (initialContextMessage && !isOpen) {
+    if (initialContextMessage) {
+      const msg = initialContextMessage;
       setIsOpen(true);
       setIsRadialOpen(false);
-      setInput(initialContextMessage);
       if (onClearContextMessage) onClearContextMessage();
+
+      // Automatically trigger Aimmyy AI to answer the project inquiry
+      const timer = setTimeout(() => {
+        handleSubmit(undefined, msg);
+      }, 120);
+
+      return () => clearTimeout(timer);
     }
-  }, [initialContextMessage, isOpen, onClearContextMessage]);
+  }, [initialContextMessage]);
 
   // Global listener for opening Aimmyyy AI from navigation or cards
   useEffect(() => {
@@ -144,7 +151,8 @@ export default function AskZarak({
     if (e) e.preventDefault();
 
     const messageText = overrideInput || input;
-    if (!messageText.trim() || isLoading) return;
+    if (!messageText.trim()) return;
+    if (isLoading && !overrideInput) return;
 
     const newMessages: Message[] = [...messages, { role: 'user', content: messageText.trim() }];
     setMessages(newMessages);
@@ -433,7 +441,7 @@ export default function AskZarak({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[159] md:hidden"
             />
 
             {/* Panel */}
@@ -442,7 +450,7 @@ export default function AskZarak({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed bottom-0 right-0 w-full h-[85dvh] md:h-[600px] md:w-[400px] md:bottom-6 md:right-6 bg-card border-t md:border border-border/80 md:rounded-2xl shadow-2xl z-[101] flex flex-col overflow-hidden glow-border"
+              className="fixed bottom-0 right-0 w-full h-[85dvh] md:h-[600px] md:w-[400px] md:bottom-6 md:right-6 bg-card border-t md:border border-border/80 md:rounded-2xl shadow-2xl z-[160] flex flex-col overflow-hidden glow-border"
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border/70 bg-secondary/30">

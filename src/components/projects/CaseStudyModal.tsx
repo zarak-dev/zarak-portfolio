@@ -41,7 +41,14 @@ export default function CaseStudyModal({ study, onClose, onOpenXRay }: CaseStudy
   return createPortal(
     <AnimatePresence>
       {study && (
-        <div className="fixed inset-0 z-[130] flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-hidden">
+        <motion.div
+          key="case-study-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, pointerEvents: 'none' }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[130] flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-hidden"
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -228,7 +235,7 @@ export default function CaseStudyModal({ study, onClose, onOpenXRay }: CaseStudy
               </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>,
     document.body

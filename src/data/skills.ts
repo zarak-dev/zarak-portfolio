@@ -18,9 +18,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'App Router, Server/Client components, dynamic metadata, and performance optimization.',
     usedIn: [
       {
-        project: 'Dentally',
+        project: 'Dentally Assist (Appointlo SaaS)',
         role: 'Production Application',
-        application: 'Built low-latency AI receptionist dashboard with Next.js App Router streaming and route caching.',
+        application: 'Built low-latency AI receptionist dashboard for Appointlo SaaS with Next.js App Router streaming and route caching.',
       },
       {
         project: 'FYP Connect',
@@ -41,7 +41,7 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Component lifecycles, custom hooks, virtual DOM reconciliation, and accessible interface design.',
     usedIn: [
       {
-        project: 'Dentally Assist & Appointlo',
+        project: 'Appointlo SaaS & Dentally Assist',
         role: 'Frontend Engineer · Smart Forum',
         application: 'Engineered multi-container production apps, inline audio recording players, and decoupled data-driven landing pages.',
       },
@@ -105,7 +105,7 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Utility-first styling, design token systems, responsive breakpoints, and dark mode theming.',
     usedIn: [
       {
-        project: 'Dentally Assist',
+        project: 'Dentally Assist (Appointlo SaaS)',
         role: 'UI System',
         application: 'Crafted high-density clinic interfaces with custom theme variables and accessible contrast ratios.',
       },
@@ -177,7 +177,7 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Asynchronous HTTP communications, payload validation, caching, and error resilience.',
     usedIn: [
       {
-        project: 'Dentally',
+        project: 'Dentally Assist (Appointlo SaaS)',
         role: 'Telephony & Booking APIs',
         application: 'Connected frontend with live voice services, automated booking endpoints, and patient databases.',
       },

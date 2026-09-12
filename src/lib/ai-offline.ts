@@ -63,7 +63,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('focus') ||
     query.includes('background')
   ) {
-    return `**${IDENTITY.name}** is a software engineer who spends an unreasonable amount of time building things. 😭 He's mainly focused on modern frontend development, especially React, TypeScript, Next.js, and predictable async state machines.\n\nHere's what he's actually good at:\n\n- **Core Frameworks**: React 18 & Next.js with strict TypeScript typings, component boundaries, and streaming hydration.\n- **State Architecture**: Centralized, predictable async state machines using **Redux Toolkit + Redux-Saga**.\n- **Design Systems**: Production enterprise interfaces crafted with **Ant Design 6**, **Tailwind CSS**, and **Framer Motion**.\n- **AI-Assisted Interfaces**: Real-time telephony dashboards, inline audio telemetry, and appointment funnels (**Dentally Assist** and **Appointlo** at Smart Forum).\n\nHe actually did a pretty decent job with that one. 😌 Want to inspect the architecture of his flagship platform **Dentally Assist**?\n\n[XRAY:dentally]`;
+    return `**${IDENTITY.name}** is a software engineer who spends an unreasonable amount of time building things. 😭 He's mainly focused on modern frontend development, especially React, TypeScript, Next.js, and predictable async state machines.\n\nHere's what he's actually good at:\n\n- **Core Frameworks**: React 18 & Next.js with strict TypeScript typings, component boundaries, and streaming hydration.\n- **State Architecture**: Centralized, predictable async state machines using **Redux Toolkit + Redux-Saga**.\n- **Design Systems**: Production enterprise interfaces crafted with **Ant Design 6**, **Tailwind CSS**, and **Framer Motion**.\n- **AI-Assisted Interfaces**: Real-time telephony dashboards, inline audio telemetry, and appointment funnels (**Appointlo SaaS** and its clinical project **Dentally Assist** at Smart Forum).\n\nHe actually did a pretty decent job with that one. 😌 Want to inspect the architecture of his flagship platform **Dentally Assist**?\n\n[XRAY:dentally]`;
   }
 
   // 4. Dentally Assist Project
@@ -74,7 +74,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('dental')
   ) {
     const p = CASE_STUDIES.find((c) => c.id === 'dentally')!;
-    return `### **Dentally Assist — AI Call Management Dashboard** ✨\n\n**Company:** Smart Forum (Proprietary Enterprise Platform)\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n\n**The Problem:**\n${p.problem}\n\n**Engineering Approach:**\n${p.approach}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Key Interface Details:**\n${p.interfaceDetails}\n\n**Key Metrics:**\n${p.metrics?.map((m) => `- **${m.label}:** ${m.value}`).join('\n')}\n\nYou can click below to inspect the full interactive system architecture:\n\n[XRAY:dentally]`;
+    return `### **Dentally Assist — AI Call Management Dashboard (Appointlo SaaS)** ✨\n\n**Platform:** Appointlo SaaS · Smart Forum (Proprietary Clinical Project)\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n\n**The Problem:**\n${p.problem}\n\n**Engineering Approach:**\n${p.approach}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Key Interface Details:**\n${p.interfaceDetails}\n\n**Key Metrics:**\n${p.metrics?.map((m) => `- **${m.label}:** ${m.value}`).join('\n')}\n\nYou can click below to inspect the full interactive system architecture:\n\n[XRAY:dentally]`;
   }
 
   // 4.1 Appointlo Project
@@ -130,7 +130,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('gemini') ||
     query.includes('machine learning')
   ) {
-    return `Zarak loves building intelligent, AI-assisted interfaces! Here are his key AI implementations:\n\n1. **Dentally Assist (Production at Smart Forum)**: An enterprise AI-driven telephony call management platform. He engineered the frontend with inline audio playback, dual-mode analytics, and structured call outcome records.\n\n[XRAY:dentally]\n\n2. **Appointlo (Live SaaS at apointlo.com)**: AI appointment scheduling platform with high-converting marketing flows and client portal.\n\n[XRAY:appointlo]\n\n3. **FYP Connect (Capstone Grade A+)**: Integrated the **Google Gemini API** to analyze patient blood sugar logs and dynamically generate South Asian dietary recommendations with structured schema outputs.\n\n[XRAY:fyp-connect]`;
+    return `Zarak loves building intelligent, AI-assisted interfaces! Here are his key AI implementations:\n\n1. **Appointlo (Live SaaS at apointlo.com)**: AI appointment scheduling platform with high-converting marketing flows and client portal.\n\n[XRAY:appointlo]\n\n2. **Dentally Assist (Project of Appointlo SaaS at Smart Forum)**: An enterprise AI-driven telephony call management platform for dental practices. He engineered the frontend with inline audio playback, dual-mode analytics, and structured call outcome records.\n\n[XRAY:dentally]\n\n3. **FYP Connect (Capstone Grade A+)**: Integrated the **Google Gemini API** to analyze patient blood sugar logs and dynamically generate South Asian dietary recommendations with structured schema outputs.\n\n[XRAY:fyp-connect]`;
   }
 
   // 9. Redux / State Management
@@ -151,7 +151,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('work') ||
     query.includes('built')
   ) {
-    return `Here are the major engineering projects Zarak has architected:\n\n1. **Dentally Assist**: AI Call Management Dashboard for dental practices (Smart Forum).\n[XRAY:dentally]\n\n2. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce dashboard with Redux state and Ant Design.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
+    return `Here are the major engineering projects Zarak has architected:\n\n1. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n2. **Dentally Assist**: AI Call Management Dashboard for dental practices (Specialized Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce dashboard with Redux state and Ant Design.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
   }
 
   // 11. Skills / Tech Stack
@@ -180,7 +180,7 @@ export function generateOfflineResponse(userMessage: string): string {
       (e) =>
         `### **${e.role}** — ${e.company}\n*${e.period} · ${e.type}*\n${e.summary}\n- **Key Stack:** ${e.technologies.join(', ')}`
     ).join('\n\n');
-    return `${list}\n\nWould you like to inspect his flagship work on **Dentally** at Smart Forum?\n\n[XRAY:dentally]`;
+    return `${list}\n\nWould you like to inspect his flagship work on **Dentally Assist** (part of Appointlo SaaS) at Smart Forum?\n\n[XRAY:dentally]`;
   }
 
   // 13. Education
@@ -228,7 +228,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('x-ray') ||
     query.includes('architecture')
   ) {
-    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: E-commerce cart machine & inventory status.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
+    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: E-commerce cart machine & inventory status.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
   }
 
   // 17. Default Fallback

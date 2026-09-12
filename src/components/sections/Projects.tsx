@@ -28,36 +28,14 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
   const [isExpanded, setIsExpanded] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  // Auto-expand if URL hash matches #projects, or when user clicks any link to #projects
+  // Keep collapsed by default on initial page load; only expand on explicit user interactions or events
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash === '#projects') {
-      setIsExpanded(true);
-    }
-
-    const handleHashChange = () => {
-      if (window.location.hash === '#projects') {
-        setIsExpanded(true);
-      }
-    };
-
-    const handleNavClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a[href*="#projects"]');
-      if (target) {
-        setIsExpanded(true);
-      }
-    };
-
     const handleCustomExpand = () => {
       setIsExpanded(true);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    document.addEventListener('click', handleNavClick);
     window.addEventListener('expand-projects', handleCustomExpand);
-
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      document.removeEventListener('click', handleNavClick);
       window.removeEventListener('expand-projects', handleCustomExpand);
     };
   }, []);

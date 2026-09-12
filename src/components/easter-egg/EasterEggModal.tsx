@@ -67,8 +67,8 @@ export default function EasterEggModal({
       setOutputLines((prev) => [
         ...prev,
         `$ ${typedInput}`,
-        'Dentally Assist: Enterprise AI call management dashboard for dental practices.',
-        'Company: Smart Forum | Tech: React 18, TypeScript, Redux-Saga, Ant Design 6, Styled Components, JWT cookies.',
+        'Dentally Assist: Enterprise AI call management dashboard for dental practices (Project of Appointlo SaaS).',
+        'Company: Smart Forum | Platform: Appointlo SaaS | Tech: React 18, TypeScript, Redux-Saga, Ant Design 6, JWT cookies.',
       ]);
     } else if (cmd === 'appointlo') {
       setOutputLines((prev) => [

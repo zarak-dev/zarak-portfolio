@@ -25,7 +25,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'dentally',
     title: 'Dentally Assist',
-    subtitle: 'AI Call Management Dashboard for Dental Clinics',
+    subtitle: 'AI Call Management Dashboard for Dental Clinics · Appointlo SaaS',
     category: 'AI Telephony & Clinical Operations',
     role: 'Frontend Software Engineer · Smart Forum',
     period: 'June 2026 – Present',
@@ -34,7 +34,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     image: '/images/dentally-real.png',
     technologies: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components'],
     metrics: [
-      { label: 'Company', value: 'Smart Forum' },
+      { label: 'Platform', value: 'Appointlo SaaS' },
       { label: 'State Layer', value: 'Redux-Saga + RTK' },
       { label: 'Access Control', value: 'JWT Cookie + RBAC' },
       { label: 'Architecture', value: '11 Modular Slices' },
@@ -42,13 +42,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     problem:
       'Dental practices regularly miss urgent patient inquiries and high-value appointment bookings during peak clinic check-in periods and outside office operating hours when human staff are unavailable.',
     approach:
-      'Engineered an enterprise-grade operator dashboard at Smart Forum providing dental practice managers complete visibility into their AI phone assistant. Clinic staff can review AI-handled call logs with inline audio playback, track appointment outcomes, inspect dual-mode analytics, export PDF reports, and manage clinic settings, with dedicated role-gated admin controls.',
+      'Engineered as a specialized clinical telephony project under the Appointlo AI appointment scheduling SaaS platform at Smart Forum. Created an enterprise-grade operator dashboard providing dental practice managers complete visibility into their AI phone assistant. Clinic staff can review AI-handled call logs with inline audio playback, track appointment outcomes, inspect dual-mode analytics, export PDF reports, and manage clinic settings, with dedicated role-gated admin controls.',
     frontendArchitecture:
       'Built on React 18 and strict TypeScript. State side-effects are coordinated via Redux-Saga (takeEvery for parallel call list/detail queries; takeLatest for analytics debouncing), with reducers lazily injected using redux-injectors. Cookie-based JWT auth (SameSite=Lax) decodes user roles directly on session restore to power <RequireAuth> and <RequireAdmin> route guards without extra network hops. API 404s are treated gracefully as empty states.',
     interfaceDetails:
       'Features 11 modular containers: KPI summary cards (total calls, success rate, follow-up flags), paginated call logs with custom inline <AudioPlayer> recording playback, dual-mode area chart analytics (calls vs appointment funnels with UK locale formatting), one-click PDF blob export (/dashboard/export/pdf), and user profile management with cookie synchronization.',
     impact:
-      'Successfully deployed across client dental practices at Smart Forum, transforming unattended patient calls into structured, actionable appointment records and eliminating dropped patient inquiries.',
+      'Successfully deployed across client dental practices as part of the Appointlo SaaS ecosystem at Smart Forum, transforming unattended patient calls into structured, actionable appointment records and eliminating dropped patient inquiries.',
   },
   {
     id: 'appointlo',

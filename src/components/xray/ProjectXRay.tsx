@@ -17,9 +17,17 @@ interface ProjectXRayProps {
 export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRayProps) {
   const [activeTab, setActiveTab] = useState<'architecture' | 'experiment'>('architecture');
   const [activeLayer, setActiveLayer] = useState<XRayLayer | null>(null);
+  const [cachedProjectId, setCachedProjectId] = useState<string | null>(projectId);
 
-  const xrayData = projectId ? PROJECT_XRAYS.find(x => x.projectId === projectId) : null;
-  const projectInfo = projectId ? CASE_STUDIES.find(p => p.id === projectId) : null;
+  useEffect(() => {
+    if (projectId) {
+      setCachedProjectId(projectId);
+    }
+  }, [projectId]);
+
+  const activeId = projectId || cachedProjectId;
+  const xrayData = activeId ? PROJECT_XRAYS.find((x) => x.projectId === activeId) : null;
+  const projectInfo = activeId ? CASE_STUDIES.find((p) => p.id === activeId) : null;
   const isOpen = Boolean(projectId && xrayData && projectInfo);
 
   useScrollLock(isOpen);
@@ -39,15 +47,23 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
 
   const handleAskAI = () => {
     if (!projectInfo) return;
+    const title = projectInfo.title;
     onClose(); // Close the modal
     // Pass context to AskZarak
-    onAskAI(`Tell me about the engineering architecture of ${projectInfo.title}.`);
+    onAskAI(`Tell me about the engineering architecture of ${title}.`);
   };
 
   return (
     <AnimatePresence>
       {isOpen && projectInfo && xrayData && (
-        <div className="fixed inset-0 z-[140] flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-hidden">
+        <motion.div
+          key="project-xray-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, pointerEvents: 'none' }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[140] flex items-center justify-center p-4 sm:p-6 lg:p-10 overflow-hidden"
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -222,7 +238,7 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
 
             </div>
           </motion.div>
-      </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

@@ -24,16 +24,14 @@ export const EXPERIENCES: ExperienceItem[] = [
     type: 'Full-time · On-site',
     location: 'Pakistan',
     current: true,
-    highlight: 'Key Company Products: Dentally Assist & Appointlo (Live SaaS)',
+    highlight: 'Key SaaS Platform: Appointlo & Dentally Assist (Clinical Project)',
     summary:
-      'Engineers production React architectures for Smart Forum\'s AI-driven telephony and scheduling platforms: Dentally Assist (enterprise dental clinic call management) and Appointlo (live SaaS client onboarding portal at apointlo.com). Specializes in building predictable Redux-Saga state machines, Ant Design/Styled Components design systems, and secure JWT authentication.',
-    keyProject: 'Dentally Assist & Appointlo (Smart Forum Products)',
+      'Engineers production React architectures for Smart Forum\'s Appointlo AI appointment scheduling SaaS platform and its specialized clinical telephony project, Dentally Assist. Specializes in building predictable Redux-Saga state machines, Ant Design/Styled Components design systems, and secure JWT authentication.',
+    keyProject: 'Appointlo SaaS & Dentally Assist (Smart Forum)',
     technologies: ['React 18', 'TypeScript', 'Redux Toolkit', 'Redux-Saga', 'Ant Design', 'Styled Components', 'REST APIs', 'Git'],
     responsibilities: [
-      'Architected and maintains the frontend for Dentally Assist, an internal dashboard giving dental practices real-time visibility into AI phone calls, inline audio playback, dual-mode analytics, and PDF reporting.',
+      'Architected and maintains the frontend for Dentally Assist, an enterprise AI call management dashboard developed under the Appointlo SaaS platform, giving dental practices real-time visibility into AI phone calls, inline audio playback, dual-mode analytics, and PDF reporting.',
       'Developed Appointlo (live at apointlo.com) as a high-converting 10+ section SaaS marketing site and authenticated client portal using a decoupled typed data architecture (zero hardcoded strings in JSX).',
-      'Engineered predictable async state architectures using Redux Toolkit and Redux-Saga (takeEvery/takeLatest) with redux-injectors for lazy-loaded reducer/saga slices.',
-      'Implemented secure cookie-based JWT sessions (SameSite=Lax) with instant client-side role decoding for <RequireAuth> and <RequireAdmin> route guards.',
     ],
   },
   {
@@ -50,8 +48,8 @@ export const EXPERIENCES: ExperienceItem[] = [
       'Developed high-performance client web applications, internal dashboards, and interactive user interfaces under the competitive PSEB Apprenticeship scheme.',
     technologies: ['React.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'REST APIs', 'Git'],
     responsibilities: [
-      'Translated design wireframes and technical product requirements into clean, reusable React components backed by strict TypeScript typings.',
-      'Engineered state-driven interactive features including dynamic filtering tables, real-time form validation systems, and data analytics dashboards.',
+      'Selected for the competitive Pakistan Software Export Board (PSEB) Apprenticeship program at Smart Forum.',
+      'Engineered modular React components backed by strict TypeScript contracts, delivering dynamic filtering tables, real-time form validation, and analytics dashboards.',
       'Collaborated within an Agile engineering team participating in sprint planning, code reviews, and cross-browser testing suites.',
       'Streamlined frontend asset pipelines and optimized bundle sizes to ensure rapid page load speeds across desktop and mobile browsers.',
     ],
@@ -66,13 +64,11 @@ export const EXPERIENCES: ExperienceItem[] = [
     location: 'Pakistan',
     current: false,
     summary:
-      'Kickstarted professional web development career implementing responsive interfaces, dynamic client-side interactions, and REST API integrations.',
-    technologies: ['JavaScript', 'HTML5', 'CSS3', 'React.js', 'REST APIs', 'Git'],
+      'Kickstarted professional web development career implementing responsive interfaces with HTML5/CSS3/Bootstrap, JavaScript interactivity, and version control with Git and GitHub.',
+    technologies: ['JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'React.js', 'Git', 'GitHub'],
     responsibilities: [
-      'Built responsive, cross-browser web interfaces adhering to semantic HTML5 standards and modern CSS responsive layout techniques.',
-      'Implemented dynamic client-side logic and interactive DOM components using modern JavaScript and React.',
-      'Connected frontend views with RESTful backend endpoints to fetch, process, and display live database records.',
-      'Used Git for version control, collaborative feature branching, and pull request hygiene.',
+      'Built responsive cross-browser web interfaces using HTML5, CSS3, and Bootstrap layout techniques.',
+      'Implemented interactive web features using core JavaScript and managed code repositories with Git and GitHub.',
     ],
   },
 ];

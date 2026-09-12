@@ -90,22 +90,6 @@ export default function Skills() {
   const [isExpanded, setIsExpanded] = useState(false);
   const total = SKILL_GROUPS.reduce((sum, group) => sum + group.items.length, 0);
 
-  // Auto-expand if URL hash matches #skills
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash === '#skills') {
-      setIsExpanded(true);
-    }
-
-    const handleHashChange = () => {
-      if (window.location.hash === '#skills') {
-        setIsExpanded(true);
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
   const handleToggle = () => {
     if (isExpanded) {
       setIsExpanded(false);
@@ -126,9 +110,6 @@ export default function Skills() {
     }
   };
 
-  const previewGroups = SKILL_GROUPS.slice(0, 3);
-  const remainingGroups = SKILL_GROUPS.slice(3);
-
   return (
     <section id="skills" className="border-b border-line bg-surface-2 py-20 sm:py-28">
       <div className="shell">
@@ -138,7 +119,7 @@ export default function Skills() {
           description="Everything from React 19 & Redux-Saga async side-effects to design systems, Ant Design, and Gemini AI APIs."
         />
 
-        {/* Core Competencies Highlight Banner */}
+        {/* Core Competencies Highlight Banner (Always visible collapsed preview) */}
         <motion.div
           className="mt-10 rounded-2xl border border-line bg-surface p-5 sm:p-6 dark:border-rose/25 dark:bg-rose-soft/20 dark:shadow-[0_0_30px_-10px_rgba(228,64,95,0.15)]"
           initial="hidden"
@@ -166,36 +147,7 @@ export default function Skills() {
           </ul>
         </motion.div>
 
-        {/* Preview Row (Top 3 Symmetrical Categories) with Soft Gradient Veil */}
-        <div className="relative mt-5">
-          <motion.div
-            className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
-            initial="hidden"
-            whileInView="show"
-            viewport={VIEWPORT}
-            variants={stagger(0.09)}
-          >
-            {previewGroups.map((group) => (
-              <SkillGroupCard
-                key={group.title}
-                title={group.title}
-                blurb={group.blurb}
-                items={group.items}
-              />
-            ))}
-          </motion.div>
-
-          {/* Bottom Gradient Veil shown when collapsed */}
-          <div
-            aria-hidden="true"
-            className={cn(
-              'pointer-events-none absolute -bottom-2 left-0 right-0 h-28 bg-gradient-to-t from-surface-2 via-surface-2/80 to-transparent transition-opacity duration-300 z-10',
-              isExpanded ? 'opacity-0' : 'opacity-100',
-            )}
-          />
-        </div>
-
-        {/* Expandable Remaining Categories */}
+        {/* Expandable Categories: Collapsed by default on entry */}
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -204,10 +156,10 @@ export default function Skills() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 16 }}
               transition={{ duration: 0.35, ease: EASE }}
-              className="scroll-mt-24"
+              className="mt-6 scroll-mt-24"
             >
-              <div className="mt-5 grid gap-5 md:grid-cols-2">
-                {remainingGroups.map((group) => (
+              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {SKILL_GROUPS.map((group) => (
                   <SkillGroupCard
                     key={group.title}
                     title={group.title}

@@ -30,12 +30,12 @@ export const IDENTITY: PersonalIdentity = {
   name: PROFILE.name,
   role: PROFILE.role,
   tagline: 'Building interfaces that feel as good as they function.',
-  bio: 'Software engineer focused on modern frontend architecture, state-heavy React applications, and AI-assisted interfaces. Currently engineering production React and TypeScript systems at Smart Forum—including Dentally Assist and Appointlo (live at apointlo.com)—with an emphasis on performance, predictable state architectures, and visual excellence.',
+  bio: 'Software engineer focused on modern frontend architecture, state-heavy React applications, and AI-assisted interfaces. Currently engineering production React and TypeScript systems at Smart Forum—including Appointlo (live at apointlo.com) and its specialized clinical AI project Dentally Assist—with an emphasis on performance, predictable state architectures, and visual excellence.',
   location: PROFILE.location,
   status: {
     availability: 'Available for AI Associated Frontend as well as Fullstack',
     focus: 'Frontend Architecture · UI Engineering · Interactive Systems',
-    currentBuilding: 'Dentally Assist & Appointlo (Smart Forum)',
+    currentBuilding: 'Appointlo SaaS & Dentally Assist (Smart Forum)',
     coreStack: ['React 18', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design', 'Styled Components', 'Next.js'],
   },
   contacts: {
@@ -58,8 +58,8 @@ export const IDENTITY: PersonalIdentity = {
     },
     {
       label: 'Company Products',
-      value: 'Dentally Assist & Appointlo',
-      detail: 'AI Call Operations & SaaS Onboarding',
+      value: 'Appointlo SaaS & Dentally Assist',
+      detail: 'AI Scheduling SaaS & Dental Call Dashboard',
     },
     {
       label: 'Live Platform',

@@ -479,7 +479,7 @@ export default function LiveVoiceModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6">
+      <div className="fixed inset-0 z-[180] flex items-center justify-center p-3 sm:p-6">
         {/* Fullscreen Translucent Glass Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}

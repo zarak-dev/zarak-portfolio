@@ -1,6 +1,6 @@
 'use client';
 
-import { Brain, Code2, ExternalLink, GraduationCap, Sparkles } from 'lucide-react';
+import { Brain, Code2, ExternalLink } from 'lucide-react';
 
 import SectionHeading from '@/components/ui/SectionHeading';
 import { EASE, fadeUp, stagger } from '@/lib/animations';
@@ -9,23 +9,17 @@ import { motion } from 'framer-motion';
 const PILLARS = [
   {
     icon: Code2,
-    title: 'Frontend Architecture',
-    body: 'React 19, TypeScript, Redux Toolkit and Redux-Saga — building predictable, scalable frontend architectures that hold up under heavy multitasking.',
+    badge: 'Architecture & Discipline',
+    title: 'State Orchestration & UI Performance',
+    body: 'Building deterministic client runtimes with React 19 and Redux-Saga. Specialized in asynchronous side-effect pipelines, atomic store boundaries, and eliminating state synchronization leaks.',
+    tags: ['React 19', 'TypeScript', 'Redux-Saga', 'Atomic Stores'],
   },
   {
     icon: Brain,
-    title: 'Production AI Dashboards',
-    body: 'Enterprise AI operator interfaces like Dentally Assist and Appointlo — live telephony logs, inline audio players, and responsive multi-tenant SaaS portals.',
-  },
-  {
-    icon: Sparkles,
-    title: 'State & UI Performance',
-    body: 'Eliminating race conditions and synchronization leaks with lazy-loaded saga injectors, atomic stores, and optimized DOM re-rendering pipelines.',
-  },
-  {
-    icon: GraduationCap,
-    title: 'Academic Excellence',
-    body: 'BS Software Engineering from Sarhad University. Capstone Smart Sugar Management platform awarded Grade A+ for Gemini AI intelligence.',
+    badge: 'Production Systems',
+    title: 'Enterprise AI & SaaS Dashboards',
+    body: 'Architecting production frontends at Smart Forum for Appointlo SaaS and Dentally Assist clinical telephony. Delivering live audio playback, multi-tenant RBAC auth, and modular design systems.',
+    tags: ['Appointlo SaaS', 'Dentally Assist', 'Clinical Telephony', 'RBAC Auth'],
   },
 ];
 
@@ -39,10 +33,10 @@ export default function About() {
           description="Specialized in modern frontend architecture, enterprise state synchronization, and resilient production web applications."
         />
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-12 items-stretch">
           {/* Narrative Column */}
           <div className="flex flex-col justify-between lg:col-span-6">
-            <div className="space-y-5 text-base leading-[1.75] text-ink-soft sm:text-[17px]">
+            <div className="space-y-4.5 text-base leading-[1.72] text-ink-soft sm:text-[16.5px]">
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +52,7 @@ export default function About() {
                 viewport={{ once: true, amount: 0.05 }}
                 transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
               >
-                At Smart Forum, I engineered the production frontend for enterprise AI products including <strong className="font-semibold text-ink">Dentally Assist</strong> (an AI-powered call management dashboard for dental practices) and <a href="https://apointlo.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-rose hover:underline"><strong className="font-semibold text-rose">Appointlo</strong><ExternalLink className="h-3.5 w-3.5" /></a> (a production appointment scheduling SaaS platform live at apointlo.com). I own state side-effect coordination, scoped design systems, and role-based access control.
+                At Smart Forum, I engineered the production frontend for enterprise AI products centered around <a href="https://apointlo.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-rose hover:underline"><strong className="font-semibold text-rose">Appointlo</strong><ExternalLink className="h-3.5 w-3.5" /></a> (a production appointment scheduling SaaS platform live at apointlo.com) and its specialized dental telephony project, <strong className="font-semibold text-ink">Dentally Assist</strong> (an AI-powered call management dashboard for dental practices). I own state side-effect coordination, scoped design systems, and role-based access control.
               </motion.p>
 
               <motion.p
@@ -72,32 +66,49 @@ export default function About() {
             </div>
           </div>
 
-          {/* 4 Pillars Column */}
-          <div className="lg:col-span-6">
+          {/* 2 Focused Pillar Cards */}
+          <div className="flex flex-col justify-between gap-4 lg:col-span-6">
             <motion.div
-              className="grid gap-4 sm:grid-cols-2"
+              className="flex flex-col justify-between gap-4 h-full"
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.05 }}
-              variants={stagger(0.1)}
+              variants={stagger(0.12)}
             >
               {PILLARS.map((pillar) => (
                 <motion.article
                   key={pillar.title}
                   variants={fadeUp}
-                  whileHover={{ y: -4 }}
-                  className="flex h-full flex-col justify-between rounded-2xl border border-line bg-surface-2 p-5 transition-all duration-300 hover:border-line sm:p-6 dark:hover:border-rose/35 dark:hover:shadow-[0_15px_35px_-15px_rgba(228,64,95,0.2)]"
+                  whileHover={{ y: -3 }}
+                  className="flex flex-1 flex-col justify-between rounded-2xl border border-line bg-surface-2 p-4.5 sm:p-5 transition-all duration-300 hover:border-line dark:hover:border-rose/35 dark:hover:shadow-[0_12px_30px_-12px_rgba(228,64,95,0.2)]"
                 >
                   <div>
-                    <motion.span
-                      whileHover={{ rotate: -8, scale: 1.06 }}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-surface text-ink ring-1 ring-line dark:text-rose dark:ring-rose/25 dark:bg-rose/10"
-                    >
-                      <pillar.icon className="h-5 w-5" aria-hidden="true" />
-                    </motion.span>
-                    <h3 className="mt-4 text-base font-bold text-ink">{pillar.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-mute">{pillar.body}</p>
+                    <div className="flex items-center justify-between gap-3">
+                      <motion.span
+                        whileHover={{ rotate: -8, scale: 1.06 }}
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-surface text-ink ring-1 ring-line dark:text-rose dark:ring-rose/25 dark:bg-rose/10"
+                      >
+                        <pillar.icon className="h-4.5 w-4.5" aria-hidden="true" />
+                      </motion.span>
+                      <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-ink-faint">
+                        {pillar.badge}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-3 text-[16px] font-bold text-ink sm:text-[17px]">{pillar.title}</h3>
+                    <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-mute sm:text-[14px]">{pillar.body}</p>
                   </div>
+
+                  <ul className="mt-3.5 flex flex-wrap gap-1.5 pt-0.5">
+                    {pillar.tags.map((tag) => (
+                      <li
+                        key={tag}
+                        className="rounded-md border border-line bg-surface px-2 py-0.5 text-[11px] font-medium text-ink-mute"
+                      >
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
                 </motion.article>
               ))}
             </motion.div>
