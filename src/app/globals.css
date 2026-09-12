@@ -361,17 +361,21 @@
   transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   user-select: none;
-  /* GPU Layer Isolation & paint containment */
-  contain: paint;
+  /* Complete GPU Layer Isolation & paint containment from background page */
+  contain: strict;
+  isolation: isolate;
+  touch-action: none;
   will-change: opacity, transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .loading-screen--exit {
   opacity: 0;
   pointer-events: none;
-  transform: scale(1.04) translateZ(0);
+  transform: scale(1.04) translate3d(0, 0, 0);
 }
 
 /* Lightweight ambient radial tint (zero feTurbulence CPU overhead) */
@@ -383,17 +387,18 @@
   background: radial-gradient(circle at 50% 50%, rgba(228, 64, 95, 0.06) 0%, transparent 70%);
 }
 
-/* Naturally blurred multi-stop radial gradient (0ms gaussian blur convolution cost) */
+/* Naturally blurred multi-stop radial gradient bounded for mobile viewport bounds */
 .loading-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 440px;
-  height: 440px;
+  width: min(440px, 85vw);
+  height: min(440px, 85vw);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(228, 64, 95, 0.18) 0%, rgba(228, 64, 95, 0.08) 35%, rgba(228, 64, 95, 0.02) 55%, transparent 70%);
   pointer-events: none;
   transform: translate3d(-50%, -50%, 0);
+  -webkit-transform: translate3d(-50%, -50%, 0);
   will-change: opacity;
   animation: loading-glow-pulse 3s ease-in-out infinite;
 }
@@ -416,7 +421,7 @@
   gap: 22px;
   padding: 0 24px;
   text-align: center;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   animation: loading-content-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -432,7 +437,7 @@
 }
 
 .loading-logo {
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -441,19 +446,21 @@
 .loading-logo-svg {
   width: 48px;
   height: 48px;
-  shape-rendering: geometricPrecision;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .loading-logo-rect {
   stroke-dasharray: 140;
   stroke-dashoffset: 140;
+  will-change: stroke-dashoffset;
   animation: loading-rect-draw 1.05s cubic-bezier(0.25, 1, 0.5, 1) 0.1s forwards;
 }
 
 .loading-logo-path {
   stroke-dasharray: 60;
   stroke-dashoffset: 60;
+  will-change: stroke-dashoffset;
   animation: loading-path-draw 0.9s cubic-bezier(0.25, 1, 0.5, 1) 0.35s forwards;
 }
 
@@ -508,10 +515,11 @@
   overflow: hidden;
   position: relative;
   contain: paint;
+  transform: translate3d(0, 0, 0);
   animation: loading-text-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
 }
 
-/* GPU ScaleX driven directly by RAF without CSS transition interpolation conflicts */
+/* GPU Scale3D driven directly by RAF without CSS transition interpolation conflicts */
 .loading-bar-fill {
   position: absolute;
   inset: 0;
@@ -520,8 +528,11 @@
   border-radius: 9999px;
   background: linear-gradient(90deg, var(--color-rose), #ff5a79);
   transform-origin: left;
-  transform: scaleX(0);
+  transform: scale3d(0, 1, 1);
+  -webkit-transform: scale3d(0, 1, 1);
   will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Shimmer shine runs independently on track, avoiding compound matrix recalculations */
@@ -566,6 +577,10 @@
   font-size: 12px;
   font-weight: 700;
   color: var(--color-rose);
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 36px;
+  text-align: right;
 }
 
 

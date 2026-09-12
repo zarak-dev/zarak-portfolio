@@ -20,6 +20,7 @@ type ConnectionStatus = 'initializing' | 'connecting' | 'listening' | 'speaking'
 
 const QUICK_PROMPTS = [
   'Who are you?',
+  '你好 Aimmyy (中文)',
   'What are your key achievements?',
   'Tell me about Dentally Assist',
   'What is your frontend tech stack?',
@@ -291,6 +292,15 @@ export default function LiveVoiceModal({
               if (isCancelled || isClosingRef.current) return;
               setStatus('listening');
 
+              // Proactively greet visitor with opening introduction and Chinese/multilingual hint
+              try {
+                session.sendRealtimeInput({
+                  text: "A visitor has joined the live call. Greet them warmly as Aimmyy in 1-2 brief sentences. Welcome them, give a friendly hint that you can speak in Chinese (你好!) or Russian if they prefer, and ask what they'd like to explore in Zarak's work.",
+                });
+              } catch (greetingErr) {
+                console.warn('Failed to send initial greeting prompt:', greetingErr);
+              }
+
               // Start recording user audio and streaming into session
               recorder
                 .start((base64Pcm16) => {
@@ -511,6 +521,9 @@ export default function LiveVoiceModal({
                 <GeminiIcon className="h-3 w-3 text-rose-500 dark:text-rose-400" />
                 <span>Aimmyy Live</span>
               </span>
+              <span className="inline-flex items-center rounded-full bg-black/[0.04] dark:bg-white/[0.08] px-2 py-0.5 font-mono text-[9px] sm:text-[10px] font-medium text-zinc-600 dark:text-rose-200/80">
+                EN · 中文 · RU
+              </span>
             </div>
 
             <div className={`flex items-center gap-2 rounded-full border px-2.5 sm:px-3 py-1 sm:py-1.5 backdrop-blur-2xl transition-colors ${
@@ -641,7 +654,7 @@ export default function LiveVoiceModal({
               ) : status === 'speaking' ? (
                 <span className="text-rose-600 dark:text-rose-300 font-semibold">Aimmyy is answering...</span>
               ) : status === 'listening' ? (
-                <span className="text-zinc-600 dark:text-zinc-300">Listening... Speak naturally, Aimmyy is all ears 👂</span>
+                <span className="text-zinc-600 dark:text-zinc-300">Listening... Speak in English, 中文, or Русский 👂</span>
               ) : status === 'connecting' || status === 'initializing' ? (
                 <span className="flex items-center justify-center gap-2 text-zinc-600 dark:text-zinc-300">
                   <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin text-rose-500 dark:text-rose-400" />

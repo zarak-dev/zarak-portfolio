@@ -12,6 +12,7 @@ export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps
   const barRef = useRef<HTMLDivElement>(null);
   const percentRef = useRef<HTMLSpanElement>(null);
   const statusRef = useRef<HTMLSpanElement>(null);
+  const lastPercentRef = useRef<number>(-1);
 
   useEffect(() => {
     // Lock scroll while preloader is active
@@ -36,11 +37,13 @@ export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps
       const progress = getProgress(t);
       const percentVal = Math.min(100, Math.round(progress * 100));
 
-      // Direct DOM mutation for 60-120fps buttery performance without React re-renders
+      // Direct GPU compositor transform via scale3d avoids layout recomputation
       if (barRef.current) {
-        barRef.current.style.transform = `scaleX(${progress})`;
+        barRef.current.style.transform = `scale3d(${progress}, 1, 1)`;
       }
-      if (percentRef.current) {
+      // Only mutate text DOM when integer percentage changes (eliminates layout thrashing on mobile)
+      if (percentRef.current && lastPercentRef.current !== percentVal) {
+        lastPercentRef.current = percentVal;
         percentRef.current.textContent = `${percentVal}%`;
       }
 
@@ -52,7 +55,7 @@ export default function Preloader({ onComplete, monogram = 'Z' }: PreloaderProps
           statusRef.current.textContent = 'Ready';
         }
         if (barRef.current) {
-          barRef.current.style.transform = 'scaleX(1)';
+          barRef.current.style.transform = 'scale3d(1, 1, 1)';
         }
         if (percentRef.current) {
           percentRef.current.textContent = '100%';
