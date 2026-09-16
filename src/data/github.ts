@@ -39,12 +39,12 @@ export const GITHUB_DATA: GitHubProfile = {
     {
       name: 'Exynos-Cooky',
       description:
-        'Production e-commerce bakery management dashboard built with React, TypeScript, Redux Toolkit, Ant Design, and Styled Components, deployed on Vercel.',
+        'Full-stack artisanal bakery storefront & kitchen operations ERP with React 19, Redux-Saga, TypeScript, Ant Design 6, and Supabase.',
       language: 'TypeScript',
       languageColor: '#3178C6',
       url: 'https://github.com/zarak-dev/Exynos-Cooky',
       isFeatured: true,
-      tags: ['React', 'Redux Toolkit', 'Ant Design', 'Styled Components', 'Vercel'],
+      tags: ['React 19', 'Redux-Saga', 'Ant Design 6', 'Supabase', 'PostgreSQL'],
     },
     {
       name: 'Grab-Cooky',

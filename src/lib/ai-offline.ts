@@ -96,7 +96,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('bakery')
   ) {
     const p = CASE_STUDIES.find((c) => c.id === 'exynos-cooky')!;
-    return `### **Exynos Cooky — E-Commerce & Order Management**\n\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n**Live Deployment:** [exynos-cooky.vercel.app](${p.liveUrl})\n\n**Overview:**\n${p.problem}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Interface Details:**\n${p.interfaceDetails}\n\nYou can inspect the architecture and state management model below:\n\n[XRAY:exynos-cooky]`;
+    return `### **Exynos Cooky — Artisanal Bakery E-Commerce & Kitchen Operations ERP**\n\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n**Live Deployment:** [exynos-cooky.vercel.app](${p.liveUrl})\n\n**Overview:**\n${p.problem}\n\n**Frontend Architecture:**\n${p.frontendArchitecture}\n\n**Interface Details:**\n${p.interfaceDetails}\n\nYou can inspect the architecture and state management model below:\n\n[XRAY:exynos-cooky]`;
   }
 
   // 6. MoneyFlow Project
@@ -141,7 +141,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('slice') ||
     query.includes('saga')
   ) {
-    return `Zarak uses **Redux Toolkit + Redux-Saga** as his primary state layer for complex, asynchronous applications:\n\n- **Dentally Assist & Appointlo (Smart Forum)**: Built robust saga side-effects handling takeEvery for parallel calls and takeLatest for analytics debouncing, with lazy reducer injection via redux-injectors.\n- **Exynos Cooky**: Implemented a slice-based cart state machine with persistent storage, dynamic checkout stages, and live inventory state.\n\nInspect how Redux-Saga coordinates the Dentally Assist telemetry pipeline:\n\n[XRAY:dentally]`;
+    return `Zarak uses **Redux Toolkit + Redux-Saga** as his primary state layer for complex, asynchronous applications:\n\n- **Dentally Assist & Appointlo (Smart Forum)**: Built robust saga side-effects handling takeEvery for parallel calls and takeLatest for analytics debouncing, with lazy reducer injection via redux-injectors.\n- **Exynos Cooky**: Orchestrated decoupled Redux-Saga pipelines for dynamic box customizer slot validation, zero-race-condition OAuth redirects, and zero-trust Supabase RPC order placement.\n\nInspect how Redux-Saga coordinates the Dentally Assist telemetry pipeline:\n\n[XRAY:dentally]`;
   }
 
   // 10. General Projects query
@@ -151,7 +151,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('work') ||
     query.includes('built')
   ) {
-    return `Here are the major engineering projects Zarak has architected:\n\n1. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n2. **Dentally Assist**: AI Call Management Dashboard for dental practices (Specialized Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce dashboard with Redux state and Ant Design.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
+    return `Here are the major engineering projects Zarak has architected:\n\n1. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n2. **Dentally Assist**: AI Call Management Dashboard for dental practices (Specialized Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce storefront and kitchen operations ERP with React 19, Redux-Saga, Ant Design 6, and Supabase.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
   }
 
   // 11. Skills / Tech Stack
@@ -228,7 +228,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('x-ray') ||
     query.includes('architecture')
   ) {
-    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: E-commerce cart machine & inventory status.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
+    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: Zero-trust checkout RPC, Redux-Saga pipelines & live kitchen Kanban ERP.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
   }
 
   // 17. Default Fallback

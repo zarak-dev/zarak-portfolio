@@ -173,11 +173,11 @@ export const PROJECTS: Project[] = [
   },
   {
     title: 'Exynos Cooky',
-    category: 'E-Commerce Storefront',
+    category: 'Bakery E-Commerce & Kitchen ERP',
     year: '2025',
     description:
-      'Artisanal bakery e-commerce web application and order management dashboard. Custom cookie box builder, atomic Redux store, and tailored Ant Design component hierarchy deployed live on Vercel.',
-    tech: ['React', 'TypeScript', 'Redux Toolkit', 'Ant Design', 'Styled Components', 'Vercel'],
+      'Full-stack artisanal bakery storefront and real-time kitchen operations ERP built with React 19, Redux-Saga, and Supabase. Features an interactive custom box-builder (4, 6, 12-pack), zero-trust PostgreSQL RPC checkout, live 5-stage order tracking, automated inventory depletion alerts, and AntV financial trajectory analytics with AI executive insights.',
+    tech: ['React 19', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components', 'Supabase', 'PostgreSQL 15', 'AntV Charts'],
     demoUrl: 'https://exynos-cooky.vercel.app/',
     codeUrl: 'https://github.com/zarak-dev/Exynos-Cooky',
     image: '/images/exynos-cooky-real.png',

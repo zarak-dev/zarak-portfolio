@@ -81,31 +81,31 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 'exynos-cooky',
     title: 'Exynos Cooky',
-    subtitle: 'Artisanal Bakery E-Commerce & Order Management Dashboard',
-    category: 'E-Commerce & Storefront App',
-    role: 'Frontend Developer',
+    subtitle: 'Artisanal Bakery E-Commerce & Real-Time Kitchen Operations ERP',
+    category: 'Bakery E-Commerce & Kitchen ERP',
+    role: 'Full-Stack / Frontend Developer',
     period: 'Production Deployment',
     featured: true,
     image: '/images/exynos-cooky-real.png',
     liveUrl: 'https://exynos-cooky.vercel.app/',
     githubUrl: 'https://github.com/zarak-dev/Exynos-Cooky',
-    technologies: ['React', 'TypeScript', 'Redux Toolkit', 'Ant Design', 'Styled Components', 'Vercel'],
+    technologies: ['React 19', 'TypeScript', 'Redux-Saga', 'Redux Toolkit', 'Ant Design 6', 'Styled Components', 'Supabase', 'PostgreSQL 15', 'AntV Charts'],
     metrics: [
-      { label: 'Live Store', value: 'exynos-cooky.vercel.app' },
-      { label: 'State Layer', value: 'Redux Toolkit' },
-      { label: 'UI Toolkit', value: 'Ant Design' },
-      { label: 'Styling', value: 'Styled Components' },
+      { label: 'Live Platform', value: 'exynos-cooky.vercel.app' },
+      { label: 'State & Async', value: 'Redux-Saga + RTK' },
+      { label: 'Backend / BaaS', value: 'Supabase + Postgres RPC' },
+      { label: 'Design & Charts', value: 'Ant Design 6 + AntV' },
     ],
     problem:
-      'Artisanal bakeries face operational bottlenecks when balancing perishable inventory turnover, fluctuating order volumes, and customer ordering workflows.',
+      'Artisanal bakeries face severe operational bottlenecks when balancing luxury customer storefronts with real-time kitchen operations. Unsynchronized perishable inventory, vulnerability to client-side price and coupon tampering, lack of live order tracking, and unresponsive data tables on kitchen screens create friction for customers and back-office staff.',
     approach:
-      'Constructed a specialized e-commerce web application and dashboard that pairs customer cookie ordering, box configuration, and checkout flows with real-time bakery kitchen product management.',
+      'Architected a full-stack, enterprise-grade gourmet bakery storefront and kitchen operations ERP. Customers enjoy an interactive custom box-builder (4, 6, or 12-pack) with client-side slot validators and live stock guards, atomic server-validated checkout, 5-stage real-time order tracking (Pending ➔ Delivered), and verified reviews. Kitchen staff and administrators operate via live Kanban queues, automated ingredient threshold alerts (<5 units), and AntV financial performance trajectory charts with AI-assisted executive insights.',
     frontendArchitecture:
-      'Built with React and TypeScript, leveraging Redux Toolkit for atomic store slices managing order lifecycles and product boxes. Deployed continuously on Vercel.',
+      'Built with React 19, strict TypeScript, and Vite. Asynchronous side effects are orchestrated through generator-based Redux-Saga pipelines (takeLatest, call, put) for atomic transaction handling and decoupled OAuth redirect loading states to eliminate UI race conditions. Implements zero-trust data integrity using Supabase PostgreSQL RPC functions (create_order_with_items) that accept only product IDs and quantities, computing subtotals and coupon deductions strictly server-side. Styled with a tokenized system in Styled-Components and Ant Design v6, utilizing fixed table layouts (tableLayout="fixed") and responsive dual-view rendering (compact mobile cards on <768px, fixed high-density tables on desktop) to eliminate table overflow.',
     interfaceDetails:
-      'Custom cookie selection showcase, real-time box price calculations (e.g. Chilled Sugar, Chocolate Chip, Pink Velvet, Lotus Biscoff), and responsive cart checkout drawer.',
+      'Includes an interactive box customizer (/buy) dynamically populating from 100+ cookie varieties with slot validation; atomic checkout drawer with server-validated promotional coupons; 5-stage order tracking timeline (/track-order); verified 5-star customer review system with trust badges; live kitchen Kanban queue (/admin/orders) with single-click prep-to-dispatch pipeline; inventory control (/admin/inventory) with auto-depletion alerts; and admin financial intelligence (/admin) featuring AntV G2 column charts for monthly gross revenue trends and MoM growth, donut sales distribution charts, and AI executive summaries.',
     impact:
-      'Provides a polished, production-deployed demonstration of React state management, component customization with Ant Design and Styled Components, deployed live on Vercel.',
+      'Engineered a resilient production platform that guarantees zero-trust checkout integrity through PostgreSQL RPC procedures, prevents kitchen bottlenecks through real-time order queue advancement, eliminates inventory over-allocation with automated depletion alerts, and provides bakery operators with executive-level financial clarity and responsive data grids across mobile and desktop viewports.',
   },
   {
     id: 'moneyflow',

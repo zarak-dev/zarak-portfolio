@@ -116,23 +116,37 @@ export const PROJECT_XRAYS: ProjectXRay[] = [
   {
     projectId: 'exynos-cooky',
     layers: [
-      { id: 'user', label: 'CUSTOMER', tech: 'Web Client', description: 'Browses cookies and configures boxes', color: 'bg-white' },
-      { id: 'ui', label: 'REACT + TYPESCRIPT', tech: 'SPA Frontend', description: 'Client-side navigation and rendering', color: 'bg-blue-400' },
-      { id: 'components', label: 'ANT DESIGN', tech: 'Component Library', description: 'Provides tables and structural UI elements', color: 'bg-sky-500' },
-      { id: 'state', label: 'REDUX TOOLKIT', tech: 'State Management', description: 'Manages shopping cart and box configurations', color: 'bg-purple-500' },
-      { id: 'deploy', label: 'VERCEL', tech: 'Global CDN', description: 'Hosts and serves the production application', color: 'bg-zinc-900' },
+      { id: 'user', label: 'CUSTOMER & KITCHEN STAFF', tech: 'Storefront & Kitchen ERP', description: 'Custom box customizer (/buy) & live kitchen Kanban queue (/admin)', color: 'bg-white' },
+      { id: 'app', label: 'REACT 19 + VITE SPA', tech: 'React 19 + React Router v7', description: 'Strict TypeScript SPA with client & admin role route guards', color: 'bg-zinc-400' },
+      { id: 'ui', label: 'ANT DESIGN 6 + STYLED', tech: 'AntD 6 + Styled Components', description: 'Tokenized luxury theme, AntV charts & fixed responsive data grids', color: 'bg-sky-400' },
+      { id: 'state', label: 'REDUX-SAGA + RTK', tech: 'Generator Side-Effects', description: 'takeLatest/call/put sagas preventing race conditions & OAuth spinner hangs', color: 'bg-purple-500' },
+      { id: 'auth', label: 'SUPABASE AUTH + RLS', tech: 'OAuth 2.0 + Role Claims', description: 'Row-Level Security distinguishing regular customers from kitchen staff', color: 'bg-amber-400' },
+      { id: 'backend', label: 'POSTGRESQL 15 RPC', tech: 'create_order_with_items', description: 'Zero-trust server-side pricing, atomic coupon validation & inventory sync', color: 'bg-emerald-400' },
     ],
     experiments: [
       {
+        id: 'exynos-checkout',
+        type: 'api',
+        title: 'Zero-Trust Atomic Checkout RPC',
+        description: 'How server-side stored procedures calculate prices and prevent tampering.',
+        steps: [
+          { label: 'Cart Payload', detail: 'Client passes product IDs and quantities only (no prices/discounts)' },
+          { label: 'Saga Worker', detail: 'takeLatest saga intercepts checkout and dispatches RPC call' },
+          { label: 'PostgreSQL RPC', detail: 'create_order_with_items verifies prices, applies coupons, inserts order atomically' },
+          { label: 'Realtime Broadcast', detail: 'Order enters kitchen queue instantly via Supabase Realtime channel' },
+          { label: 'Live Tracking', detail: 'Customer timeline updates: Pending ➔ Confirmed ➔ Baking ➔ Dispatched' }
+        ]
+      },
+      {
         id: 'exynos-state',
         type: 'state',
-        title: 'Box Configuration State',
-        description: 'Managing a custom cookie box.',
+        title: 'Box Customizer & Slot Validator',
+        description: 'Dynamic slot allocation and real-time stock guards.',
         steps: [
-          { label: 'Initial State', detail: '{ cart: [], boxCapacity: 6 }' },
-          { label: 'User Action', detail: 'Adds "Pink Velvet"' },
-          { label: 'State Reducer', detail: 'Checks capacity, adds to cart' },
-          { label: 'UI Update', detail: 'Progress bar fills, price recalculates' }
+          { label: 'Package Size', detail: 'Customer selects 4, 6, or 12-pack box configuration' },
+          { label: 'Flavor Selection', detail: 'Customer allocates slots from 100+ cookie varieties' },
+          { label: 'Live Stock Guard', detail: 'Validator checks threshold (<5 alert) and prevents over-allocation' },
+          { label: 'Redux Store', detail: 'Cart slice updates dynamically with atomic slot validation' }
         ]
       }
     ]
