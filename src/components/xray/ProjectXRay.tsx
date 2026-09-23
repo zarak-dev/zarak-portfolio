@@ -26,8 +26,12 @@ export default function ProjectXRay({ projectId, onClose, onAskAI }: ProjectXRay
   }, [projectId]);
 
   const activeId = projectId || cachedProjectId;
-  const xrayData = activeId ? PROJECT_XRAYS.find((x) => x.projectId === activeId) : null;
-  const projectInfo = activeId ? CASE_STUDIES.find((p) => p.id === activeId) : null;
+  const xrayData = activeId
+    ? PROJECT_XRAYS.find((x) => x.projectId === activeId || (activeId === 'fyp-connect' && x.projectId === 'gluvia'))
+    : null;
+  const projectInfo = activeId
+    ? CASE_STUDIES.find((p) => p.id === activeId || (activeId === 'fyp-connect' && p.id === 'gluvia'))
+    : null;
   const isOpen = Boolean(projectId && xrayData && projectInfo);
 
   useScrollLock(isOpen);

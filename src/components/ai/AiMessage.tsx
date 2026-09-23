@@ -25,13 +25,13 @@ const AiMessage = memo(function AiMessage({ role, content, onOpenXRay }: Message
           {parts.map((part, index) => {
             // Even indices are text, odd are project IDs
             if (index % 2 === 1) {
-              const project = CASE_STUDIES.find(p => p.id === part);
+              const project = CASE_STUDIES.find(p => p.id === part || (part === 'fyp-connect' && p.id === 'gluvia'));
               if (!project) return null;
               
               return (
                 <div 
                   key={index}
-                  onClick={() => onOpenXRay(part)}
+                  onClick={() => onOpenXRay(project.id)}
                   className="my-3 p-3 rounded-xl border border-accent/30 bg-accent/5 hover:bg-accent/10 transition-colors cursor-pointer flex items-center justify-between group"
                 >
                   <div className="flex items-center gap-3">

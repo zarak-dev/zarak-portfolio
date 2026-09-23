@@ -22,7 +22,7 @@
 ## 💼 Featured Projects
 
 - **Dentally**: AI-powered clinical receptionist platform featuring real-time architecture, state telemetry, and responsive interfaces.
-- **FYP Connect**: Smart diabetes and nutrition management application with Gemini AI diet intelligence.
+- **Gluvia**: South Asian diabetes and glycemic management platform (Live at [gluvia.world](https://www.gluvia.world), redesigned Grade A+ capstone).
 - **MoneyFlow**: High-efficiency personal finance tracker with optimized REST APIs and analytics.
 - **Exynos Cooky**: Modern e-commerce bakery dashboard with real-time state and inventory management.
 

@@ -92,8 +92,16 @@ export default function CommandPalette({
         action: () => navigateTo('projects'),
       },
       {
+        id: 'gluvia',
+        title: 'View Gluvia Case Study (gluvia.world · Redesigned FYP)',
+        category: 'Featured Work',
+        shortcut: '/gluvia',
+        icon: Sparkles,
+        action: () => navigateTo('projects'),
+      },
+      {
         id: 'projects',
-        title: 'Explore Case Studies (Appointlo, Exynos Cooky, MoneyFlow, FYP)',
+        title: 'Explore Case Studies (Dentally, Appointlo, Exynos Cooky, Gluvia)',
         category: 'Featured Work',
         shortcut: '/projects',
         icon: FolderGit2,

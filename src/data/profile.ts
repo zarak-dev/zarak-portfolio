@@ -28,7 +28,7 @@ export const PROFILE = {
   about: [
     'Working as a Software Engineer at Smart Forum, I specialize in building state-heavy, high-performance web applications using React 19, TypeScript, Redux-Saga, and Redux Toolkit. I focus on creating predictable, accessible, and responsive user interfaces that deliver seamless operator experiences under heavy multitasking.',
     'At Smart Forum, I engineered the production frontend for enterprise AI products centered around Appointlo (a production appointment scheduling SaaS platform live at apointlo.com) and its specialized clinical telephony project Dentally Assist (an AI-powered call management dashboard for dental practices). I own state side-effect coordination, scoped design systems, and role-based access control.',
-    'I graduated with a BS in Software Engineering from Sarhad University, where my capstone Smart Sugar Management platform was awarded Grade A+. I am passionate about crafting resilient frontend architectures, eliminating state synchronization leaks, and building interactive software that feels as good as it functions.',
+    'I graduated with a BS in Software Engineering from Sarhad University, where my capstone Smart Sugar Management platform (now redesigned into Gluvia — gluvia.world) was awarded Grade A+. I am passionate about crafting resilient frontend architectures, eliminating state synchronization leaks, and building interactive software that feels as good as it functions.',
   ],
 } as const;
 
@@ -196,15 +196,16 @@ export const PROJECTS: Project[] = [
     xrayId: 'moneyflow',
   },
   {
-    title: 'FYP Connect',
-    category: 'Healthcare & Gemini AI',
-    year: '2025',
+    title: 'Gluvia',
+    category: 'Healthcare & Metabolic AI',
+    year: '2026',
     description:
-      'Smart Sugar Management platform with Gemini AI Diet Intelligence. Awarded Grade A+ by faculty for analyzing patient blood sugar logs and generating culturally tailored South Asian meal plans.',
-    tech: ['Next.js', 'TypeScript', 'Google Gemini API', 'Supabase', 'Tailwind CSS'],
+      'Digital metabolic companion tailored for South Asian Type 2 diabetes risk factors. Contextualizes glycemic monitoring around cultural staples with clinical Recharts trajectories, Gemini AI glycemic companion, and idempotent weekly digests.',
+    tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Google Gemini AI', 'Resend API', 'Deno Edge Functions', 'Recharts'],
+    demoUrl: 'https://www.gluvia.world',
     codeUrl: 'https://github.com/zarak-dev',
-    image: '/images/fyp-connect.jpg',
-    xrayId: 'fyp-connect',
+    image: '/images/gluvia.png',
+    xrayId: 'gluvia',
   },
 ];
 
@@ -258,7 +259,7 @@ export const EDUCATION: School[] = [
     field: 'Software Engineering',
     period: '2021 — 2025',
     summary:
-      'Rigorous software engineering curriculum covering algorithms, data structures, database design, software architecture, and web engineering. Capstone project (FYP Connect) awarded Grade A+ for excellence in frontend design and Gemini AI integration.',
+      'Rigorous software engineering curriculum covering algorithms, data structures, database design, software architecture, and web engineering. Capstone project (Smart Sugar Management / Gluvia) awarded Grade A+ for excellence in frontend design and Gemini AI integration.',
     skills: ['Software Engineering', 'Algorithms', 'Data Structures', 'Database Systems', 'Frontend Architecture', 'AI Integration'],
   },
 ];

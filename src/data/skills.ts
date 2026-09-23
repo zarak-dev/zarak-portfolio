@@ -23,9 +23,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
         application: 'Built low-latency AI receptionist dashboard for Appointlo SaaS with Next.js App Router streaming and route caching.',
       },
       {
-        project: 'FYP Connect',
-        role: 'Capstone (Grade A+)',
-        application: 'Engineered health portal with authenticated routes, Supabase server queries, and fast page loads.',
+        project: 'Gluvia (Redesigned FYP)',
+        role: 'Live Platform (gluvia.world)',
+        application: 'Engineered health portal with Next.js 14 App Router, Supabase server queries, and fast SSR page loads.',
       },
       {
         project: 'Developer Portfolio',
@@ -74,9 +74,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
         application: 'Defined strict interfaces for complex shopping cart items, order states, and inventory tiers.',
       },
       {
-        project: 'FYP Connect',
-        role: 'Full-Stack Developer',
-        application: 'Enforced type safety across Gemini AI responses, database tables, and patient records.',
+        project: 'Gluvia (Redesigned FYP)',
+        role: 'Lead Architect',
+        application: 'Enforced type safety across Gemini AI responses, Zod schemas, database tables, and patient records.',
       },
     ],
   },
@@ -110,9 +110,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
         application: 'Crafted high-density clinic interfaces with custom theme variables and accessible contrast ratios.',
       },
       {
-        project: 'FYP Connect',
-        role: 'Healthcare Portal',
-        application: 'Styled medical telemetry graphs, diet plan cards, and mobile-friendly patient forms.',
+        project: 'Gluvia (Redesigned FYP)',
+        role: 'Healthcare Platform',
+        application: 'Styled medical telemetry graphs, zero-flicker dark mode, and mobile-friendly glycemic forms.',
       },
       {
         project: 'Developer Portfolio',
@@ -200,9 +200,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'Multimodal generative AI prompting, structured JSON schema outputs, and domain reasoning.',
     usedIn: [
       {
-        project: 'FYP Connect',
-        role: 'AI Health Intelligence',
-        application: 'Engineered prompts to generate clinically sensible South Asian meal plans based on blood sugar data.',
+        project: 'Gluvia (Redesigned FYP)',
+        role: 'AI Metabolic Assistant',
+        application: 'Engineered prompts to generate clinically sensible South Asian meal plans and low-GI recipe tweaks.',
       },
     ],
   },
@@ -213,9 +213,9 @@ export const TECHNOLOGIES: TechnologyEvidence[] = [
     summary: 'PostgreSQL database, Row-Level Security, authentication, and real-time subscription channels.',
     usedIn: [
       {
-        project: 'FYP Connect',
-        role: 'Backend & Data Store',
-        application: 'Secured patient biometric logs, user auth, and real-time reading synchronization.',
+        project: 'Gluvia (Redesigned FYP)',
+        role: 'Backend & Edge Engine',
+        application: 'Secured patient biometric logs with RLS, auth middleware, and Deno Edge cron triggers.',
       },
     ],
   },

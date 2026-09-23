@@ -145,12 +145,14 @@ export default function LiveVoiceModal({
         let result: Record<string, any> = { success: true };
         try {
           if (call.name === 'openProjectXRay' && onOpenXRay) {
-            const pId = call.args?.projectId;
+            const rawId = call.args?.projectId;
+            const pId = rawId === 'fyp-connect' ? 'gluvia' : rawId;
             onOpenXRay(pId);
             setToolActionNotice(`Aimmyy opened Architectural X-Ray for ${pId}`);
             result = { success: true, message: `Opened X-Ray for ${pId}` };
           } else if (call.name === 'openCaseStudy' && onOpenCaseStudy) {
-            const pId = call.args?.projectId;
+            const rawId = call.args?.projectId;
+            const pId = rawId === 'fyp-connect' ? 'gluvia' : rawId;
             onOpenCaseStudy(pId);
             setToolActionNotice(`Aimmyy opened Case Study for ${pId}`);
             result = { success: true, message: `Opened case study for ${pId}` };
@@ -249,7 +251,7 @@ export default function LiveVoiceModal({
                       properties: {
                         projectId: {
                           type: Type.STRING,
-                          description: 'Project ID: "dentally", "appointlo", "exynos-cooky", "moneyflow", "fyp-connect"',
+                          description: 'Project ID: "dentally", "appointlo", "exynos-cooky", "moneyflow", "gluvia"',
                         },
                       },
                       required: ['projectId'],
@@ -263,7 +265,7 @@ export default function LiveVoiceModal({
                       properties: {
                         projectId: {
                           type: Type.STRING,
-                          description: 'Project ID: "dentally", "appointlo", "exynos-cooky", "moneyflow", "fyp-connect"',
+                          description: 'Project ID: "dentally", "appointlo", "exynos-cooky", "moneyflow", "gluvia"',
                         },
                       },
                       required: ['projectId'],

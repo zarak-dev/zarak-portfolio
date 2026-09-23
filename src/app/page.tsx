@@ -40,7 +40,7 @@ export default function Home() {
   }, []);
 
   const handleOpenCaseStudy = useCallback((projectId: string) => {
-    const study = CASE_STUDIES.find((cs) => cs.id === projectId);
+    const study = CASE_STUDIES.find((cs) => cs.id === projectId || (projectId === 'fyp-connect' && cs.id === 'gluvia'));
     if (study) setSelectedCaseStudy(study);
   }, []);
 

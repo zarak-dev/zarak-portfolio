@@ -61,7 +61,7 @@ export default function About() {
                 viewport={{ once: true, amount: 0.05 }}
                 transition={{ duration: 0.5, delay: 0.25, ease: EASE }}
               >
-                I graduated with a <strong className="font-semibold text-ink">BS in Software Engineering from Sarhad University</strong>, where my capstone Smart Sugar Management platform was awarded <strong className="font-semibold text-ink">Grade A+</strong>. I am passionate about crafting resilient frontend architectures, eliminating state synchronization leaks, and building software that feels as good as it functions.
+                I graduated with a <strong className="font-semibold text-ink">BS in Software Engineering from Sarhad University</strong>, where my capstone Smart Sugar Management platform (now redesigned into <a href="https://www.gluvia.world" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-semibold text-rose hover:underline">Gluvia<ExternalLink className="h-3 w-3" /></a>) was awarded <strong className="font-semibold text-ink">Grade A+</strong>. I am passionate about crafting resilient frontend architectures, eliminating state synchronization leaks, and building software that feels as good as it functions.
               </motion.p>
             </div>
           </div>

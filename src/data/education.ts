@@ -22,7 +22,7 @@ export const EDUCATION_DATA: EducationRecord = {
   description:
     'Comprehensive software engineering curriculum combining rigorous theoretical computer science, computational mathematics, and hands-on software development methodologies.',
   capstoneHighlight:
-    'Capstone Project: FYP Connect (Smart Sugar Management System) — Awarded Grade A+ for excellence in frontend architecture, Gemini AI integration, and healthcare utility.',
+    'Capstone Project: Smart Sugar Management System (redesigned into Gluvia — gluvia.world) — Awarded Grade A+ for excellence in frontend architecture, Gemini AI integration, and metabolic healthcare utility.',
   coursework: [
     'Advanced Data Structures',
     'Software Design & Architecture',

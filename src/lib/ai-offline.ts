@@ -111,15 +111,16 @@ export function generateOfflineResponse(userMessage: string): string {
     return `### **MoneyFlow — Personal Finance & Expense Tracker**\n\n**Role:** ${p.role} (${p.period})\n**Stack:** ${p.technologies.join(', ')}\n\n**Overview:**\n${p.problem}\n\n**Engineering Architecture:**\n${p.frontendArchitecture}\n\n**Impact:**\n${p.impact}\n\nYou can inspect its transactional data flow architecture below:\n\n[XRAY:moneyflow]`;
   }
 
-  // 7. FYP Connect Project (Smart Sugar Management)
+  // 7. Gluvia Project (South Asian Diabetes & Glycemic Management / Redesigned FYP)
   if (
+    query.includes('gluvia') ||
     query.includes('fyp') ||
     query.includes('sugar') ||
     query.includes('diabetes') ||
     query.includes('capstone')
   ) {
-    const p = CASE_STUDIES.find((c) => c.id === 'fyp-connect')!;
-    return `### **FYP Connect — Smart Sugar Management (Grade A+)**\n\n**Role:** ${p.role} (Team of 3 · Grade A+)\n**Stack:** ${p.technologies.join(', ')}\n\n**Overview:**\n${p.problem}\n\n**Architecture & AI Integration:**\n${p.approach}\n\nIntegrated **Google Gemini API** with structured JSON output prompts to generate culturally tailored South Asian meal plans grounded in patient blood sugar logs.\n\nYou can inspect its clinical AI architecture below:\n\n[XRAY:fyp-connect]`;
+    const p = CASE_STUDIES.find((c) => c.id === 'gluvia' || c.id === 'fyp-connect')!;
+    return `### **Gluvia — South Asian Diabetes & Glycemic Management Platform**\n\n**Live Application:** [gluvia.world](https://www.gluvia.world)\n**Author:** A Project of Zarak K. (Redesigned FYP · Orig. Grade A+)\n**Stack:** ${p.technologies.join(', ')}\n\n**Overview:**\n${p.problem}\n\n**Engineering Approach & Architecture:**\n${p.approach}\n\n**Key Engineering Highlights:**\n- **Scanner-Proof Password Recovery**: Defended one-time recovery tokens against automated corporate email scanners (Microsoft Defender, Safelinks) via custom authenticated client-side routing.\n- **Idempotent Background Jobs**: Scheduled Deno Edge Functions on Supabase cron with PostgreSQL transactional state locking.\n- **Retina Email Rendering**: Inline Base64 MIME CID attachments (\`cid:gluvia-logo\`) delivered via Resend API.\n- **AI Glycemic Companion**: Google Gemini contextual assistant for South Asian culinary substitutions and portion guidance.\n\nYou can inspect its clinical architecture below:\n\n[XRAY:gluvia]`;
   }
 
   // 8. AI-related work / Generative AI
@@ -130,7 +131,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('gemini') ||
     query.includes('machine learning')
   ) {
-    return `Zarak loves building intelligent, AI-assisted interfaces! Here are his key AI implementations:\n\n1. **Appointlo (Live SaaS at apointlo.com)**: AI appointment scheduling platform with high-converting marketing flows and client portal.\n\n[XRAY:appointlo]\n\n2. **Dentally Assist (Project of Appointlo SaaS at Smart Forum)**: An enterprise AI-driven telephony call management platform for dental practices. He engineered the frontend with inline audio playback, dual-mode analytics, and structured call outcome records.\n\n[XRAY:dentally]\n\n3. **FYP Connect (Capstone Grade A+)**: Integrated the **Google Gemini API** to analyze patient blood sugar logs and dynamically generate South Asian dietary recommendations with structured schema outputs.\n\n[XRAY:fyp-connect]`;
+    return `Zarak loves building intelligent, AI-assisted interfaces! Here are his key AI implementations:\n\n1. **Appointlo (Live SaaS at apointlo.com)**: AI appointment scheduling platform with high-converting marketing flows and client portal.\n\n[XRAY:appointlo]\n\n2. **Dentally Assist (Project of Appointlo SaaS at Smart Forum)**: An enterprise AI-driven telephony call management platform for dental practices. He engineered the frontend with inline audio playback, dual-mode analytics, and structured call outcome records.\n\n[XRAY:dentally]\n\n3. **Gluvia (Live at gluvia.world · Redesigned FYP)**: Integrated the **Google Gemini API** to contextualize patient blood sugar logs around South Asian culinary staples and dynamically generate culturally tailored low-GI recommendations with structured schema outputs.\n\n[XRAY:gluvia]`;
   }
 
   // 9. Redux / State Management
@@ -151,7 +152,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('work') ||
     query.includes('built')
   ) {
-    return `Here are the major engineering projects Zarak has architected:\n\n1. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n2. **Dentally Assist**: AI Call Management Dashboard for dental practices (Specialized Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce storefront and kitchen operations ERP with React 19, Redux-Saga, Ant Design 6, and Supabase.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **FYP Connect**: Capstone Smart Sugar Management platform (Grade A+) with Gemini AI.\n[XRAY:fyp-connect]`;
+    return `Here are the major engineering projects Zarak has architected:\n\n1. **Appointlo**: AI Appointment Scheduling SaaS, live at [apointlo.com](https://apointlo.com/) (Smart Forum).\n[XRAY:appointlo]\n\n2. **Dentally Assist**: AI Call Management Dashboard for dental practices (Specialized Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n3. **Exynos Cooky**: Artisanal bakery e-commerce storefront and kitchen operations ERP with React 19, Redux-Saga, Ant Design 6, and Supabase.\n[XRAY:exynos-cooky]\n\n4. **MoneyFlow**: Modern personal finance tracker with high-throughput expense metrics.\n[XRAY:moneyflow]\n\n5. **Gluvia**: South Asian Diabetes & Glycemic Management Platform, live at [gluvia.world](https://www.gluvia.world) (Redesigned FYP · Grade A+).\n[XRAY:gluvia]`;
   }
 
   // 11. Skills / Tech Stack
@@ -228,7 +229,7 @@ export function generateOfflineResponse(userMessage: string): string {
     query.includes('x-ray') ||
     query.includes('architecture')
   ) {
-    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: Zero-trust checkout RPC, Redux-Saga pipelines & live kitchen Kanban ERP.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **FYP Connect**: Biometric data ingestion & Gemini AI meal synthesis.\n[XRAY:fyp-connect]`;
+    return `### **Project X-Ray / Architecture Telemetry** ✨\n\n**Project X-Ray** is an interactive architectural telemetry inspector built directly into this portfolio! It allows you to examine live data flow diagrams, state lifecycles, and failure modes for:\n\n- **Dentally Assist**: Redux-Saga async telemetry pipeline & dual-mode analytics (Project of Appointlo SaaS · Smart Forum).\n[XRAY:dentally]\n\n- **Appointlo**: Decoupled static data separation architecture (Live at apointlo.com · Smart Forum).\n[XRAY:appointlo]\n\n- **Exynos Cooky**: Zero-trust checkout RPC, Redux-Saga pipelines & live kitchen Kanban ERP.\n[XRAY:exynos-cooky]\n\n- **MoneyFlow**: Transaction processing & ledger analytics.\n[XRAY:moneyflow]\n\n- **Gluvia**: Scanner-proof auth recovery, idempotent Deno Edge cron digests & Gemini metabolic synthesis (Live at gluvia.world).\n[XRAY:gluvia]`;
   }
 
   // 17. Default Fallback

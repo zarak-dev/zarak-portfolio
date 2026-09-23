@@ -90,25 +90,53 @@ export const PROJECT_XRAYS: ProjectXRay[] = [
     ]
   },
   {
-    projectId: 'fyp-connect',
+    projectId: 'gluvia',
     layers: [
-      { id: 'user', label: 'PATIENT', tech: 'Mobile/Web Client', description: 'Logs glucometer readings', color: 'bg-white' },
-      { id: 'app', label: 'NEXT.JS', tech: 'Frontend Framework', description: 'Renders the health dashboard', color: 'bg-zinc-400' },
-      { id: 'auth', label: 'TYPESCRIPT', tech: 'Strict Contracts', description: 'Ensures data shape for medical records', color: 'bg-blue-500' },
-      { id: 'db', label: 'SUPABASE', tech: 'PostgreSQL & Auth', description: 'Securely stores patient biometrics', color: 'bg-emerald-400' },
-      { id: 'ai', label: 'GOOGLE GEMINI API', tech: 'Generative AI', description: 'Analyzes readings to generate cultural diet plans', color: 'bg-indigo-400' },
+      { id: 'user', label: 'PATIENT / USER CLIENT', tech: 'Next.js 14 App Router', description: 'Accessible medical UI at gluvia.world, 1-click glycemic tagging & Ctrl+K command bar', color: 'bg-white' },
+      { id: 'analytics', label: 'CLINICAL ANALYTICS', tech: 'Recharts + Zod Schemas', description: '7/30/90-day glycemic trajectories, standard deviation & strict biometric validation', color: 'bg-teal-400' },
+      { id: 'auth', label: 'SCANNER-PROOF AUTH', tech: 'Supabase Auth + Middleware', description: 'Defends magic recovery tokens against Defender/Safelinks pre-fetch scanners', color: 'bg-blue-500' },
+      { id: 'db', label: 'SUPABASE POSTGRESQL', tech: 'PostgreSQL + RLS', description: 'Row-Level Security, audit triggers & transactional state locking for background jobs', color: 'bg-emerald-400' },
+      { id: 'edge', label: 'DENO EDGE FUNCTIONS', tech: 'Supabase Serverless Edge', description: 'Idempotent 7-day cron workers coordinating health digests & telemetry', color: 'bg-amber-400' },
+      { id: 'ai', label: 'GOOGLE GEMINI AI', tech: 'Contextual Health Assistant', description: 'Analyzes readings to generate cultural recipe tweaks & low-GI South Asian diets', color: 'bg-indigo-400' },
+      { id: 'email', label: 'RESEND API', tech: 'Retina MIME Delivery', description: 'Multipart/Related email engine with inline Base64 CID attachments (cid:gluvia-logo)', color: 'bg-rose-400' },
     ],
     experiments: [
       {
-        id: 'fyp-ai',
-        type: 'ai',
-        title: 'Diet Plan Generation',
-        description: 'How Gemini API is used to generate personalized plans.',
+        id: 'gluvia-scanner-guard',
+        type: 'api',
+        title: 'Scanner-Proof Password Recovery Pipeline',
+        description: 'Defends single-use auth recovery tokens against enterprise email virus scanners.',
         steps: [
-          { label: 'User Data', detail: 'Fasting sugar: 145 mg/dL' },
-          { label: 'Structured Prompt', detail: 'System instructs to generate low-GI South Asian diet' },
-          { label: 'Gemini Analysis', detail: 'Processing constraints and cultural recipes' },
-          { label: 'JSON Result', detail: 'Returns structured meal plan (e.g. Ragi Dosa)' }
+          { label: 'Reset Request', detail: 'Patient requests recovery link; Supabase issues cryptographically signed OTP token' },
+          { label: 'Enterprise Scanner Defense', detail: 'Microsoft Defender / Safelinks bot pre-fetches URL; custom auth middleware detects bot headers' },
+          { label: 'Token Preservation', detail: 'Middleware defers single-use token consumption until verified browser interaction' },
+          { label: 'Client Routing', detail: 'Human user accesses link; client routes to /update-password with PKCE code verification' },
+          { label: 'Secure Session', detail: 'Password updated under authenticated session guard without token consumption failure' }
+        ]
+      },
+      {
+        id: 'gluvia-idempotent-digest',
+        type: 'state',
+        title: 'Idempotent Weekly Digest & Retina Email Engine',
+        description: 'Edge-scheduled health reports with PostgreSQL transactional locks & CID branding.',
+        steps: [
+          { label: 'Cron Scheduler', detail: 'Supabase Deno Edge Function triggers every 7 days across user cohort' },
+          { label: 'Transactional Lock', detail: 'PostgreSQL row-level advisory lock prevents duplicate sends during edge retries' },
+          { label: 'Gemini Biometrics Synthesis', detail: 'Gemini summarizes weekly mean, standard deviation, and time-in-range metrics' },
+          { label: 'Inline CID MIME', detail: 'Encodes brand logo into Base64 MIME attachments (cid:gluvia-logo) to eliminate image 404s' },
+          { label: 'Resend Dispatch', detail: 'Doctor-ready digest dispatched; delivery timestamp committed atomically to PostgreSQL' }
+        ]
+      },
+      {
+        id: 'gluvia-ai-diet',
+        type: 'ai',
+        title: 'AI Glycemic Companion (Google Gemini)',
+        description: 'Culturally attuned metabolic intelligence for South Asian culinary staples.',
+        steps: [
+          { label: 'Biometric Input', detail: 'Post-prandial reading of 165 mg/dL logged after traditional dinner' },
+          { label: 'Culinary Context', detail: 'Gemini maps meal components: white basmati rice, oily chicken karahi, sweet chai' },
+          { label: 'Glycemic Optimization', detail: 'Recommends barley/ragi roti, increased fiber daal pairing, and unsweetened cinnamon chai' },
+          { label: 'Clinical Output', detail: 'Returns actionable structured dietary tweaks rendered directly in Gluvia dashboard' }
         ]
       }
     ]
