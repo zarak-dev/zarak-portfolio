@@ -124,7 +124,7 @@ export default function CaseStudyModal({ study, onClose, onOpenXRay }: CaseStudy
                   src={study.image}
                   alt={study.title}
                   fill
-                  className="object-contain object-top rounded"
+                  className="object-contain object-center rounded"
                   sizes="(max-width: 1024px) 100vw, 800px"
                 />
               </div>

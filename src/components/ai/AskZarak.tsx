@@ -217,8 +217,8 @@ export default function AskZarak({
         setIsOpen(true);
       },
       iconColor: 'text-rose',
-      glowHover: 'hover:border-rose/70 hover:shadow-[0_0_24px_rgba(228,64,95,0.4),inset_0_1px_1px_rgba(255,255,255,0.4)]',
-      dotColor: 'bg-rose shadow-[0_0_6px_rgba(228,64,95,0.9)]',
+      glowHover: 'hover:border-rose/70 hover:shadow-[0_0_24px_rgba(72,160,102,0.4),inset_0_1px_1px_rgba(255,255,255,0.4)]',
+      dotColor: 'bg-rose shadow-[0_0_6px_rgba(72,160,102,0.9)]',
       labelPos: 'right-full mr-3.5 top-1/2 -translate-y-1/2',
       labelAnim: { initial: { opacity: 0, x: 8 }, animate: { opacity: 1, x: 0 }, exit: { opacity: 0, x: 8 } },
     },
@@ -398,7 +398,7 @@ export default function AskZarak({
               onClick={() => setIsRadialOpen((prev) => !prev)}
               aria-label={isRadialOpen ? 'Close Aimmyy menu' : 'Open Aimmyy menu'}
               aria-expanded={isRadialOpen}
-              className="relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-full bg-[#0c1222] dark:bg-[#070b16] backdrop-blur-2xl border-2 border-white/25 dark:border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:bg-[#121c32] hover:border-rose/85 hover:shadow-[0_0_28px_rgba(228,64,95,0.55)] group transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose z-50 cursor-pointer overflow-hidden"
+              className="relative flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-full bg-[#0c1222] dark:bg-[#070b16] backdrop-blur-2xl border-2 border-white/25 dark:border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25)] hover:bg-[#121c32] hover:border-rose/85 hover:shadow-[0_0_28px_rgba(72,160,102,0.55)] group transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose z-50 cursor-pointer overflow-hidden"
             >
               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.08] via-transparent to-black/20 pointer-events-none" />
               <AnimatePresence mode="wait" initial={false}>
@@ -472,7 +472,7 @@ export default function AskZarak({
                       setIsOpen(false);
                       setIsVoiceOpen(true);
                     }}
-                    className="flex items-center gap-1.5 rounded-full border border-rose/40 bg-rose/10 hover:bg-rose/20 px-2.5 py-1 text-xs font-semibold text-rose dark:text-rose-300 transition-all hover:shadow-[0_0_15px_rgba(228,64,95,0.25)] active:scale-95"
+                    className="flex items-center gap-1.5 rounded-full border border-rose/40 bg-rose/10 hover:bg-rose/20 px-2.5 py-1 text-xs font-semibold text-rose dark:text-rose-300 transition-all hover:shadow-[0_0_15px_rgba(72,160,102,0.25)] active:scale-95"
                     title="Switch to Real-Time Voice Call with Aimmyy"
                   >
                     <Mic className="w-3.5 h-3.5" />

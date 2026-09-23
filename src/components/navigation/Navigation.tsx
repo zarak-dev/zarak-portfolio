@@ -147,7 +147,7 @@ export default function Navigation({ onOpenAimmy, onOpenCommand }: NavigationPro
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.94 }}
               onClick={onOpenAimmy}
-              className="group inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3.5 py-1.5 text-xs font-semibold text-ink transition-all duration-200 hover:border-rose/60 hover:bg-surface-3 hover:shadow-[0_0_15px_rgba(228,64,95,0.15)] dark:border-white/15 dark:bg-surface-2 dark:text-white dark:hover:border-rose/80 dark:hover:bg-surface-3 dark:hover:shadow-[0_0_22px_rgba(228,64,95,0.4)] shadow-sm cursor-pointer"
+              className="group inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3.5 py-1.5 text-xs font-semibold text-ink transition-all duration-200 hover:border-rose/60 hover:bg-surface-3 hover:shadow-[0_0_15px_rgba(72,160,102,0.15)] dark:border-white/15 dark:bg-surface-2 dark:text-white dark:hover:border-rose/80 dark:hover:bg-surface-3 dark:hover:shadow-[0_0_22px_rgba(72,160,102,0.4)] shadow-sm cursor-pointer"
               aria-label="Open Aimmyy AI assistant"
             >
               <Sparkles className="h-3.5 w-3.5 shrink-0 text-rose transition-transform duration-200 group-hover:rotate-12" />

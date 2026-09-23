@@ -34,7 +34,7 @@ export const PROFILE = {
 
 export const STATS = [
   { value: 2, suffix: '+', label: 'Years production engineering' },
-  { value: 7, suffix: '', label: 'Shipped production platforms' },
+  { value: 10, suffix: '+', label: 'Shipped production platforms' },
   { value: 15, suffix: '+', label: 'Core frontend technologies' },
   { value: 1, suffix: ' A+', label: 'Capstone evaluation grade' },
 ] as const;
@@ -192,7 +192,7 @@ export const PROJECTS: Project[] = [
     tech: ['JavaScript', 'HTML5', 'CSS3', 'REST APIs', 'MySQL'],
     demoUrl: 'https://ghanii.live/login',
     codeUrl: 'https://github.com/zarak-dev',
-    image: '/images/moneyflow.jpg',
+    image: '/images/moneyflow-real.png',
     xrayId: 'moneyflow',
   },
   {

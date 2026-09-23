@@ -28,7 +28,7 @@ function SkillGroupCard({
     <motion.article
       variants={fadeUp}
       whileHover={{ y: -4 }}
-      className="flex h-full flex-col rounded-2xl border border-line bg-surface p-6 sm:p-7 transition-all duration-300 dark:hover:border-rose/30 dark:hover:shadow-[0_15px_40px_-15px_rgba(228,64,95,0.15)]"
+      className="flex h-full flex-col rounded-2xl border border-line bg-surface p-6 sm:p-7 transition-all duration-300 dark:hover:border-rose/30 dark:hover:shadow-[0_15px_40px_-15px_rgba(72,160,102,0.15)]"
     >
       <h3 className="font-display text-lg font-bold text-ink sm:text-xl">{title}</h3>
       <p className="mt-1.5 text-sm leading-relaxed text-ink-mute">{blurb}</p>
@@ -121,7 +121,7 @@ export default function Skills() {
 
         {/* Core Competencies Highlight Banner (Always visible collapsed preview) */}
         <motion.div
-          className="mt-10 rounded-2xl border border-line bg-surface p-5 sm:p-6 dark:border-rose/25 dark:bg-rose-soft/20 dark:shadow-[0_0_30px_-10px_rgba(228,64,95,0.15)]"
+          className="mt-10 rounded-2xl border border-line bg-surface p-5 sm:p-6 dark:border-rose/25 dark:bg-rose-soft/20 dark:shadow-[0_0_30px_-10px_rgba(72,160,102,0.15)]"
           initial="hidden"
           whileInView="show"
           viewport={VIEWPORT}

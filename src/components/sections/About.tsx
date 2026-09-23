@@ -80,7 +80,7 @@ export default function About() {
                   key={pillar.title}
                   variants={fadeUp}
                   whileHover={{ y: -3 }}
-                  className="flex flex-1 flex-col justify-between rounded-2xl border border-line bg-surface-2 p-4.5 sm:p-5 transition-all duration-300 hover:border-line dark:hover:border-rose/35 dark:hover:shadow-[0_12px_30px_-12px_rgba(228,64,95,0.2)]"
+                  className="flex flex-1 flex-col justify-between rounded-2xl border border-line bg-surface-2 p-4.5 sm:p-5 transition-all duration-300 hover:border-line dark:hover:border-rose/35 dark:hover:shadow-[0_12px_30px_-12px_rgba(72,160,102,0.2)]"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-3">

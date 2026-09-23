@@ -129,10 +129,10 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
 
               {/* Status & Category Highlight Badges (Industry Standard Tokens) */}
               <div className="flex flex-wrap items-center gap-2 pt-1">
-                <span className="inline-flex items-center gap-2 rounded-full border border-rose/30 bg-rose-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-rose dark:shadow-[0_0_15px_-3px_rgba(228,64,95,0.3)]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-rose/30 bg-rose-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-rose dark:shadow-[0_0_15px_-3px_rgba(72,160,102,0.3)]">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-rose shadow-[0_0_8px_rgba(228,64,95,0.7)]" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-rose shadow-[0_0_8px_rgba(72,160,102,0.7)]" />
                   </span>
                   {PROJECTS.length} Production Platforms
                 </span>
@@ -204,14 +204,14 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
                   </div>
 
                   {/* Thumbnail snippet with Next.js Image */}
-                  <div className="relative my-2 h-[105px] w-full overflow-hidden rounded-lg border border-line/30 bg-surface-3 dark:border-white/5 dark:bg-slate-900">
+                  <div className="relative my-2 h-[105px] w-full overflow-hidden rounded-lg border border-line/30 bg-surface-3 p-1 flex items-center justify-center dark:border-white/5 dark:bg-slate-900/70">
                     {project.image ? (
                       <Image
                         src={project.image}
                         alt={project.title}
                         fill
                         sizes="210px"
-                        className="object-cover object-top opacity-90 transition-transform duration-300 group-hover/card:scale-105 group-hover/card:opacity-100"
+                        className="object-contain object-center opacity-90 transition-transform duration-300 group-hover/card:scale-105 group-hover/card:opacity-100"
                         loading="lazy"
                       />
                     ) : (
@@ -289,7 +289,7 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
                       variants={fadeUp}
                       whileHover={shouldReduceMotion ? undefined : { y: -6 }}
                       transition={{ duration: 0.35, ease: EASE }}
-                      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:border-line hover:shadow-md dark:hover:border-rose/40 dark:hover:shadow-[0_20px_50px_-20px_rgba(228,64,95,0.25)] sm:p-8 scroll-mt-24"
+                      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:border-line hover:shadow-md dark:hover:border-rose/40 dark:hover:shadow-[0_20px_50px_-20px_rgba(72,160,102,0.25)] sm:p-8 scroll-mt-24"
                     >
                       <span
                         aria-hidden="true"
@@ -298,16 +298,16 @@ export default function Projects({ onOpenXRay, onOpenCaseStudy }: ProjectsProps)
 
                       {/* Project preview image with Next.js Image */}
                       {project.image && (
-                        <div className="relative mb-5 aspect-[16/9] w-full overflow-hidden rounded-xl border border-line bg-surface-2">
+                        <div className="relative mb-5 aspect-[16/9] w-full overflow-hidden rounded-xl border border-line bg-surface-2 p-1.5 sm:p-2 flex items-center justify-center dark:bg-[#121c1d] shadow-inner">
                           <Image
                             src={project.image}
                             alt={project.title}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                            className="object-contain object-center rounded-lg transition-transform duration-500 group-hover:scale-[1.01]"
                             loading="lazy"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-surface/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                          <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-surface/20 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                         </div>
                       )}
 

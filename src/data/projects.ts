@@ -115,7 +115,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     role: 'Frontend Developer',
     period: 'Production Project',
     featured: true,
-    image: '/images/moneyflow.jpg',
+    image: '/images/moneyflow-real.png',
     liveUrl: 'https://ghanii.live/login',
     technologies: ['JavaScript', 'HTML5', 'CSS3', 'Laravel/PHP', 'MySQL', 'REST APIs'],
     metrics: [

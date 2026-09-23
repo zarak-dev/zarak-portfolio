@@ -6,32 +6,33 @@
 /*  Design tokens — light theme (default)                              */
 /* ------------------------------------------------------------------ */
 :root {
-  --color-ink: #000000;
-  --color-ink-soft: #262626;
-  --color-ink-mute: #595959;
-  --color-ink-faint: #8c8c8c;
+  /* Color Palette #4813: Pine & Frost Botanica (Light Theme) */
+  --color-ink: #2E393A;
+  --color-ink-soft: #3E4C4E;
+  --color-ink-mute: #5B6A73;
+  --color-ink-faint: #88989F;
 
-  --color-surface: #FFFFFF;
-  --color-surface-2: #F8F8FA;
-  --color-surface-3: #EEEEF2;
+  --color-surface: #F4F7F6;
+  --color-surface-2: #FFFFFF;
+  --color-surface-3: #E8EFF1;
 
-  --color-line: #E2E2E6;
-  --color-line-soft: #EFEFF2;
+  --color-line: #CED9DE;
+  --color-line-soft: #E2EAEF;
 
-  --color-brand: #000000;
-  --color-brand-dark: #262626;
-  --color-brand-soft: rgba(0, 0, 0, 0.05);
-  --color-brand-line: #8c8c8c;
+  --color-brand: #263E1F;
+  --color-brand-dark: #1C3016;
+  --color-brand-soft: rgba(38, 62, 31, 0.08);
+  --color-brand-line: #9EADA4;
 
-  /* Hybrid Rose Accent (#e4405f) — Minimalist Editorial */
-  --color-rose: #e4405f;
-  --color-rose-soft: rgba(228, 64, 95, 0.07);
-  --color-rose-line: rgba(228, 64, 95, 0.22);
+  /* Accent Token — Deep Evergreen Pine */
+  --color-rose: #263E1F;
+  --color-rose-soft: rgba(38, 62, 31, 0.08);
+  --color-rose-line: rgba(38, 62, 31, 0.25);
   --color-rose-glow: transparent;
 
   /* Status indicator & badge token */
-  --color-mint: #e4405f;
-  --color-mint-soft: rgba(228, 64, 95, 0.07);
+  --color-mint: #263E1F;
+  --color-mint-soft: rgba(38, 62, 31, 0.08);
 
   --font-sans: var(--font-sans), 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: var(--font-display), 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -40,72 +41,72 @@
   --radius-card: 1rem;
 
   /* Compatibility tokens for interactive widgets (Aimmyy AI & Project X-Ray) */
-  --background: 0 0% 100%;
-  --foreground: 0 0% 0%;
-  --border: 0 0% 88%;
-  --input: 0 0% 88%;
-  --ring: 348 76% 57%;
+  --background: 160 12% 96%;
+  --foreground: 185 12% 20%;
+  --border: 201 20% 84%;
+  --input: 201 20% 84%;
+  --ring: 106 33% 18%;
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 0%;
-  --primary: 0 0% 0%;
+  --card-foreground: 185 12% 20%;
+  --primary: 106 33% 18%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 96%;
-  --secondary-foreground: 0 0% 0%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 40%;
-  --accent: 348 76% 57%;
+  --secondary: 144 10% 92%;
+  --secondary-foreground: 185 12% 20%;
+  --muted: 144 10% 92%;
+  --muted-foreground: 203 12% 40%;
+  --accent: 106 33% 18%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 }
 
 /* ------------------------------------------------------------------ */
-/*  Design tokens — dark theme override (Obsidian Glow Hybrid)         */
+/*  Design tokens — dark theme override (Nordic Pine & Slate Frost)    */
 /* ------------------------------------------------------------------ */
 .dark {
-  --color-ink: #FFFFFF;
-  --color-ink-soft: #D4D4D8;
-  --color-ink-mute: #A1A1AA;
-  --color-ink-faint: #71717A;
+  --color-ink: #F2F7F6;
+  --color-ink-soft: #CED9DE;
+  --color-ink-mute: #9EADA4;
+  --color-ink-faint: #5B6A73;
 
-  /* Obsidian depth canvas */
-  --color-surface: #09090b;
-  --color-surface-2: #121215;
-  --color-surface-3: #1a1a20;
+  /* Nordic Pine & Dark Slate Gray-Green canvas */
+  --color-surface: #0E1515;
+  --color-surface-2: #162021;
+  --color-surface-3: #1F2B2C;
 
-  --color-line: rgba(255, 255, 255, 0.09);
-  --color-line-soft: rgba(255, 255, 255, 0.05);
+  --color-line: rgba(206, 217, 222, 0.12);
+  --color-line-soft: rgba(206, 217, 222, 0.06);
 
-  --color-brand: #FFFFFF;
-  --color-brand-dark: #D4D4D8;
-  --color-brand-soft: rgba(255, 255, 255, 0.08);
-  --color-brand-line: rgba(255, 255, 255, 0.2);
+  --color-brand: #F2F7F6;
+  --color-brand-dark: #CED9DE;
+  --color-brand-soft: rgba(206, 217, 222, 0.08);
+  --color-brand-line: rgba(158, 173, 164, 0.22);
 
-  /* Hybrid Rose Accent (#e4405f) — Cyber Luminous */
-  --color-rose: #e4405f;
-  --color-rose-soft: rgba(228, 64, 95, 0.16);
-  --color-rose-line: rgba(228, 64, 95, 0.38);
-  --color-rose-glow: 0 10px 30px -10px rgba(228, 64, 95, 0.45);
+  /* Luminous Frosted Pine / Emerald Spruce */
+  --color-rose: #48A066;
+  --color-rose-soft: rgba(72, 160, 102, 0.16);
+  --color-rose-line: rgba(72, 160, 102, 0.38);
+  --color-rose-glow: 0 10px 30px -10px rgba(72, 160, 102, 0.45);
 
   /* Status indicator & badge token */
-  --color-mint: #e4405f;
-  --color-mint-soft: rgba(228, 64, 95, 0.14);
+  --color-mint: #48A066;
+  --color-mint-soft: rgba(72, 160, 102, 0.14);
 
   /* Compatibility tokens for interactive widgets in dark mode */
-  --background: 240 10% 4%;
-  --foreground: 0 0% 100%;
-  --border: 0 0% 16%;
-  --input: 0 0% 16%;
-  --ring: 348 76% 57%;
-  --card: 240 8% 7%;
-  --card-foreground: 0 0% 100%;
-  --primary: 348 76% 57%;
+  --background: 185 15% 7%;
+  --foreground: 160 20% 95%;
+  --border: 185 10% 18%;
+  --input: 185 10% 18%;
+  --ring: 140 38% 53%;
+  --card: 185 17% 11%;
+  --card-foreground: 160 20% 95%;
+  --primary: 140 38% 53%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 6% 12%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 240 6% 12%;
-  --muted-foreground: 0 0% 65%;
-  --accent: 348 76% 57%;
+  --secondary: 185 14% 15%;
+  --secondary-foreground: 160 20% 95%;
+  --muted: 185 14% 15%;
+  --muted-foreground: 144 10% 65%;
+  --accent: 140 38% 53%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
@@ -384,7 +385,7 @@
   inset: 0;
   pointer-events: none;
   opacity: 0.6;
-  background: radial-gradient(circle at 50% 50%, rgba(228, 64, 95, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(72, 160, 102, 0.08) 0%, transparent 70%);
 }
 
 /* Naturally blurred multi-stop radial gradient bounded for mobile viewport bounds */
@@ -395,7 +396,7 @@
   width: min(440px, 85vw);
   height: min(440px, 85vw);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(228, 64, 95, 0.18) 0%, rgba(228, 64, 95, 0.08) 35%, rgba(228, 64, 95, 0.02) 55%, transparent 70%);
+  background: radial-gradient(circle, rgba(72, 160, 102, 0.22) 0%, rgba(72, 160, 102, 0.10) 35%, rgba(72, 160, 102, 0.02) 55%, transparent 70%);
   pointer-events: none;
   transform: translate3d(-50%, -50%, 0);
   -webkit-transform: translate3d(-50%, -50%, 0);
@@ -526,7 +527,7 @@
   width: 100%;
   height: 100%;
   border-radius: 9999px;
-  background: linear-gradient(90deg, var(--color-rose), #ff5a79);
+  background: linear-gradient(90deg, var(--color-rose), #48A066);
   transform-origin: left;
   transform: scale3d(0, 1, 1);
   -webkit-transform: scale3d(0, 1, 1);

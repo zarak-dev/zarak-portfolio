@@ -49,7 +49,7 @@ export default function FramerBackdrop({ active = true }: { active?: boolean }) 
         className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
       >
         {/* Atmospheric dark-mode top radial glow */}
-        <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(228,64,95,0.16),transparent_70%)]" />
+        <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(72,160,102,0.16),transparent_70%)]" />
         <div className="grid-veil absolute inset-0 opacity-40 dark:opacity-35" />
         <div className="absolute -top-24 -right-24 h-[26rem] w-[26rem] rounded-full bg-brand/5 dark:bg-brand/8" />
         <div className="absolute top-1/3 -left-24 h-[20rem] w-[20rem] rounded-full bg-rose/5 dark:bg-rose/8" />
@@ -63,7 +63,7 @@ export default function FramerBackdrop({ active = true }: { active?: boolean }) 
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
     >
       {/* Atmospheric dark-mode top radial glow (inspire dev-mohamed ambient lighting) */}
-      <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-[48rem] bg-[radial-gradient(ellipse_80%_55%_at_50%_-10%,rgba(228,64,95,0.18),transparent_75%)]" />
+      <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-[48rem] bg-[radial-gradient(ellipse_80%_55%_at_50%_-10%,rgba(72,160,102,0.18),transparent_75%)]" />
 
       {/* Subtle Engineering Grid Veil */}
       <div className="grid-veil absolute inset-0 opacity-40 dark:opacity-35" />
