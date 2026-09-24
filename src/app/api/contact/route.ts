@@ -13,41 +13,60 @@ export async function POST(request: Request) {
       );
     }
 
-    const recipientEmail = process.env.CONTACT_EMAIL || 'zarak.dev@gmail.com';
+    const recipientEmail = process.env.CONTACT_EMAIL?.trim() || 'zarak.dev@gmail.com';
     const emailSubject = subject?.trim()
-      ? `[Portfolio] ${name}: ${subject.trim()}`
-      : `[Portfolio Inquiry] New message from ${name}`;
+      ? `${name}: ${subject.trim()}`
+      : `Message from ${name}`;
 
     // 1. Resend Integration (Recommended modern, professional email delivery)
     // Free tier: 3,000 emails/month (100 emails/day) - https://resend.com
-    if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim() !== '') {
+    const resendApiKey = process.env.RESEND_API_KEY?.trim();
+    if (resendApiKey) {
       try {
-        const resend = new Resend(process.env.RESEND_API_KEY);
+        const resend = new Resend(resendApiKey);
+        const fromAddress = process.env.RESEND_FROM_EMAIL?.trim() || 'Zarak <contact@zarak.pro>';
         const { data, error } = await resend.emails.send({
-          from: 'Zarak Portfolio <onboarding@resend.dev>',
+          from: fromAddress,
           to: recipientEmail,
           replyTo: email,
           subject: emailSubject,
+          text: `From: ${name} <${email}>\n${subject?.trim() ? `Subject: ${subject.trim()}\n` : ''}\n${message}\n\n---\nSent via zarak.pro`,
           html: `
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0c0d14; color: #f1f5f9; padding: 32px; border-radius: 12px; border: 1px solid #1e2235;">
-              <div style="display: inline-block; font-family: monospace; font-size: 11px; font-weight: 700; color: #818cf8; background: rgba(99, 102, 241, 0.15); padding: 4px 12px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">
-                // Portfolio Message Dispatch
+            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 520px; margin: 24px auto; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 28px 24px; color: #111827; box-sizing: border-box;">
+              
+              <!-- Sender Info -->
+              <div style="margin-bottom: 18px;">
+                <h1 style="margin: 0 0 6px 0; font-size: 19px; font-weight: 600; color: #111827; letter-spacing: -0.2px;">
+                  ${name}
+                </h1>
+                <div style="font-size: 14px; color: #6b7280;">
+                  <a href="mailto:${email}" style="color: #2563eb; text-decoration: none;">${email}</a>
+                  ${subject?.trim() ? `<span style="color: #d1d5db; margin: 0 8px;">·</span><span style="color: #4b5563;">${subject.trim()}</span>` : ''}
+                </div>
               </div>
-              <h2 style="margin: 0 0 16px 0; color: #ffffff; font-size: 22px; font-weight: 700;">
-                New Message from ${name}
-              </h2>
-              <div style="background: #131520; border: 1px solid #232738; border-radius: 8px; padding: 16px; margin-bottom: 24px;">
-                <p style="margin: 0 0 8px 0; font-size: 14px;"><strong style="color: #94a3b8; font-family: monospace;">SENDER:</strong> <span style="color: #ffffff; font-weight: 600;">${name}</span></p>
-                <p style="margin: 0 0 8px 0; font-size: 14px;"><strong style="color: #94a3b8; font-family: monospace;">EMAIL:</strong> <a href="mailto:${email}" style="color: #60a5fa; text-decoration: none;">${email}</a></p>
-                <p style="margin: 0 0 8px 0; font-size: 14px;"><strong style="color: #94a3b8; font-family: monospace;">SUBJECT:</strong> ${subject || 'Direct Contact Form Submission'}</p>
-                <p style="margin: 0; font-size: 14px;"><strong style="color: #94a3b8; font-family: monospace;">TIMESTAMP:</strong> ${new Date().toUTCString()}</p>
-              </div>
-              <div style="background: #171926; border-left: 4px solid #6366f1; padding: 18px 20px; border-radius: 6px; font-size: 15px; line-height: 1.65; color: #f8fafc; white-space: pre-wrap; margin-bottom: 24px;">
+
+              <div style="border-top: 1px solid #f3f4f6; margin-bottom: 20px;"></div>
+
+              <!-- Message -->
+              <div style="font-size: 15px; line-height: 1.6; color: #1f2937; white-space: pre-wrap; margin-bottom: 26px;">
 ${message}
               </div>
-              <p style="font-size: 12px; color: #64748b; margin: 0; text-align: center; font-family: monospace;">
-                Click "Reply" in your email client to reply directly to ${name} (${email}).
-              </p>
+
+              <div style="border-top: 1px solid #f3f4f6; padding-top: 14px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="text-align: left; font-size: 12px; color: #9ca3af;">
+                      zarak.pro
+                    </td>
+                    <td style="text-align: right; font-size: 12px;">
+                      <a href="mailto:${email}" style="color: #2563eb; text-decoration: none; font-weight: 500;">
+                        Reply to ${name} &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
             </div>
           `,
         });
