@@ -115,7 +115,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground antialiased selection:bg-accent selection:text-accent-foreground min-h-screen relative overflow-x-hidden">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange={false}
         >

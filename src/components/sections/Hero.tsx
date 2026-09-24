@@ -91,38 +91,11 @@ export default function Hero() {
         <div className="grid grid-cols-1 gap-y-10 lg:grid-cols-12 lg:gap-x-10 lg:gap-y-8">
           {/* Part 1: Identity + Description */}
           <motion.div className="order-1 lg:col-span-7" style={{ y: isDesktop ? copyY : undefined }}>
-            <motion.div
-              className="flex flex-wrap items-center gap-2.5"
-              initial="hidden"
-              animate="show"
-              variants={stagger(0.1)}
-            >
-              <motion.span
-                variants={chipIn}
-                className="inline-flex items-center gap-2 rounded-full border border-rose/30 bg-rose-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-rose dark:shadow-[0_0_16px_-3px_rgba(72,160,102,0.35)]"
-              >
-                <motion.span
-                  className="h-1.5 w-1.5 rounded-full bg-rose shadow-[0_0_8px_rgba(72,160,102,0.7)]"
-                  aria-hidden="true"
-                  animate={reduced ? undefined : { opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                Available for engineering roles & collaborations
-              </motion.span>
-              <motion.span
-                variants={chipIn}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2 px-3.5 py-1.5 font-mono text-[11px] font-medium text-ink-mute"
-              >
-                <MapPin className="h-3 w-3" aria-hidden="true" />
-                {PROFILE.locationShort}
-              </motion.span>
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-              className="mt-6 font-display text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl lg:text-[4.25rem]"
+              className="font-display text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl lg:text-[4.25rem]"
             >
               {PROFILE.name}
             </motion.h1>
@@ -139,20 +112,32 @@ export default function Hero() {
               <span>FE Architecture & AI Systems</span>
             </motion.p>
 
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35, ease: EASE }}
+              className="mt-3.5 flex items-center"
+            >
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-rose/30 bg-rose-soft px-3.5 py-1.5 font-mono text-[11px] font-medium text-rose dark:shadow-[0_0_16px_-3px_rgba(72,160,102,0.35)]">
+                <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
+                {PROFILE.locationShort}
+              </span>
+            </motion.div>
+
             <motion.p
-              className="mt-5 max-w-xl text-base leading-relaxed text-ink-mute sm:text-[17px]"
+              className="mt-4 max-w-xl text-base leading-relaxed text-ink-mute sm:text-[17px]"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1, ease: EASE }}
+              transition={{ duration: 0.7, delay: 0.45, ease: EASE }}
             >
              I build accessible, pixel-perfect experiences for the web.
             </motion.p>
           </motion.div>
 
           {/* Portrait — sits between description and CTAs on mobile, alongside text on desktop */}
-          <div className="order-2 lg:col-span-5 lg:row-span-2">
+          <div className="order-2 lg:col-span-5 lg:row-span-2 flex flex-col justify-start">
             <motion.div
-              className="relative mx-auto max-w-sm lg:max-w-md"
+              className="relative mx-auto w-full max-w-[290px] sm:max-w-[325px] lg:max-w-[345px]"
               style={{ y: isDesktop ? portraitY : undefined }}
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -172,25 +157,25 @@ export default function Hero() {
                   fill
                   priority
                   className="h-full w-full object-cover object-top"
-                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 40vw, 400px"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 35vw, 350px"
                 />
               </div>
 
               {/* Status Pill */}
               <motion.div
-                className="mt-5 flex items-center justify-center gap-2.5 rounded-full border border-line bg-surface/95 px-4 py-2 sm:px-5 sm:py-2.5 shadow-[0_12px_30px_-15px_rgba(15,23,42,0.15)] backdrop-blur dark:bg-surface-2/95 text-center max-w-full"
+                className="mt-3.5 flex w-full items-center justify-center gap-2.5 rounded-full border border-line bg-surface/95 px-4 py-1.5 sm:py-2 shadow-[0_8px_20px_-10px_rgba(15,23,42,0.12)] backdrop-blur dark:bg-surface-2/95 whitespace-nowrap text-center"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
               >
-                <span className="relative flex h-2 w-2 shrink-0">
+                <span className="relative flex h-1.5 w-1.5 shrink-0">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-rose shadow-[0_0_8px_rgba(72,160,102,0.7)]" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-rose shadow-[0_0_8px_rgba(72,160,102,0.7)]" />
                 </span>
-                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint shrink-0">
+                <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint shrink-0">
                   Currently
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-ink">
+                <span className="text-[11px] sm:text-xs font-semibold text-ink shrink-0">
                   {PROFILE.role} @ {PROFILE.company}
                 </span>
               </motion.div>
@@ -200,36 +185,40 @@ export default function Hero() {
           {/* Part 2: Actions + Stats */}
           <motion.div className="order-3 lg:col-span-7 pt-4 sm:pt-0" style={{ y: isDesktop ? copyY : undefined }}>
             <motion.div
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-col items-center gap-3 lg:flex-row lg:items-center"
               initial="hidden"
               animate="show"
               variants={stagger(0.08, isDesktop ? 1.15 : 0.3)}
             >
-              <motion.a
-                variants={fadeUp}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                href="#projects"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-rose/50 hover:dark:bg-rose hover:dark:text-white hover:dark:shadow-[0_0_24px_rgba(72,160,102,0.45)] shrink-0"
-              >
-                View my work
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </motion.a>
-              <motion.a
-                variants={fadeUp}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-surface-2 shrink-0"
-              >
-                <Mail className="h-4 w-4" aria-hidden="true" />
-                Get in touch
-              </motion.a>
+              {/* Primary Buttons: View my work & Get in touch */}
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <motion.a
+                  variants={fadeUp}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  href="#projects"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-brand dark:bg-surface-2 dark:text-ink dark:border dark:border-line hover:dark:border-rose/50 hover:dark:bg-rose hover:dark:text-white hover:dark:shadow-[0_0_24px_rgba(72,160,102,0.45)] shrink-0"
+                >
+                  View my work
+                  <ArrowRight
+                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  />
+                </motion.a>
+                <motion.a
+                  variants={fadeUp}
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  href="#contact"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-surface-2 shrink-0"
+                >
+                  <Mail className="h-4 w-4" aria-hidden="true" />
+                  Get in touch
+                </motion.a>
+              </div>
 
-              <div className="flex items-center gap-1.5 shrink-0">
+              {/* Social Icons: LinkedIn & GitHub */}
+              <div className="flex items-center justify-center gap-2 lg:gap-1.5 shrink-0">
                 <motion.a
                   variants={fadeUp}
                   whileHover={{ y: -3, rotate: -6 }}
